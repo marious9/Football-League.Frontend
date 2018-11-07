@@ -1,0 +1,47 @@
+.server-error-container{
+    position: absolute;
+    background-color: rgba(0,0,0,0.9);
+    width: 100%;
+    left: 0;
+    bottom: -35px;
+    padding: 10px 10px;
+    box-sizing: border-box;
+    font-size: 15px;
+    overflow-y: hidden;
+    color: tomato;
+    box-shadow: -1px 1px 38px -2px rgba(0,0,0,0.42);
+}
+.open-error{
+    animation: 0.5s in-error linear forwards;
+}
+.close-error{
+    animation: 0.5s out-error linear forwards;
+}
+@keyframes in-error {
+    0%{
+        height: 0;
+        opacity: 0;
+    }
+    50%{
+        height: 35px;
+        opacity: 0.5;
+    }
+    100%{
+        height: 40px;
+        opacity: 1;
+    }
+}
+@keyframes out-error {
+    0%{
+        height: 70px;
+        opacity: 1;
+    }
+    50%{
+        height: 35px;
+        opacity: 0.5;
+    }
+    100%{
+        height: 0;
+        opacity: 0;
+    }
+}

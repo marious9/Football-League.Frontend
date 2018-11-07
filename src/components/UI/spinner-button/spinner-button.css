@@ -1,0 +1,77 @@
+.submit-btn{
+    margin: 25px auto;
+    padding: 15px;
+    display: block;
+    left: 0;
+    width: 175px;
+    right: 0;
+    border-radius: 3em;
+    transition: 0.5s all ease-in-out;
+    border-color: rgb(161,233,161);
+    -webkit-box-shadow: -1px 1px 38px -2px rgba(0,0,0,0.42);
+    -moz-box-shadow: -1px 1px 38px -2px rgba(0,0,0,0.42);
+    box-shadow: -1px 1px 38px -2px rgba(0,0,0,0.42);
+    font-size: 16px;
+    color: rgb(161,233,161);
+    background-color: transparent;
+    cursor: pointer;
+}
+.submit-btn:hover{
+    color: black;
+}
+.submit-btn:disabled{
+    color: black;
+    background-color: transparent;
+    cursor: not-allowed;
+}
+.spinner-btn{
+    position: relative;
+    height: 45px;
+    width: 45px;
+    display: block;
+    border-radius: 50%;
+    margin: 10px auto 20px auto;
+    border: none;
+    cursor: initial;
+    background-color: transparent;
+    transition: 0.2s all linear;
+    animation: 1s animate-btn linear infinite;
+}
+.spinner-btn:focus{
+    outline: none;
+}
+.spinner-btn::after,
+.spinner-btn::before{
+    content: '';
+    position: absolute;
+    width: 15px;
+    height: 15px;
+    background-color: #7e3131;
+    border-radius: 50%;
+}
+.spinner-btn::before{
+    bottom: 7.5px;
+    right: 7.5px;
+}
+.spinner-btn::after{
+    top: 7.5px;
+    left: 7.5px;
+}
+@keyframes animate-btn{
+    0%{
+        transform: rotate(0);
+    }
+    25%{
+        transform: rotate(90deg);
+    }
+    50%{
+        transform: rotate(180deg);
+    }
+    75%{
+        transform: rotate(270deg);
+    }
+    100%{
+        transform: rotate(360deg);
+    }
+}
+

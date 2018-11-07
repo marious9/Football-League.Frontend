@@ -1,0 +1,35 @@
+.big-btn {
+    width: 150px;
+    height: 50px;
+    margin: 0 10px;
+    border-radius: 3em;
+    font-size: 20px;
+    background-color: transparent;
+    border-color: transparent;
+    color: #fff;
+  }
+.big-btn:hover{
+  background-color: rgb(76,104,117);
+}
+.big-btn:focus {
+  outline:0; 
+  background-color: rgb(76,104,117);
+}
+
+.footer-btn {
+  width: 100px;
+  height: 50px;
+  margin: 0 10px;
+  border-radius: 3em;
+  font-size: 15px;
+  background-color: transparent;
+  border-color: transparent;
+  color: #fff;
+}
+.footer-btn:hover{
+background-color: rgb(76,104,117);
+}
+.footer-btn:focus {
+outline:0; 
+background-color: rgb(76,104,117);
+}

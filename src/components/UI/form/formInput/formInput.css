@@ -1,0 +1,92 @@
+.input-container{
+    display: flex;
+    flex-flow: column;
+    padding: 10px 0;
+}
+.input-container label{
+    padding-bottom: 4px;
+    cursor: auto;
+    letter-spacing: 1.2px;
+    font-size: 16px;
+}
+.input-container input[type="date"]{
+    height: 21px;
+    cursor: pointer;
+}
+.input-container select{
+    height: 36px;
+    background-color: rgb(255, 255, 255);
+    margin-top: 5px;
+    border:none;
+    transition: 0.5s all ease-in-out;
+    font-size: 16px;
+    cursor: pointer;
+    border-radius: 5px;
+    padding-left: 15px;
+}
+.input-container select option{
+    cursor: pointer;
+}
+.input-container input{
+    padding: 7.5px;
+    font-size: 15px;
+    margin-top: 5px;
+    border-radius: 4px;
+    background-color: rgb(66, 66, 66);
+    border: 1px solid white;    
+    transition: 0.5s all ease-in-out;
+}
+::placeholder { /* Chrome, Firefox, Opera, Safari 10.1+ */
+    color: white;
+    opacity: 1; /* Firefox */
+}
+.input-container input:focus, 
+.input-container select:focus{
+    outline: none;
+    transform: scale(1.02);
+}
+
+.invalid-input{
+    background: rgba(184, 23, 23, 0.81) !important;
+    color: #FFFFFF !important;
+}
+.invalid-input::placeholder{
+    color: #FFFFFF !important;
+}
+.u-form-validation{
+    color: #8E0909;
+    height: 14px;
+    font-size: 14px;
+}
+.u-form-validation span{
+    display: block;
+    animation: 0.4s error-in ease-in-out forwards;
+}
+@keyframes error-in {
+    0%{
+        opacity: 0;
+    }
+    100%{
+        opacity: 1;
+    }
+}
+
+
+@media(min-width: 700px){
+    .input-container{
+        padding: 10px;
+    }
+    .u-form-validation{
+        height: 16px;
+        font-size: 16px;
+    }
+    .input-container input{
+        padding: 12.5px;
+        font-size: 18px;
+    }
+    .input-container label{
+        padding-bottom: 7.5px;
+        font-size: 18px;
+    }
+}
+
