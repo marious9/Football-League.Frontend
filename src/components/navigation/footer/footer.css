@@ -1,9 +1,20 @@
 .footer{
-    font-family: 'Roboto', sans-serif;
+    font-family: 'Open Sans', sans-serif;
     background-image: linear-gradient(to left, #395f72, #304f5f, #273f4d, #1f303b, #16222a);
     position: absolute;
     bottom: 0;
     width: 100%;
-    height: 60px;
+    height: 30px;
     z-index: 1000;
+    padding-top: 5px;
+    text-align: center;
+}
+
+.link{
+    text-decoration: none;
+    padding: 5px;
+    color: #BDBDBD;
+}
+.link:hover{
+    opacity: 0.7;
 }

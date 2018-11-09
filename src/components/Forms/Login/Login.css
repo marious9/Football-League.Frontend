@@ -31,11 +31,11 @@ body{
     color: rgb(3, 97, 3)
 }
 .medium-btn {
-    color: rgb(161,233,161);
-    border-color: rgb(161,233,161);
+    color: #BDBDBD;
+    border-color: #212121;
     position: absolute;
     left: 50px;
-    bottom: 105px;
+    bottom: 60px;
     background-color: rgb(66,66,66);
     height: 60px;
     font-size: 22px;

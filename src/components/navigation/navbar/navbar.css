@@ -4,7 +4,7 @@
     top:0;
     left: 0;
     width: 100%;   
-    background-image: linear-gradient(to left, #395f72, #304f5f, #273f4d, #1f303b, #16222a);
+    background-image: linear-gradient(to left, #9E9E9E, #616161, #616161, #424242, #212121);
     
 }
 .nav-btns{
@@ -14,7 +14,9 @@
 }
 .logo{
     font-size: 28px;
-    font-weight: 900;
+    font-weight: 700;
     padding-top:20px;
     padding-left:50px;
+    color:#E0E0E0;
+    font-family: 'Open Sans', sans-serif;
 }

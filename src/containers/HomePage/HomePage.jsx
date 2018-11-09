@@ -1,10 +1,11 @@
 import React from "react";
 import "./HomePage.css";
-import Register from "../../components/Forms/Register/Register";
 import Login from "../../components/Forms/Login/Login";
 import Navbar from "../../components/navigation/navbar/navbar";
 import { withRouter } from 'react-router';
 import { Route } from 'react-router-dom';
+import Footer  from '../../components/navigation/footer/footer';
+import Main from '../Main/Main';
 
 
 class HomePage extends React.PureComponent {
@@ -16,22 +17,18 @@ class HomePage extends React.PureComponent {
 
   render() {
     return (
-      <main className="home-page">
-        <div id="bg2" />
+      <div className="home-page">
         <Navbar pushIntoRoute={this.pushIntoRoute}/>
-
-        <Route path="/register" exact render={() => {
-          return (
-            <Register pushIntoRoute={this.pushIntoRoute} />
-          )
-        }} />
 
         <Route path="/login" render={() => {
           return (
             <Login pushIntoRoute={this.pushIntoRoute} />
           )
         }} />
-      </main>
+
+        <Route exact path="/main" component={Main} />
+        <Footer  />
+      </div>
     );
   }
 }

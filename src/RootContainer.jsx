@@ -9,11 +9,8 @@ class RootContainer extends React.PureComponent {
   render() {
     //const { loginResult } = this.props;
     return (
-        <React.Fragment>
-            <Route component={Main} path="/main" />
-            
-            <Route component={HomePage} path="/" />            
-            
+        <React.Fragment>          
+            <Route component={HomePage} path="/" />                        
         </React.Fragment>
     );
   }

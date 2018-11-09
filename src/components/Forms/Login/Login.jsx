@@ -19,7 +19,7 @@ class Login extends React.PureComponent {
         this.props.pushIntoRoute("/");
     }
     render() { 
-        const { loginErrors, loginResult, history, login, cookies } = this.props;
+        const { loginErrors, loginResult, history, login } = this.props;
         const { formItems } = this.state;
         return ( 
         <main className="login-form-container">
@@ -33,7 +33,7 @@ class Login extends React.PureComponent {
             btnTitle="Zaloguj"/>
 
             <Button name="Powrót" 
-            className="btn btn-abs medium-btn go-next-btn" 
+            className="btn btn-abs medium-btn " 
             onClick={this.pushIntoRouteWithClear}/>
         </main>
         )
