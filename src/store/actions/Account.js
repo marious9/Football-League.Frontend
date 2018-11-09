@@ -15,7 +15,7 @@ export const sendRegisterEmailActionCreator = (firstArray, secondArray) => {
             "FirstName": secondArray[0].value === "" ? null : secondArray[0].value,
             "LastName": secondArray[1].value === "" ? null : secondArray[1].value,
         }
-        Api.Authorization.register(registerModel).then(response => dispatch(register(true, "")))
-            .catch(errors => dispatch(register(false, errors)))
+        Api.Authorization.register(registerModel).then(() => dispatch(register(true, "")))
+        .catch(errors => dispatch(register(false, errors)))
     }
 }

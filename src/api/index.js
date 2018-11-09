@@ -3,9 +3,10 @@ import { handleErrors } from '../store/utility/handleErrors';
 import { history } from '../index';
 import storeCreator from '../store/index';
 import { logoutActionCreator } from '../store/actions/Authenticate';
-const { store } = storeCreator;
+import { Cookies } from 'react-cookie';
 
-const endPoint = "http://localhost:44377";
+const { store } = storeCreator;
+const endPoint = "http://localhost:54615";
 
 const instance = axios.create({
     baseURL: endPoint,
@@ -14,7 +15,10 @@ const instance = axios.create({
 
 const dataExtractor = (requestType, path, payload) => {
     return instance[requestType](endPoint + path, payload)
-        .then(response => succParser(response))
+        .then(response => {
+            succParser(response);
+            console.log(response);
+    })
         .catch(error => errorParser(error));
 }
 

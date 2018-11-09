@@ -1,0 +1,20 @@
+.navbar{
+    height: 80px;
+    position: absolute;
+    top:0;
+    left: 0;
+    width: 100%;   
+    background-image: linear-gradient(to left, #395f72, #304f5f, #273f4d, #1f303b, #16222a);
+    
+}
+.nav-btns{
+    position: absolute;
+    right: 30px;
+    top: 15px;
+}
+.logo{
+    font-size: 28px;
+    font-weight: 900;
+    padding-top:20px;
+    padding-left:50px;
+}

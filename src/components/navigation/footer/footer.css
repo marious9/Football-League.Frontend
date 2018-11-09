@@ -1,0 +1,9 @@
+.footer{
+    font-family: 'Roboto', sans-serif;
+    background-image: linear-gradient(to left, #395f72, #304f5f, #273f4d, #1f303b, #16222a);
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    height: 60px;
+    z-index: 1000;
+}

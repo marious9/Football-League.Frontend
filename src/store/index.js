@@ -10,7 +10,7 @@ const storeCreator = () => {
     const rootReducer = combineReducers({Authenticate, Account});
    
     const composeEnhancers =
-        window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
+      window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
   
     const store = createStore(rootReducer, composeEnhancers(applyMiddleware(thunk)));
 
