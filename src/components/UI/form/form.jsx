@@ -39,7 +39,7 @@ class Form extends React.PureComponent{
         if(this.props.comparePasswordIndexes){
             const { comparePasswordIndexes } = this.props;
             if(isSomethingEqual(comparePasswordIndexes, itemsId) && 
-                newItems[comparePasswordIndexes[0]].value, newItems[comparePasswordIndexes[1]].value){
+                newItems[comparePasswordIndexes[0]].value && newItems[comparePasswordIndexes[1]].value){
                     
                 const result = checkPasswordsAreTheSame(newItems[comparePasswordIndexes[0]].value, 
                     newItems[comparePasswordIndexes[1]].value);

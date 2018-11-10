@@ -12,11 +12,11 @@ export const handleErrors = errorObject => {
         return [NotStandardErrors[500]];
     }
 
-    if(errorObject.response.data.status === 401){
+    if(errorObject.response.status === 401){
         return [NotStandardErrors[401]];
     }
 
-    if(errorObject.response.data.isError !== undefined){
+    if(errorObject.response.status > 399){
         return errorObject.response.data.errors;
     }
 

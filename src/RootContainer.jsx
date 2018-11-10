@@ -1,29 +1,15 @@
 import React from 'react';
 import HomePage from './containers/HomePage/HomePage';
-import { Route } from 'react-router-dom';
-import Main from './containers/Main/Main';
-import { connect } from 'react-redux';
-
+import { Route, withRouter } from 'react-router-dom';
 
 class RootContainer extends React.PureComponent {
   render() {
-    //const { loginResult } = this.props;
     return (
         <React.Fragment>          
-            <Route component={HomePage} path="/" />                        
+            <Route path="/" component={HomePage}/>
         </React.Fragment>
     );
   }
 }
 
-const mapStateToProps = state => {
-  return {
-      loginResult: state.Authenticate.loginResult
-  };
-}
-
-const mapDispatchToProps = dispatch => {
-  return {
-  };
-}
-export default connect(mapStateToProps, mapDispatchToProps)(RootContainer);
+export default withRouter(RootContainer);

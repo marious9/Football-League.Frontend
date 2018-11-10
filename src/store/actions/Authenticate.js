@@ -1,10 +1,9 @@
-import { LOGIN } from '../actionTypes.js';
+import { LOGIN, LOGOUT } from '../actionTypes.js';
 import { Api } from '../../api/index.js';
 
-export const logoutActionCreator = (history, path) => {
-    return dispatch => {
-        dispatch(logIn(null, [], ""));
-        history.push(path);
+export const logOut = (logoutResult, logoutErrors) => {
+    return {
+        type: LOGOUT, logoutResult, logoutErrors
     }
 }
 
@@ -26,6 +25,17 @@ export const loginActionCreator = (loginArray, history) => {
             history.push("/main");
         }).catch(errors => {
             dispatch(logIn(false, errors, "", ""));
+        })
+    }
+}
+
+export const logoutActionCreator = history => {
+    return dispatch => {
+        Api.Authorization.logOut().then(() => {
+            dispatch(logOut(true,[]));
+            history.push("/");
+        }).catch(errors => {
+            dispatch(logOut(false, errors, "", ""));
         })
     }
 }
