@@ -15,7 +15,7 @@ const instance = axios.create({
 
 const dataExtractor = (requestType, path, payload) => {
     return instance[requestType](endPoint + path, payload)
-        .then(response =>succParser(response))
+        .then(response => succParser(response))
         .catch(error => errorParser(error));
 }
 
@@ -44,6 +44,7 @@ export const Api = {
         register: registerModel => { return dataExtractor("post", "/account/register/", registerModel) }
     },
     League: {
-        getLeagues: () => { return dataExtractor( "get", "/league") }
+        getLeagues: () => { return dataExtractor("get", "/league") },
+        getLeagueById: leagueId => { return dataExtractor("get", "/league/" + leagueId)}
     }
 };

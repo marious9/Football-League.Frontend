@@ -1,10 +1,11 @@
 import React from 'react';
-
+import './LeagueCard.css'
 const LeagueCard = props => {
 
     return (
-        <div style={{backgroundColor:'green', display:'inline-block', marginRight:'10px', marginBottom:'10px', height:'100px', width:'200px'}}>
-            <h2>{props.league.name}</h2>   
+        <div className="lg-card">
+            <h2>{props.league.name}</h2>
+            <p>Ilość drużyn: {props.league.quantity}</p>  
         </div>
     );
 }

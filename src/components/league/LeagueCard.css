@@ -1,0 +1,8 @@
+.lg-card {
+    background-color: green;
+    display: inline-block; 
+    margin-right: 10px;
+    margin-bottom: 10px;
+    height: 150px;
+    width: 400px;
+};

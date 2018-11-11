@@ -1,27 +1,41 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import LeagueCard from '../../components/league/LeagueCard';
-import {getLeaguesActionCreator} from '../../store/actions/League'
+import {getLeaguesActionCreator} from '../../store/actions/League';
+import { Link } from 'react-router-dom';
+import './Main.css';
+import Spinner from '../../components/UI/spinner/spinner';
+
 class Main extends React.Component{
     state = {
         isLeaguesLoading: true
     }
 
     componentDidMount(){
-        this.props.getLeagues();
-        this.setState({isLeaguesLoading: false})
+        setTimeout( () => {
+            this.props.getLeagues();
+            this.setState({isLeaguesLoading: false});
+        }, 2000)    
     }
 
     render(){
-        const {leagues} = this.props;
+        const {leagues, history} = this.props;
+        const {isLeaguesLoading} = this.state;
+        console.log(history)
         return(
-            <div style={{width:'100%', height: '100%', marginTop:'100px', textAlign: 'center'}}>
-                <h1>Hello, you will see here some leagues !!</h1>
-                {leagues.map(league => {
-                    return (
-                        <LeagueCard key={league.id} league={league} />
-                    )})
-                }      
+            <div>
+            {isLeaguesLoading ? <Spinner /> :
+                <div className="main-container">
+                    <h1>Hello, you will see here some leagues !!</h1>
+                    {leagues.map(league => {
+                        return (
+                            <Link to={`${history.location.pathname}/league/${league.id}`} key={league.id}>
+                                <LeagueCard key={league.id} league={league} />
+                            </Link>
+                        )})
+                    } 
+                </div>
+            }     
             </div>
         );
     }
