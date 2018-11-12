@@ -45,6 +45,7 @@ export const Api = {
     },
     League: {
         getLeagues: () => { return dataExtractor("get", "/league") },
-        getLeagueById: leagueId => { return dataExtractor("get", "/league/" + leagueId)}
+        getLeagueById: leagueId => { return dataExtractor("get", "/league/" + leagueId)},
+        getLeagueTable: leagueId => { return dataExtractor("get", "/leaguestatistics/" + leagueId)}
     }
 };

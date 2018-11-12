@@ -5,3 +5,4 @@ export const LOGOUT = "LOGOUT";
 
 export const GET_LEAGUES = "GET_LEAGUES";
 export const GET_LEAGUE_BY_ID = "GET_LEAGUE_BY_ID";
+export const GET_LEAGUE_TABLE = 'GET_LEAGUE_TABLE';

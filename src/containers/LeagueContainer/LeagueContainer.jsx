@@ -1,7 +1,9 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import {getLeagueByIdActionCreator} from '../../store/actions/League';
+import {getLeagueByIdActionCreator, getLeagueTableActionCreator} from '../../store/actions/League';
 import Spinner from '../../components/UI/spinner/spinner';
+import LeagueTable from '../../components/league/LeagueTable/LeagueTable';
+
 class LeagueContainer extends React.Component{
     state = {
         isLeagueLoading: true
@@ -15,25 +17,27 @@ class LeagueContainer extends React.Component{
     // }
 
     componentDidMount(){
-        console.log(this.props.match.params.id)
+        this.props.getLeagueTable(this.props.match.params.id)
         setTimeout( () => {
             this.props.getLeagueById(this.props.match.params.id);
+            
             this.setState({isLeagueLoading: false});
         }, 2000)        
     }
 
     render(){
-        const {league} = this.props;
+        const {league, leagueTable} = this.props;
         const {isLeagueLoading} = this.state;
+
 
         const teams = league.teams && league.teams.map(team => {
             return (
                 <div key={team.id}>
                     {team.name}
-                </div>
+                    
+                </div>                
             )
         });
-        console.log(teams)
 
         return(
             <div>
@@ -41,7 +45,9 @@ class LeagueContainer extends React.Component{
                     <div style={{width:'100%', height: '100%', marginTop:'100px', textAlign: 'center'}}>               
                         <h1>{league.name}</h1>                        
                         {teams}
+                        <LeagueTable teams={leagueTable} />
                     </div> 
+
                 }
                     
             </div>
@@ -52,13 +58,14 @@ class LeagueContainer extends React.Component{
 const mapStateToProps = state => {
     return {    
         league: state.League.league,
-        loading: state.League.getLeaguesStatus
+        leagueTable: state.League.leagueTable
     };
 }
 
 const mapDispatchToProps = dispatch => {
     return {
-        getLeagueById: leagueId => dispatch(getLeagueByIdActionCreator(leagueId))
+        getLeagueById: leagueId => dispatch(getLeagueByIdActionCreator(leagueId)),
+        getLeagueTable: leagueId => dispatch(getLeagueTableActionCreator(leagueId))
     };
 }
 export default connect(mapStateToProps, mapDispatchToProps)(LeagueContainer);

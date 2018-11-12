@@ -1,4 +1,4 @@
-import { GET_LEAGUES, GET_LEAGUE_BY_ID } from '../actionTypes.js';
+import { GET_LEAGUES, GET_LEAGUE_BY_ID, GET_LEAGUE_TABLE } from '../actionTypes.js';
 import { updateObject } from '../utility/updateObject';
 
 const initialState = {
@@ -8,7 +8,11 @@ const initialState = {
 
     league: {},
     getLeagueErrors: [],
-    getLeagueStatus: null,    
+    getLeagueStatus: null,
+
+    leagueTable: {},
+    getLeagueTableErrors: [],
+    getLeagueTableStatus: null
 }
 
 const League = (state = initialState, action) => {
@@ -19,6 +23,9 @@ const League = (state = initialState, action) => {
         case GET_LEAGUE_BY_ID:
             return updateObject(state, {getLeagueErrors: action.getLeagueErrors,
                 league: action.league, getLeagueStatus: action.getLeagueStatus});
+        case GET_LEAGUE_TABLE:
+            return updateObject(state, {getLeagueTableErrors: action.getLeagueTableErrors,
+                leagueTable: action.leagueTable, getLeagueTableStatus: action.getLeagueTableStatus});
         default:
             break;
     }

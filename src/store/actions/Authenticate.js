@@ -29,11 +29,11 @@ export const loginActionCreator = (loginArray, history) => {
     }
 }
 
-export const logoutActionCreator = history => {
+export const logoutActionCreator = (history, path) => {
     return dispatch => {
         Api.Authorization.logOut().then(() => {
             dispatch(logOut(true,[]));
-            history.push("/");
+            history.push(path);
         }).catch(errors => {
             dispatch(logOut(false, errors, "", ""));
         })

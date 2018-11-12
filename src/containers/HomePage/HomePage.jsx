@@ -44,7 +44,7 @@ class HomePage extends React.PureComponent {
                 <Login pushIntoRoute={this.pushIntoRoute} />
             )
             }} />}
-            <Footer  />
+            <Footer />
         </div>
         );
   }
