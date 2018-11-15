@@ -25,13 +25,14 @@ class Login extends React.PureComponent {
         <main className="login-form-container">
             <Form {...formTitlesGenerator("loginTypes", "loginRequirements")} 
             onSubmit={() => login(formItems, history)} 
+            additionalClasses={"u-form-container"}
             formItems={formItems}
             arrayName="formItems"
             setFields={this.setFields}
             submitErrors={loginErrors} 
             submitResult={loginResult}
             btnTitle="Zaloguj"/>
-
+            
             <Button name="Powrót" 
             className="btn btn-abs medium-btn " 
             onClick={this.pushIntoRouteWithClear}/>

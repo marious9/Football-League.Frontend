@@ -1,4 +1,4 @@
-import { GET_LEAGUES, GET_LEAGUE_BY_ID, GET_LEAGUE_TABLE } from '../actionTypes.js';
+import { GET_LEAGUES, GET_LEAGUE_BY_ID, GET_LEAGUE_TABLE, ADD_LEAGUE } from '../actionTypes.js';
 import { Api } from '../../api/index.js';
 
 export const getLeagues = (leagues, getLeaguesErrors, getLeaguesStatus) => {
@@ -16,6 +16,12 @@ export const getLeagueById = (league, getLeagueErrors, getLeagueStatus) => {
 export const getLeagueTable = (leagueTable, getLeagueTableErrors, getLeagueTableStatus) => {
     return {
         type: GET_LEAGUE_TABLE, leagueTable, getLeagueTableErrors, getLeagueTableStatus 
+    }
+}
+
+export const addLeague = (addLeagueResult, addLeagueErrors) => {
+    return {
+        type: ADD_LEAGUE, addLeagueResult, addLeagueErrors
     }
 }
 
@@ -52,5 +58,16 @@ export const getLeagueTableActionCreator = leagueId => {
             .catch(error => {
                 dispatch(getLeagueTable([], error.errors, false))
             });
+    }
+}
+
+export const addLeagueActionCreator = (addLeagueArray) => {
+    const addLeagueModel = {
+        "Name": addLeagueArray[0].value,
+        "Quantity": addLeagueArray[1].value
+    }
+    return dispatch => {
+        Api.League.addLeague(addLeagueModel).then(() => dispatch(addLeague(true, "")))
+        .catch(errors => dispatch(addLeague(false, errors)))
     }
 }

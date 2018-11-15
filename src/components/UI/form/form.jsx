@@ -82,7 +82,7 @@ class Form extends React.PureComponent{
         const { submitResult } = this.props;
         const { submitErrors } = this.props;
         return (
-            <form onSubmit={e => this.onSubmit(e)} className={`u-form-container ${additionalClasses}`}>
+            <form onSubmit={e => this.onSubmit(e)} className={` ${additionalClasses}`}>
                 <header>
                     <h1>{this.props.formTitle}</h1>
                 </header>

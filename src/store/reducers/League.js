@@ -1,5 +1,6 @@
-import { GET_LEAGUES, GET_LEAGUE_BY_ID, GET_LEAGUE_TABLE } from '../actionTypes.js';
+import { GET_LEAGUES, GET_LEAGUE_BY_ID, GET_LEAGUE_TABLE, ADD_LEAGUE } from '../actionTypes.js';
 import { updateObject } from '../utility/updateObject';
+import { addLeague } from '../actions/League.js';
 
 const initialState = {
     leagues: [],
@@ -12,11 +13,17 @@ const initialState = {
 
     leagueTable: {},
     getLeagueTableErrors: [],
-    getLeagueTableStatus: null
+    getLeagueTableStatus: null,
+
+    addLeagueResult: null,
+    addLeagueErrors: []
 }
 
 const League = (state = initialState, action) => {
     switch (action.type) {
+        case ADD_LEAGUE:
+            return updateObject(state, {addLeagueErrors: action.getLeagueErrors,
+                addLeagueResult: action.addLeagueResult});
         case GET_LEAGUES:
             return updateObject(state, { getLeaguesErrors: action.getLeaguesErrors,
                 leagues: action.leagues, getLeaguesStatus: action.getLeaguesStatus});

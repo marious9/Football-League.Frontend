@@ -35,7 +35,8 @@ export const validateInput = (inputValue, requirements) => {
             break;
             case "Data urodzenia":
                 return validateBirthDate(inputValue);
-    
+            case "Ilość drużyn":
+                return validateNumber(inputValue, requirements.minNumber, requirements.maxNumber)
             default:
             break;
         }
@@ -69,5 +70,18 @@ const validateBirthDate = incomingDate => {
     
     
     
+    return "";
+}
+
+const validateNumber = (number, minNumber, maxNumber) => {
+    if(minNumber >= maxNumber){
+        const tmp = minNumber;
+        minNumber = maxNumber;
+        maxNumber = tmp;
+    }
+    if(!(number >= minNumber && number <= maxNumber)){
+        return "Liczba jest spoza zakresu.";
+    }
+
     return "";
 }

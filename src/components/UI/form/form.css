@@ -1,3 +1,8 @@
+.form-add-league-container{
+    width: 500px;
+    height: 500px;
+}
+
 .space-from-bottom{
     margin-bottom: 100px !important;
 }

@@ -14,10 +14,10 @@ const styles = theme => ({
 });
 
 const AddButton = props => {
-  const { classes } = props;
+  const { classes, action } = props;
   return (
     <div>
-      <Button variant="fab" color="primary" aria-label="Add" className={classes.button}>
+      <Button variant="fab" color="primary" aria-label="Add" className={classes.button} onClick={() => action()}>
         <AddIcon />
       </Button>
     </div>

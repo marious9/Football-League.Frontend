@@ -9,7 +9,10 @@ const styles = {
       width: 400,
       backgroundColor: "#E91E63",
       height: 200,
-      textAlign: 'center'
+      textAlign: 'center',
+      display: 'inline-block', 
+      marginRight: '10px',
+      marginRottom: '10px'
     },
     bullet: {
       display: 'inline-block',

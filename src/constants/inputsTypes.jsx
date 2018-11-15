@@ -1,3 +1,8 @@
+export const addLeagueTypes = [
+    {title: "Nazwa", type: "text", holder: "Wpisz nazwę ligii...", serverName: "Name"},
+    {title: "Ilość drużyn", type: "number", serverName:"Quantity"}
+]
+
 export const loginTypes = [
     {title: "Nazwa użytkownika", type: "text", holder: "wpisz swoją nazwę użytkownika...", serverName: "Username"}, 
     {title: "Hasło", type: "password", holder: "wpisz swoje hasło...", serverName: "Password"}
@@ -12,6 +17,11 @@ export const registerTypes = [
     {title: "Adres email", type: "email", holder: "wpisz swój adres email...", serverName: "Email"},
     {title: "Hasło", type: "password", holder: "wpisz swoje hasło...", serverName: "Password"}, 
     {title: "Powtórzone hasło", type: "password", holder: "wpisz swoje powtórzone hasło...", serverName: "Password"}
+];
+
+export const addLeagueRequirements = [
+    {inputName: "Dodaj ligę", nullable: false, minLength: 5, maxLength: 30},
+    {inputName: "Ilość drużyn", nullable: false,  minNumber: 2, maxNumber: 32},
 ];
 
 export const registerRequirements = [
