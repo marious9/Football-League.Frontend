@@ -5,7 +5,7 @@ import Button from "../../UI/button/button";
 const Navbar = (props) => (
 
     <div className="navbar">
-        <div className="logo">Football Leagues Managment</div>
+        <div className="logo">Football Leagues Management</div>
         <div className="nav-btns">
         {!props.isLogged &&
             <Button

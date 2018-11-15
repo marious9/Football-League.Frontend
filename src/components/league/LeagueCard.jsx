@@ -1,13 +1,45 @@
 import React from 'react';
 import './LeagueCard.css'
+import PropTypes from 'prop-types';
+import { withStyles } from '@material-ui/core/styles';
+import { Card, Typography} from '@material-ui/core/';
+
+const styles = {
+    card: {
+      width: 400,
+      backgroundColor: "#E91E63",
+      height: 200,
+      textAlign: 'center'
+    },
+    bullet: {
+      display: 'inline-block',
+      margin: '0 2px',
+      transform: 'scale(0.8)',
+    },
+    title: {
+      fontSize: 40,
+    },
+    pos: {
+      marginBottom: 30,
+    },
+  };
+
 const LeagueCard = props => {
 
     return (
-        <div className="lg-card">
-            <h2>{props.league.name}</h2>
-            <p>Ilość drużyn: {props.league.quantity}</p>  
-        </div>
+        <Card className={props.classes.card}>
+            <Typography className={props.classes.title} color="textSecondary" gutterBottom>
+                {props.league.name}
+            </Typography>
+            <Typography className={props.classes.pos} color="textSecondary" gutterBottom>
+                {props.league.quantity}
+            </Typography>
+        </Card>
     );
 }
+LeagueCard.propTypes = {
+    classes: PropTypes.object.isRequired,
+    league: PropTypes.object.isRequired,
+  };
 
-export default LeagueCard
+export default withStyles(styles)(LeagueCard);

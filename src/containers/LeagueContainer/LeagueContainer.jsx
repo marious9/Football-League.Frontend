@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import {getLeagueByIdActionCreator, getLeagueTableActionCreator} from '../../store/actions/League';
 import Spinner from '../../components/UI/spinner/spinner';
 import LeagueTable from '../../components/league/LeagueTable/LeagueTable';
+import AddButton from '../../components/UI/addButton/AddButton';
 
 class LeagueContainer extends React.Component{
     state = {
@@ -43,7 +44,7 @@ class LeagueContainer extends React.Component{
             <div>
                 {isLeagueLoading ? <Spinner /> :
                     <div style={{width:'100%', height: '100%', marginTop:'100px', textAlign: 'center'}}>               
-                        <h1>{league.name}</h1>                        
+                        <h1>{league.name}</h1>                                               
                         {teams}
                         <LeagueTable teams={leagueTable} />
                     </div> 

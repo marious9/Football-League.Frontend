@@ -3,8 +3,8 @@ import { connect } from 'react-redux';
 import LeagueCard from '../../components/league/LeagueCard';
 import {getLeaguesActionCreator} from '../../store/actions/League';
 import { Link } from 'react-router-dom';
-import './Main.css';
-import Spinner from '../../components/UI/spinner/spinner';
+import './Main.css';import Spinner from '../../components/UI/spinner/spinner';
+import AddButton from '../../components/UI/addButton/AddButton';
 
 class Main extends React.Component{
     state = {
@@ -27,8 +27,9 @@ class Main extends React.Component{
             {isLeaguesLoading ? <Spinner /> :
                 <div className="main-container">
                     <h1>Hello, you will see here some leagues !!</h1>
+                    <AddButton />
                     {leagues.map(league => {
-                        return (
+                        return (                            
                             <Link to={`${history.location.pathname}/league/${league.id}`} key={league.id}>
                                 <LeagueCard key={league.id} league={league} />
                             </Link>
