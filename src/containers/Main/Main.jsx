@@ -41,7 +41,7 @@ class Main extends React.Component{
             {isLeaguesLoading ? <Spinner /> :
                 <div className="main-container">
                     <h1>Hello, you will see here some leagues !!</h1>
-                    <AddButton action={this.onOpenModal}/>
+                    <AddButton tooltip="Dodaj ligę" action={this.onOpenModal}/>
                     <AddLeagueModal openModal={openModal} closeModal={this.onCloseModal} addLeague={addLeague} setFields={this.setFields} formItems={formItems}/>
                     {leagues.map(league => {
                         return (                            

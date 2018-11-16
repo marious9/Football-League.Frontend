@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
-import Button from '@material-ui/core/Button';
+import { Button, Tooltip } from '@material-ui/core/';
 import AddIcon from '@material-ui/icons/Add';
 
 const styles = theme => ({
@@ -14,18 +14,21 @@ const styles = theme => ({
 });
 
 const AddButton = props => {
-  const { classes, action } = props;
+  const { classes, action, tooltip } = props;
   return (
     <div>
-      <Button variant="fab" color="primary" aria-label="Add" className={classes.button} onClick={() => action()}>
-        <AddIcon />
-      </Button>
+      <Tooltip title= {tooltip}>
+        <Button label="Dodaj" variant="fab" color="primary" aria-label="Add" className={classes.button} onClick={() => action()}>
+          <AddIcon />
+        </Button>
+      </Tooltip>
     </div>
   );
 }
 
 AddButton.propTypes = {
   classes: PropTypes.object.isRequired,
+  tooltip: PropTypes.string,
 };
 
 export default withStyles(styles)(AddButton);
