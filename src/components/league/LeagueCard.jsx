@@ -21,9 +21,11 @@ const styles = {
     },
     title: {
       fontSize: 40,
-    },
-    pos: {
-      marginBottom: 30,
+      position: "relative",
+      float: "left",
+      top: "50%",
+      left: "50%",
+      transform: "translate(-50%, -50%)"
     },
   };
 

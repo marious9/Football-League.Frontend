@@ -2,10 +2,10 @@ import React from 'react';
 import { connect } from 'react-redux';
 import LeagueCard from '../../components/league/LeagueCard';
 import {getLeaguesActionCreator, addLeagueActionCreator} from '../../store/actions/League';
-import { Link } from 'react-router-dom';
 import './Main.css';import Spinner from '../../components/UI/spinner/spinner';
 import AddButton from '../../components/UI/addButton/AddButton';
 import AddLeagueModal from '../../components/league/AddLeagueModal/AddLeagueModal'
+import CardButton from '../../components/UI/cardButton/CardButton';
 
 class Main extends React.Component{
     state = {
@@ -45,9 +45,8 @@ class Main extends React.Component{
                     <AddLeagueModal openModal={openModal} closeModal={this.onCloseModal} addLeague={addLeague} setFields={this.setFields} formItems={formItems}/>
                     {leagues.map(league => {
                         return (                            
-                            <Link to={`${history.location.pathname}/league/${league.id}`} key={league.id}>
-                                <LeagueCard key={league.id} league={league} />
-                            </Link>
+                            <CardButton key={league.id} path={`${history.location.pathname}/league/${league.id}`} name={league.name} />
+
                         )})
                     } 
                 </div>

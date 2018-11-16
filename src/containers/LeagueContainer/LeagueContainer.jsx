@@ -3,19 +3,27 @@ import { connect } from 'react-redux';
 import {getLeagueByIdActionCreator, getLeagueTableActionCreator} from '../../store/actions/League';
 import Spinner from '../../components/UI/spinner/spinner';
 import LeagueTable from '../../components/league/LeagueTable/LeagueTable';
+import CardButton from '../../components/UI/cardButton/CardButton';
 import AddButton from '../../components/UI/addButton/AddButton';
 
 class LeagueContainer extends React.Component{
     state = {
-        isLeagueLoading: true
+        isLeagueLoading: true,
+        openModal: false,
+        formItems: []
     }
 
-    // static getDerivedStateFromProps(props, state) {
-    //     if(props.league !== state.league){
-    //         props.getLeagueById(props.match.params.id);
-    //     }
-    //     return null;
-    // }
+    setFields = (name, formItems) => { 
+        this.setState({[name]: formItems});
+      }
+
+    onOpenModal = () => {
+        this.setState({ openModal: true });
+    };
+     
+    onCloseModal = () => {
+        this.setState({ openModal: false });
+    };
 
     componentDidMount(){
         this.props.getLeagueTable(this.props.match.params.id)
@@ -29,23 +37,15 @@ class LeagueContainer extends React.Component{
     render(){
         const {league, leagueTable} = this.props;
         const {isLeagueLoading} = this.state;
-
-
-        const teams = league.teams && league.teams.map(team => {
-            return (
-                <div key={team.id}>
-                    {team.name}
-                    
-                </div>                
-            )
-        });
-
+        
         return(
             <div>
                 {isLeagueLoading ? <Spinner /> :
                     <div style={{width:'100%', height: '100%', marginTop:'100px', textAlign: 'center'}}>               
-                        <h1>{league.name}</h1>                                               
-                        {teams}
+                        <h1>{league.name}</h1>   
+                        <AddButton action={this.onOpenModal}/>
+                        <CardButton name="Mecze" path="/main" /> 
+                        <CardButton name="Statystyki" path="/main" />                                         
                         <LeagueTable teams={leagueTable} />
                     </div> 
 
