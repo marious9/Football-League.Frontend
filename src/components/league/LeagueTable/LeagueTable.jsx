@@ -54,7 +54,7 @@ const LeagueTable = props => {
                 <TableCell numeric>{team.matchesLost}</TableCell>
                 <TableCell numeric>{team.goalsScored}</TableCell>
                 <TableCell numeric>{team.goalsLost}</TableCell>
-                <TableCell numeric>{team.goalsScored - team.goalsLost}</TableCell>
+                <TableCell numeric>{team.goalsBilans}</TableCell>
                 <TableCell numeric className={classes.boldCell} >{team.points}</TableCell>
               </TableRow>
             );

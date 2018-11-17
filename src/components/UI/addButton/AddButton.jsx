@@ -7,6 +7,18 @@ import AddIcon from '@material-ui/icons/Add';
 const styles = theme => ({
   button: {
     margin: theme.spacing.unit,
+    backgroundColor:"#36FFD9",
+    '&:hover': {
+        backgroundColor: "#3feac8",
+      },
+  },
+  buttonLeft: {
+    right:380,
+    margin: theme.spacing.unit,
+    backgroundColor:"#36FFD9",
+    '&:hover': {
+        backgroundColor: "#3feac8",
+      },
   },
   extendedIcon: {
     marginRight: theme.spacing.unit,
@@ -14,11 +26,11 @@ const styles = theme => ({
 });
 
 const AddButton = props => {
-  const { classes, action, tooltip } = props;
+  const { classes, action, tooltip, left } = props;
   return (
     <div>
       <Tooltip title= {tooltip}>
-        <Button label="Dodaj" variant="fab" color="primary" aria-label="Add" className={classes.button} onClick={() => action()}>
+        <Button label="Dodaj" variant="fab" color="primary" aria-label="Add" className={left ? classes.buttonLeft : classes.button} onClick={() => action()}>
           <AddIcon />
         </Button>
       </Tooltip>

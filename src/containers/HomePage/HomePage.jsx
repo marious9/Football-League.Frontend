@@ -9,6 +9,7 @@ import { connect } from 'react-redux';
 import { withCookies } from 'react-cookie';
 import { logoutActionCreator } from '../../store/actions/Authenticate';
 import LeagueContainer from '../../containers/LeagueContainer/LeagueContainer';
+import MaterialNavbar from '../../components/navigation/materialNavbar/MaterialNavbar';
 
 class HomePage extends React.PureComponent {
     state = {

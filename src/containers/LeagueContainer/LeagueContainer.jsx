@@ -37,16 +37,17 @@ class LeagueContainer extends React.Component{
     render(){
         const {league, leagueTable} = this.props;
         const {isLeagueLoading} = this.state;
+        const table = <LeagueTable teams={leagueTable} />;
         
         return(
             <div>
                 {isLeagueLoading ? <Spinner /> :
-                    <div style={{width:'100%', height: '100%', marginTop:'100px', textAlign: 'center'}}>               
+                    <div style={{width:'100%', top:"100px", textAlign: 'center', margin: 0}}>               
                         <h1>{league.name}</h1>   
-                        <AddButton tooltip="Dodaj mecz" action={this.onOpenModal}/>
-                        <CardButton name="Mecze" path="/main" /> 
-                        <CardButton name="Statystyki" path="/main" />                                         
-                        <LeagueTable teams={leagueTable} />
+                        <AddButton left tooltip="Dodaj mecz" action={this.onOpenModal}/>
+                        <CardButton secondCard name="Mecze" path="/main" /> 
+                        <CardButton name="Statystyki" path="/main" />                        
+                        <CardButton name="Tabela" wide path="/main" />                                                                  
                     </div> 
 
                 }

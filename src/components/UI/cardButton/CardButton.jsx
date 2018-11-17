@@ -4,15 +4,38 @@ import { withStyles } from '@material-ui/core/styles';
 import { Card, Typography} from '@material-ui/core/';
 import { Link } from 'react-router-dom';
 
-const styles = {
+const styles = theme => ({
     card: {
         width: 400,
-        backgroundColor: "#E91E63",
+        backgroundColor: "#FF0068",
+        '&:hover': {
+            backgroundColor: "#e0085f",
+          },
         height: 200,
         textAlign: 'center',
         display: 'inline-block', 
-        marginRight: '10px',
-        marginRottom: '10px'
+        marginLeft: theme.spacing.unit
+    },
+    secondCard: {
+        width: 400,
+        backgroundColor: "#FF0068",
+        '&:hover': {
+            backgroundColor: "#e0085f",
+          },
+        height: 200,
+        textAlign: 'center',
+        display: 'inline-block'
+    },
+    wideCard: {
+        width: 810,
+        backgroundColor: "#1657E7",
+        '&:hover': {
+            backgroundColor: "#0c48c9",
+          },
+        height: 200,
+        textAlign: 'center',
+        display: 'inline-block',
+        marginTop: theme.spacing.unit,
     },
     bullet: {
         display: 'inline-block',
@@ -20,6 +43,7 @@ const styles = {
         transform: 'scale(0.8)',
     },
     title: {
+        color: "#fff",
         fontSize: 40,
         position: "relative",
         float: "left",
@@ -27,13 +51,13 @@ const styles = {
         left: "50%",
         transform: "translate(-50%, -50%)"
     },
-  };
+  });
 
 const CardButton = props => {
     const {path, classes, name} = props;
-    return (
+    return (        
         <Link to={path}>
-            <Card className={classes.card}>
+            <Card className={props.wide ?  classes.wideCard : props.secondCard ? classes.secondCard : classes.card}>
                 <Typography className={classes.title} color="textSecondary" gutterBottom>
                     {name}
                 </Typography>
