@@ -33,10 +33,10 @@ const LeagueCard = props => {
 
     return (
         <Card className={props.classes.card}>
-            <Typography className={props.classes.title} color="textSecondary" gutterBottom>
+            <Typography className={props.classes.title} color="textSecondary">
                 {props.league.name}
             </Typography>
-            <Typography className={props.classes.pos} color="textSecondary" gutterBottom>
+            <Typography className={props.classes.pos} color="textSecondary">
                 {props.league.quantity}
             </Typography>
         </Card>

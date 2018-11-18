@@ -6,4 +6,8 @@ export const LOGOUT = "LOGOUT";
 export const ADD_LEAGUE = "ADD_LEAGUE";
 export const GET_LEAGUES = "GET_LEAGUES";
 export const GET_LEAGUE_BY_ID = "GET_LEAGUE_BY_ID";
-export const GET_LEAGUE_TABLE = 'GET_LEAGUE_TABLE';
+export const GET_LEAGUE_TABLE = "GET_LEAGUE_TABLE";
+
+export const ADD_MATCH = "ADD_MATCH";
+export const GET_MATCH_BY_ID = "GET_MATCH_BY_ID";
+export const GET_MATCHES = "GET_MATCHES";

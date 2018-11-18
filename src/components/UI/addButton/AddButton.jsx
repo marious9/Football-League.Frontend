@@ -15,9 +15,9 @@ const styles = theme => ({
   buttonLeft: {
     right:380,
     margin: theme.spacing.unit,
-    backgroundColor:"#36FFD9",
+    backgroundColor:"#0c48c9",
     '&:hover': {
-        backgroundColor: "#3feac8",
+        backgroundColor: "#0a3ba4",
       },
   },
   extendedIcon: {

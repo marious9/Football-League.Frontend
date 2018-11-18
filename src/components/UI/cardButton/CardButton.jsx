@@ -5,6 +5,9 @@ import { Card, Typography} from '@material-ui/core/';
 import { Link } from 'react-router-dom';
 
 const styles = theme => ({
+    link: {
+        position:'relative',
+    },
     card: {
         width: 400,
         backgroundColor: "#FF0068",
@@ -51,14 +54,23 @@ const styles = theme => ({
         left: "50%",
         transform: "translate(-50%, -50%)"
     },
+    matchText: {
+        color: "#fff",
+        fontSize: 24,
+        position: "relative",
+        float: "left",
+        top: "50%",
+        left: "50%",
+        transform: "translate(-50%, -50%)"
+    }
   });
 
 const CardButton = props => {
-    const {path, classes, name} = props;
+    const {path, classes, name, matchText} = props;
     return (        
-        <Link to={path}>
+        <Link to={path} className={classes.link}>
             <Card className={props.wide ?  classes.wideCard : props.secondCard ? classes.secondCard : classes.card}>
-                <Typography className={classes.title} color="textSecondary" gutterBottom>
+                <Typography className={matchText ? classes.matchText : classes.title} color="textSecondary" gutterBottom>
                     {name}
                 </Typography>
             </Card>

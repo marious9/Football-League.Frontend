@@ -10,6 +10,16 @@ import { withCookies } from 'react-cookie';
 import { logoutActionCreator } from '../../store/actions/Authenticate';
 import LeagueContainer from '../../containers/LeagueContainer/LeagueContainer';
 import MaterialNavbar from '../../components/navigation/materialNavbar/MaterialNavbar';
+import LeagueTableContainer from "../LeagueContainer/LeagueTableContainer/LeagueTableContainer";
+import { MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles';
+import MatchContainer from '../MatchContainer/MatchContainer';
+
+const theme = createMuiTheme({
+    typography: {
+      useNextVariants: true,
+      suppressDeprecationWarnings: true
+    }
+  });
 
 class HomePage extends React.PureComponent {
     state = {
@@ -35,18 +45,22 @@ class HomePage extends React.PureComponent {
        const {isLogged} = this.state;
        const {history, logout} = this.props;
         return (
-        <div className="home-page">
-            <Navbar pushIntoRoute={this.pushIntoRoute} isLogged={isLogged} logout={() => logout(history)}/>
-            <Route exact path="/main" component={Main} />
-            <Route path="/main/league/:id" component={LeagueContainer} />
+        <MuiThemeProvider theme={theme}>
+            <div className="home-page">
+                <Navbar pushIntoRoute={this.pushIntoRoute} isLogged={isLogged} logout={() => logout(history)}/>
+                <Route exact path="/main" component={Main} />
+                <Route exact path="/main/league/:id" component={LeagueContainer} />
+                <Route exact path="/main/league/:id/table" component={LeagueTableContainer} />
+                <Route exact path="/main/league/:id/match" component={MatchContainer} />
 
-            {!isLogged && <Route path="/login" render={() => {
-            return (
-                <Login pushIntoRoute={this.pushIntoRoute} />
-            )
-            }} />}
-            <Footer />
-        </div>
+                {!isLogged && <Route path="/login" render={() => {
+                return (
+                    <Login pushIntoRoute={this.pushIntoRoute} />
+                )
+                }} />}
+                <Footer />
+            </div>
+        </MuiThemeProvider>
         );
   }
 }

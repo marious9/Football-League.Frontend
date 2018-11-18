@@ -1,6 +1,5 @@
 import { GET_LEAGUES, GET_LEAGUE_BY_ID, GET_LEAGUE_TABLE, ADD_LEAGUE } from '../actionTypes.js';
 import { updateObject } from '../utility/updateObject';
-import { addLeague } from '../actions/League.js';
 
 const initialState = {
     leagues: [],
