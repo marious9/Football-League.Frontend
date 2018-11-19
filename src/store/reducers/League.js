@@ -21,7 +21,7 @@ const initialState = {
 const League = (state = initialState, action) => {
     switch (action.type) {
         case ADD_LEAGUE:
-            return updateObject(state, {addLeagueErrors: action.getLeagueErrors,
+            return updateObject(state, {addLeagueErrors: action.addLeagueErrors,
                 addLeagueResult: action.addLeagueResult});
         case GET_LEAGUES:
             return updateObject(state, { getLeaguesErrors: action.getLeaguesErrors,

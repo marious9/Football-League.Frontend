@@ -2,6 +2,10 @@
     width: 500px;
     height: 500px;
 }
+.form-add-match-container{
+    width: 500px;
+    height: 1070px;
+}
 
 .space-from-bottom{
     margin-bottom: 100px !important;

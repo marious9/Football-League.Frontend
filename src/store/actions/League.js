@@ -68,7 +68,7 @@ export const addLeagueActionCreator = (addLeagueArray) => {
     }
     return dispatch => {
         Api.League.addLeague(addLeagueModel)
-            .then(() => dispatch(addLeague(true, "")))
-            .catch(errors => dispatch(addLeague(false, errors)))
+            .then(() => dispatch(addLeague(true, [])))
+            .catch(errors => dispatch(addLeague(false,errors)));
     }
 }

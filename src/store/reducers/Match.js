@@ -11,14 +11,14 @@ const initialState = {
     getMatchStatus: null,
 
     addMatchErrors: [],
-    addMatchStatus: null
+    addMatchResult: null
 }
 
 const Match = (state = initialState, action) => {
     switch (action.type) {
         case ADD_MATCH:
             return updateObject(state, {addMatchErrors: action.addMatchErrors,
-                addMatchStatus: action.addMatchStatus});
+                addMatchResult: action.addMatchResult});
         case GET_MATCHES:
             return updateObject(state, {getMatchesErrors: action.getMatchesErrors,
                 getMatchesStatus: action.getMatchesStatus, matches: action.matches});

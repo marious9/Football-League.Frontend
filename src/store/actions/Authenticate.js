@@ -20,7 +20,8 @@ export const loginActionCreator = (loginArray, history) => {
             "Password": loginArray[1].value
         }
 
-        Api.Authorization.login(loginModel).then(() => {
+        Api.Authorization.login(loginModel)
+        .then(() => {
             dispatch(logIn(true, []));
             history.push("/main");
         }).catch(errors => {
@@ -31,11 +32,12 @@ export const loginActionCreator = (loginArray, history) => {
 
 export const logoutActionCreator = (history, path) => {
     return dispatch => {
-        Api.Authorization.logOut().then(() => {
-            dispatch(logOut(true,[]));
-            history.push(path);
-        }).catch(errors => {
-            dispatch(logOut(false, errors, "", ""));
-        })
+        Api.Authorization.logOut()
+            .then(() => {
+                dispatch(logOut(true,[]));
+                history.push(path);
+            }).catch(errors => {
+                dispatch(logOut(false, errors, "", ""));
+            })
     }
 }

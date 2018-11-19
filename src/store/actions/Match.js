@@ -31,7 +31,7 @@ export const getMatchesActionCreator = () => {
     }
 }
 
-export const getLeagueByIdActionCreator = matchId => {
+export const getMatchByIdActionCreator = matchId => {
     return dispatch => {
         Api.getMatchById(matchId)
             .then(response => {
@@ -43,17 +43,17 @@ export const getLeagueByIdActionCreator = matchId => {
     }
 }
 
-export const addLeagueActionCreator = (addMatchArray) => {
+export const addMatchActionCreator = (addMatchArray, leagueId) => {
     const addMatchModel = {
-        "Date": addMatchArray[0].value,
-        "Round": addMatchArray[1].value,
+        "HostId": addMatchArray[0].value,
+        "AwayId": addMatchArray[1].value,
         "HostScore": addMatchArray[2].value,
         "AwayScore": addMatchArray[3].value,
-        "HostId": addMatchArray[4].value,
-        "AwayId": addMatchArray[5].value
+        "Round": addMatchArray[4].value,
+        "Date": addMatchArray[5].value
     }
     return dispatch => {
-        Api.Match.addMatch(addMatchModel)
+        Api.Match.addMatch(addMatchModel, leagueId)
             .then(() => dispatch(addMatch([], true)))
             .catch(errors => dispatch(addMatch(errors,false)));
     }

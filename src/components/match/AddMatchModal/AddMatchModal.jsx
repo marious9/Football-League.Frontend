@@ -10,23 +10,24 @@ class AddLeagueModal extends React.PureComponent {
 
 
     render() {
-    const { closeModal, openModal, addLeague, setFields, addLeagueErrors, addLeagueResult } = this.props;
+    const { closeModal, openModal, addMatch, setFields, addMatchErrors, addMatchResult, leagueId } = this.props;
     const {formItems} = this.props;
+    console.log(this.props)
         return (
             <Modal open={openModal} onClose={() => closeModal()} center>
                 <Form 
-                    submitResult={addLeagueResult}
-                    submitErrors={addLeagueErrors}
-                    onSubmit={() => addLeague(formItems)}
-                    additionalClasses={"form-add-league-container"}
+                    submitResult={addMatchResult}
+                    submitErrors={addMatchErrors}
+                    onSubmit={() => addMatch(formItems,leagueId)}
+                    additionalClasses={"form-add-match-container"}
                     setFields={setFields}
                     arrayName="formItems"
                     formItems={formItems}
                     key={1}
                     {...formTitlesGenerator(
-                      "addLeagueTypes",
-                      "addLeagueRequirements",
-                      "Dodawanie ligii"
+                      "addMatchTypes",
+                      "addMatchRequirements",
+                      "Dodawanie meczu"
                     )}
                     btnTitle="Dodaj"
                 />

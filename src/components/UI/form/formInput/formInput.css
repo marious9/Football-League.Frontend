@@ -32,7 +32,7 @@
     font-size: 15px;
     margin-top: 5px;
     border-radius: 4px;
-    background-color: rgb(66, 66, 66);
+    background-color: #BBDEFB;
     border: 1px solid white;    
     transition: 0.5s all ease-in-out;
 }

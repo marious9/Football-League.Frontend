@@ -34,7 +34,7 @@ class Main extends React.Component{
     };
 
     render(){
-        const {leagues, history, addLeague} = this.props;
+        const {leagues, history, addLeague, addLeagueResult, addLeagueErrors} = this.props;
         const {isLeaguesLoading, openModal, formItems} = this.state;
         return(
             <div>
@@ -42,7 +42,14 @@ class Main extends React.Component{
                 <div className="main-container">
                     <h1>Hello, you will see here some leagues !!</h1>
                     <AddButton tooltip="Dodaj ligę" action={this.onOpenModal}/>
-                    <AddLeagueModal openModal={openModal} closeModal={this.onCloseModal} addLeague={addLeague} setFields={this.setFields} formItems={formItems}/>
+                    <AddLeagueModal
+                        addLeagueResult={addLeagueResult}
+                        addLeagueErrors={addLeagueErrors} 
+                        openModal={openModal} 
+                        closeModal={this.onCloseModal} 
+                        addLeague={addLeague} 
+                        setFields={this.setFields} 
+                        formItems={formItems} />
                     {leagues.map(league => {
                         return (                            
                             <CardButton key={league.id} path={`${history.location.pathname}/league/${league.id}`} name={league.name} />
@@ -57,7 +64,9 @@ class Main extends React.Component{
 }
 
 const mapStateToProps = state => {
-    return {    
+    return {
+        addLeagueResult: state.League.addLeagueResult,
+        addLeagueErrors: state.League.addLeagueErrors,
         leagues: state.League.leagues
     };
 }
