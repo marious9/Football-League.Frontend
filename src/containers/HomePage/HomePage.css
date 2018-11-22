@@ -5,7 +5,5 @@
     display: flex;
     justify-content: center;
     background-color: #1657E9;
-    background-image: url('../../img/FIFA19-Hero-Tertiary-UEFA-lg.jpg');
-    background-repeat: no-repeat;
     background-position-y: 80px; 
 }

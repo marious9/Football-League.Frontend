@@ -5,6 +5,7 @@ import Spinner from '../../components/UI/spinner/spinner';
 import CardButton from '../../components/UI/cardButton/CardButton';
 import AddButton from '../../components/UI/addButton/AddButton';
 import AddMatchModal from '../../components/match/AddMatchModal/AddMatchModal';
+import MatchesTable from '../../components/match/MatchesTable/MatchesTable';
 
 class MatchContainer extends React.Component{
     state = {
@@ -34,61 +35,26 @@ class MatchContainer extends React.Component{
 
     renderMatchesRound() {
         const {matches} = this.props;
-        const sortedMatches = matches.sort((match1, match2) => match2.hostScore - match1.hostScore);    
-        const minRound =sortedMatches[sortedMatches.length-1].round;
-        const maxRound = sortedMatches[0].round;
-        let events = [];
-        let jsx;
-        for(let i=maxRound ; i<=minRound;i--){
-            const roundMatches = sortedMatches.filter(match => match.round === i);            
-            console.log(`Runda ${i}`)
-            jsx =  (
-                <div>
-                <h1>Runda {i}</h1>
-                {roundMatches.map(match => (
-                    <CardButton
-                    matchText
-                    secondCard
-                    key={match.id} 
-                    name={`${match.host.name} ${match.hostScore} : ${match.awayScore} ${match.away.name}`}
-                    path={`${this.props.history.location.pathname}/${match.id}`} />
-                    
-                ))}
-                </div>
-            );
-            // for(let match of roundMatches){
-            //     events.push(`${match.host.name} ${match.hostScore} vs ${match.awayScore} ${match.away.name}`)
-            // }
+        const sortedMatches = matches ? matches.sort((match1, match2) => match2.round - match1.round): [];
+        let matchesSortedByRound=[];
+        if(sortedMatches.length > 0) {
+            const minRound = sortedMatches[sortedMatches.length-1].round;
+            const maxRound = sortedMatches[0].round;
+            
+            for(let i=maxRound;i>=minRound;i--){
+                const roundMatches = sortedMatches.filter(match => match.round === i); 
+                matchesSortedByRound.push(roundMatches)           
+            }
         }
-        return jsx;
+        return matchesSortedByRound;
     }
 
     render(){
         const {matches, addMatchResult, addMatchErrors, addMatch } = this.props;
         const {isMatchLoading, openModal, formItems} = this.state;
+        const sortedMatches = this.renderMatchesRound();
+        const league = sortedMatches.length > 0 ? sortedMatches[0].league : null;
         const id = this.props.match.params.id;
-        const games = matches.filter(match => match.league.id == id); 
-        const league = games.length > 0 ? games[0].league : null;
-       //const jsx =  matches.length > 0 && this.renderMatchesRound();
-       //console.log(jsx)
-        const matchesCards = games.map(match => {
-            if (games.indexOf(match) !== 0)
-                return (
-                    <CardButton 
-                        matchText
-                        key={match.id}
-                        name={`${match.host.name} ${match.hostScore} : ${match.awayScore} ${match.away.name}`}
-                        path={`${this.props.history.location.pathname}/${match.id}`} />
-                );
-            return (
-                <CardButton
-                    matchText
-                    secondCard
-                    key={match.id} 
-                    name={`${match.host.name} ${match.hostScore} : ${match.awayScore} ${match.away.name}`}
-                    path={`${this.props.history.location.pathname}/${match.id}`} />
-            ) 
-        })
         
         return(
             <div>
@@ -104,8 +70,10 @@ class MatchContainer extends React.Component{
                         closeModal={this.onCloseModal} 
                         addMatch={addMatch} 
                         setFields={this.setFields} 
-                        formItems={formItems} />    
-                      {matchesCards}  
+                        formItems={formItems} />
+                        {sortedMatches.map((matches,i)=>
+                            <MatchesTable key={i} round={matches && matches[0].round} matches={matches} />)}    
+                      
                     </div> 
                 }
                     
