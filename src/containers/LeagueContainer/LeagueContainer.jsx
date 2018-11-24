@@ -1,8 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import {getLeagueByIdActionCreator, getLeagueTableActionCreator} from '../../store/actions/League';
+import {getLeagueByIdActionCreator} from '../../store/actions/League';
 import Spinner from '../../components/UI/spinner/spinner';
-import LeagueTable from '../../components/league/LeagueTable/LeagueTable';
 import CardButton from '../../components/UI/cardButton/CardButton';
 import AddButton from '../../components/UI/addButton/AddButton';
 
@@ -26,7 +25,6 @@ class LeagueContainer extends React.Component{
     };
 
     componentDidMount(){
-        this.props.getLeagueTable(this.props.match.params.id)
         setTimeout( () => {
             this.props.getLeagueById(this.props.match.params.id);
             
@@ -35,7 +33,7 @@ class LeagueContainer extends React.Component{
     }
 
     render(){
-        const {league, leagueTable} = this.props;
+        const {league} = this.props;
         const {isLeagueLoading} = this.state;
         
         return(
@@ -57,15 +55,13 @@ class LeagueContainer extends React.Component{
 
 const mapStateToProps = state => {
     return {    
-        league: state.League.league,
-        leagueTable: state.League.leagueTable
+        league: state.League.league
     };
 }
 
 const mapDispatchToProps = dispatch => {
     return {
-        getLeagueById: leagueId => dispatch(getLeagueByIdActionCreator(leagueId)),
-        getLeagueTable: leagueId => dispatch(getLeagueTableActionCreator(leagueId))
+        getLeagueById: leagueId => dispatch(getLeagueByIdActionCreator(leagueId))
     };
 }
 export default connect(mapStateToProps, mapDispatchToProps)(LeagueContainer);

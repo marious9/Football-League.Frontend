@@ -15,9 +15,11 @@ const styles = theme => ({
     width: '100%',
     marginTop: theme.spacing.unit * 3,
     overflowX: 'auto',
+    backgroundColor: '#E3F2FD',
   },
   table: {
     minWidth: 700,
+    backgroundColor: '#E3F2FD',
   },
   boldCell: {
       fontWeight: 700,
@@ -25,43 +27,51 @@ const styles = theme => ({
   overline: {
     textAlign: 'center',
     fontSize: 40
+  },
+  linkRow: {
+      cursor:'pointer',
+      "&:hover":{
+          backgroundColor:'#BBDEFB'
+      }
   }
 })
 
 const MatchesTable = props => {
-  const { classes, matches, round } = props;
-
-  return (
-    <Paper className={classes.root}>
-        <div variant='overline' className={classes.overline}>
-            <Typography >
-                Runda:{round}
-            </Typography>
-        </div>
-        <Table className={classes.table}>
-            <TableHead>
-            <TableRow>
-                <TableCell>Drużyna 1</TableCell>
-                <TableCell>Wynik</TableCell>
-                <TableCell>Drużyna 2</TableCell>
-                <TableCell>Data</TableCell>
-            </TableRow>
-            </TableHead>
-            <TableBody>
-            {matches.length && matches.map((match,i) => {
-                return (
-                <TableRow key={i}>
-                    <TableCell >{match.host.name}</TableCell>
-                    <TableCell >{match.hostScore}:{match.awayScore}</TableCell>
-                    <TableCell >{match.away.name}</TableCell>
-                    <TableCell >{match.date.slice(0,10)}</TableCell>
+    const { classes, matches, round, location,pushIntoRoute } = props;
+    return (
+        <div>
+        {matches.length > 0 &&
+        <Paper className={classes.root}>
+            <div variant='overline' className={classes.overline}>
+                <Typography >
+                    Runda:{round}
+                </Typography>
+            </div>
+            <Table className={classes.table}>
+                <TableHead>
+                <TableRow>
+                    <TableCell>Drużyna 1</TableCell>
+                    <TableCell>Wynik</TableCell>
+                    <TableCell>Drużyna 2</TableCell>
+                    <TableCell>Data</TableCell>
                 </TableRow>
-                );
-            })}
-            </TableBody>
-        </Table>
-    </Paper>
-  );
+                </TableHead>
+                <TableBody>
+                {matches.length && matches.map((match,i) => {
+                    return (
+                        <TableRow className={classes.linkRow} key={i} onClick={ () => pushIntoRoute(location+"/"+match.id)} >
+                            <TableCell >{match.host.name}</TableCell>
+                            <TableCell >{match.hostScore}:{match.awayScore}</TableCell>
+                            <TableCell >{match.away.name}</TableCell>
+                            <TableCell >{match.date.slice(0,10)}</TableCell>
+                        </TableRow>
+                    );
+                })}
+                </TableBody>
+            </Table>
+        </Paper>}
+        </div>
+    );
 }
 
 MatchesTable.propTypes = {

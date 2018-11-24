@@ -14,13 +14,12 @@ const styles = theme => ({
     top:120,
     width: '100%',
     marginTop: theme.spacing.unit * 3,
-    overflowX: 'auto',
-    backgroundColor: "#01D5F1"
+    overflowX: 'auto'
   },
   table: {
     height: 300,
     minWidth: 700,
-    backgroundColor: "#01D5F1"
+    backgroundColor: "#E3F2FD"
   },
   boldCell: {
       fontWeight: 700,
@@ -33,14 +32,16 @@ const styles = theme => ({
 
 const LeagueTable = props => {
   const { classes, teams, league } = props;
-
-  return (
-    <Paper className={classes.root}>
-        <div variant='overline' className={classes.overline}>
+  return (      
+    <div className={classes.root}>
+        <div>
             <Typography >
-                {league.name}
+                
+                {teams.length > 0 ? league.name :
+                <span style={{fontSize:30, paddingTop:50, color:"#fff"}}>{league.name} nie zawiera drużyn.</span>}
             </Typography>
         </div>
+        {teams.length > 0 &&
         <Table className={classes.table}>
             <TableHead>
             <TableRow>
@@ -74,8 +75,8 @@ const LeagueTable = props => {
                 );
             })}
             </TableBody>
-        </Table>
-    </Paper>
+        </Table>}
+    </div>
   );
 }
 

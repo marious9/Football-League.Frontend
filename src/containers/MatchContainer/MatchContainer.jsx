@@ -11,7 +11,8 @@ class MatchContainer extends React.Component{
     state = {
         isMatchLoading: true,
         openModal: false,
-        formItems: []
+        formItems: [],
+        matches: []
     }
 
     setFields = (name, formItems) => { 
@@ -26,31 +27,38 @@ class MatchContainer extends React.Component{
         this.setState({ openModal: false });
     };
 
+
     componentDidMount(){
+        const leagueId = this.props.match.params.id;
         setTimeout( () => {
-            this.props.getMatches();            
-            this.setState({isMatchLoading: false});
+            this.props.getMatches(leagueId);            
+            this.setState({isMatchLoading: false, matches: this.props.matches});
         }, 2000)        
     }
 
     renderMatchesRound() {
         const {matches} = this.props;
-        const sortedMatches = matches ? matches.sort((match1, match2) => match2.round - match1.round): [];
+        const leagueId = this.props.match.params.id;
+        const sortedMatches = matches.length > 0 ? matches.sort((match1, match2) => match2.round - match1.round): [];
         let matchesSortedByRound=[];
         if(sortedMatches.length > 0) {
             const minRound = sortedMatches[sortedMatches.length-1].round;
             const maxRound = sortedMatches[0].round;
             
             for(let i=maxRound;i>=minRound;i--){
-                const roundMatches = sortedMatches.filter(match => match.round === i); 
+                const roundMatches = sortedMatches.filter(match => match.round === i);
                 matchesSortedByRound.push(roundMatches)           
             }
         }
         return matchesSortedByRound;
     }
 
+    pushIntoRoute = path => {
+        this.props.history.push(path);
+    }
+
     render(){
-        const {matches, addMatchResult, addMatchErrors, addMatch } = this.props;
+        const {addMatchResult, addMatchErrors, addMatch } = this.props;
         const {isMatchLoading, openModal, formItems} = this.state;
         const sortedMatches = this.renderMatchesRound();
         const league = sortedMatches.length > 0 ? sortedMatches[0].league : null;
@@ -59,7 +67,7 @@ class MatchContainer extends React.Component{
         return(
             <div>
                 {isMatchLoading ? <Spinner /> :
-                    <div style={{width:'100%', top:"100px", textAlign: 'center', margin: 0, position:"relative"}}>
+                    <div style={{width:'100%', top:"100px", textAlign: 'center', margin: 0, position:"relative"}}>                    
                     <h2>{league && "Mecze ligii: " + league.name}</h2>
                     <AddButton left tooltip="Dodaj mecz" action={this.onOpenModal}/>  
                     <AddMatchModal
@@ -71,8 +79,14 @@ class MatchContainer extends React.Component{
                         addMatch={addMatch} 
                         setFields={this.setFields} 
                         formItems={formItems} />
-                        {sortedMatches.map((matches,i)=>
-                            <MatchesTable key={i} round={matches && matches[0].round} matches={matches} />)}    
+                        {sortedMatches.length > 0 ? sortedMatches.map((matches,i)=>
+                            <MatchesTable 
+                                key={i} 
+                                round={matches && matches[i] ? matches[i].round : i}
+                                matches={matches}
+                                location={this.props.history.location.pathname}
+                                pushIntoRoute={this.pushIntoRoute}
+                                 />) : <h3>Brak meczów w lidze.</h3>}
                       
                     </div> 
                 }
@@ -93,7 +107,7 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
     return {
-        getMatches: () => dispatch(getMatchesActionCreator()),
+        getMatches: leagueId => dispatch(getMatchesActionCreator(leagueId)),
         addMatch: (formItems,matchId) => dispatch(addMatchActionCreator(formItems, matchId))
     };
 }

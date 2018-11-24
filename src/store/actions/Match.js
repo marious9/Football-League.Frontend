@@ -19,9 +19,9 @@ export const getMatchById = (match, getMatchErrors, getMatchStatus) => {
     }
 }
 
-export const getMatchesActionCreator = () => {
+export const getMatchesActionCreator = (leagueId) => {
     return dispatch => {
-        Api.Match.getMatches()
+        Api.Match.getMatches(leagueId)
             .then(response => {
                 dispatch(getMatches(response.object.matches, [], true))                
             })
@@ -33,7 +33,7 @@ export const getMatchesActionCreator = () => {
 
 export const getMatchByIdActionCreator = matchId => {
     return dispatch => {
-        Api.getMatchById(matchId)
+        Api.Match.getMatchById(matchId)
             .then(response => {
                 dispatch(getMatchById(response.object, [], true))
             })

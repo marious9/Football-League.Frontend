@@ -39,6 +39,7 @@ const styles = theme => ({
         textAlign: 'center',
         display: 'inline-block',
         marginTop: theme.spacing.unit,
+        marginLeft: 10
     },
     bullet: {
         display: 'inline-block',

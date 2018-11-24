@@ -51,7 +51,7 @@ export const Api = {
     },
     Match: {
         getMatchById: matchId => { return dataExtractor("get", "/match/" + matchId) },
-        getMatches: () => { return dataExtractor("get", "/match") },
+        getMatches: leagueId => { return dataExtractor("get", "/match/league/" + leagueId) },
         addMatch: (addMatchModel,leagueId) => { return dataExtractor("post", "/match/" + leagueId, addMatchModel) }
     }
 };
