@@ -44,7 +44,6 @@ class MatchContainer extends React.Component{
         if(sortedMatches.length > 0) {
             const minRound = sortedMatches[sortedMatches.length-1].round;
             const maxRound = sortedMatches[0].round;
-            
             for(let i=maxRound;i>=minRound;i--){
                 const roundMatches = sortedMatches.filter(match => match.round === i);
                 matchesSortedByRound.push(roundMatches)           
@@ -63,6 +62,7 @@ class MatchContainer extends React.Component{
         const sortedMatches = this.renderMatchesRound();
         const league = sortedMatches.length > 0 ? sortedMatches[0].league : null;
         const id = this.props.match.params.id;
+        let rounds = sortedMatches.length;
         
         return(
             <div>
@@ -79,15 +79,16 @@ class MatchContainer extends React.Component{
                         addMatch={addMatch} 
                         setFields={this.setFields} 
                         formItems={formItems} />
-                        {sortedMatches.length > 0 ? sortedMatches.map((matches,i)=>
+                        {sortedMatches.length > 0 ? sortedMatches.map((queue,i)=>
                             <MatchesTable 
                                 key={i} 
-                                round={matches && matches[i] ? matches[i].round : i}
-                                matches={matches}
+                                onOpenModal={this.onOpenModal}
+                                round={rounds - i}
+                                matches={queue}
                                 location={this.props.history.location.pathname}
                                 pushIntoRoute={this.pushIntoRoute}
                                  />) : <h3>Brak meczów w lidze.</h3>}
-                      
+
                     </div> 
                 }
                     

@@ -9,6 +9,7 @@ import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
 import Typography from '@material-ui/core/Typography';
 
+
 const styles = theme => ({
   root: {
     top:120,
@@ -16,6 +17,7 @@ const styles = theme => ({
     marginTop: theme.spacing.unit * 3,
     overflowX: 'auto',
     backgroundColor: '#E3F2FD',
+    marginBottom: 50
   },
   table: {
     minWidth: 700,
@@ -60,10 +62,10 @@ const MatchesTable = props => {
                 {matches.length && matches.map((match,i) => {
                     return (
                         <TableRow className={classes.linkRow} key={i} onClick={ () => pushIntoRoute(location+"/"+match.id)} >
-                            <TableCell >{match.host.name}</TableCell>
-                            <TableCell >{match.hostScore}:{match.awayScore}</TableCell>
-                            <TableCell >{match.away.name}</TableCell>
-                            <TableCell >{match.date.slice(0,10)}</TableCell>
+                            <TableCell>{match.host.name}</TableCell>
+                            <TableCell>{match.hostScore === -1 ? '-' : match.hostScore}:{match.awayScore === -1 ? '-' : match.awayScore}</TableCell>
+                            <TableCell>{match.away.name}</TableCell>
+                            <TableCell>{match.date.slice(0,10)}</TableCell>
                         </TableRow>
                     );
                 })}

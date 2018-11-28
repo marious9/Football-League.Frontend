@@ -6,7 +6,8 @@ class RootContainer extends React.PureComponent {
   render() {
     return (
         <React.Fragment>          
-            <Route path="/" component={HomePage}/>
+            <Route path="/" component={HomePage}/>            
+          />
         </React.Fragment>
     );
   }

@@ -2,7 +2,7 @@ import React from "react";
 import "./HomePage.css";
 import Login from "../../components/Forms/Login/Login";
 import Navbar from "../../components/navigation/navbar/navbar";
-import { Route } from 'react-router-dom';
+import { Route, Redirect } from 'react-router-dom';
 import Footer  from '../../components/navigation/footer/footer';
 import Main from '../Main/Main';
 import { connect } from 'react-redux';
@@ -48,18 +48,19 @@ class HomePage extends React.PureComponent {
         return (
         <MuiThemeProvider theme={theme}>
             <div className="home-page">
+            
                 <Navbar pushIntoRoute={this.pushIntoRoute} isLogged={isLogged} logout={() => logout(history)}/>
+                {history.location.pathname === "/" && <Redirect
+                    to={"/main"} />}                
                 <Route exact path="/main" component={Main} />
                 <Route exact path="/main/league/:id" component={LeagueContainer} />
                 <Route exact path="/main/league/:id/table" component={LeagueTableContainer} />
                 <Route exact path="/main/league/:id/match" component={MatchContainer} />
                 <Route exact path="/main/league/:id/match/:matchId" component={MatchDetailsContainer} />
 
-                {!isLogged && <Route path="/login" render={() => {
-                return (
-                    <Login pushIntoRoute={this.pushIntoRoute} />
-                )
-                }} />}
+                {!isLogged && <Route path="/login" render={() => 
+                    <Login pushIntoRoute={this.pushIntoRoute} /> }
+                 />}
                 <Footer />
             </div>
         </MuiThemeProvider>

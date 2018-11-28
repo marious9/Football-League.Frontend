@@ -35,7 +35,13 @@ export const validateInput = (inputValue, requirements) => {
             break;
             case "Data urodzenia":
                 return validateBirthDate(inputValue);
-            case "Ilość drużyn":
+            case "Ilość drużyn":             
+                return validateNumber(inputValue, requirements.minNumber, requirements.maxNumber)
+            case "Bramki drużyny1":                
+                return validateNumber(inputValue, requirements.minNumber, requirements.maxNumber)
+            case "Bramki drużyny2":                
+                return validateNumber(inputValue, requirements.minNumber, requirements.maxNumber)
+            case "Kolejka":                
                 return validateNumber(inputValue, requirements.minNumber, requirements.maxNumber)
             default:
             break;

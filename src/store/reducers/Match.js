@@ -1,5 +1,6 @@
-import { GET_MATCHES, GET_MATCH_BY_ID, ADD_MATCH } from '../actionTypes.js';
+import { GET_MATCHES, GET_MATCH_BY_ID, ADD_MATCH, EDIT_MATCH, DELETE_MATCH } from '../actionTypes.js';
 import { updateObject } from '../utility/updateObject';
+import { editMatch } from '../actions/Match.js';
 
 const initialState = {
     matches: [],
@@ -11,7 +12,13 @@ const initialState = {
     getMatchStatus: null,
 
     addMatchErrors: [],
-    addMatchResult: null
+    addMatchResult: null,
+
+    editMatchErrors: [],
+    editMatchResult: null,
+
+    deleteMatchErrors: [],
+    deleteMatchResult: null
 }
 
 const Match = (state = initialState, action) => {
@@ -25,6 +32,12 @@ const Match = (state = initialState, action) => {
         case GET_MATCH_BY_ID:
             return updateObject(state, {getMatchErrors: action.getMatchErrors,
                 getMatchStatus: action.getMatchStatus, match: action.match});
+        case EDIT_MATCH: 
+            return updateObject(state, {editMatchErrors: action.editMatchErrors,
+                editMatchResult: action.editMatchResult});
+        case DELETE_MATCH:
+            return updateObject(state, {deleteMatchErrors: action.deleteMatchErrors,
+                deleteMatchResult: action.deleteMatchResult})
         default:
             break;
     }

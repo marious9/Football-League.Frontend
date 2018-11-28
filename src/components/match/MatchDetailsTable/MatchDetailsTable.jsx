@@ -44,7 +44,6 @@ const styles = theme => ({
 
 const MatchDetailsTable = props => {
     const { classes, game, round, location,pushIntoRoute, players } = props;
-    console.log(game)
     return (
         <div style={{marginTop: 50}}>
         <Paper className={classes.root}>            
@@ -77,7 +76,7 @@ const MatchDetailsTable = props => {
                     </TableBody>
                 </Table>
             </Paper>
-            <div style={{marginTop: 50}}>
+            <div style={{marginTop: 50, marginBottom: 50}}>
                 <Paper className={classes.left}>            
                     <Typography>
                         {game.host.name}

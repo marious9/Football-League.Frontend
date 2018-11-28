@@ -12,7 +12,6 @@ class AddLeagueModal extends React.PureComponent {
     render() {
     const { closeModal, openModal, addMatch, setFields, addMatchErrors, addMatchResult, leagueId } = this.props;
     const {formItems} = this.props;
-    console.log(this.props)
         return (
             <Modal open={openModal} onClose={() => closeModal()} center>
                 <Form 

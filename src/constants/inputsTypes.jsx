@@ -1,3 +1,10 @@
+export const editMatchTypes = [
+    {title: "Bramki drużyny1", type: "number", serverName: "HostScore"},
+    {title: "Bramki drużyny2", type: "number", serverName: "AwayScore"},
+    {title: "Kolejka", type: "number", serverName: "Round"},
+    {title: "Data spotkania", type: "date", serverName: "Date"}
+]
+
 export const addMatchTypes = [
     {title: "Drużyna1", type: "number", serverName: "HostId"},
     {title: "Drużyna2", type: "number", serverName: "AwayId"},
@@ -26,6 +33,13 @@ export const registerTypes = [
     {title: "Adres email", type: "email", holder: "wpisz swój adres email...", serverName: "Email"},
     {title: "Hasło", type: "password", holder: "wpisz swoje hasło...", serverName: "Password"}, 
     {title: "Powtórzone hasło", type: "password", holder: "wpisz swoje powtórzone hasło...", serverName: "Password"}
+];
+
+export const editMatchRequirements = [
+    {inputName: "Bramki drużyny1", nullable: false,  minNumber: 0, maxNumber: 50},
+    {inputName: "Bramki drużyny2", nullable: false,  minNumber: 0, maxNumber: 50},
+    {inputName: "Kolejka", nullable: false,  minNumber: 1, maxNumber: 63},
+    {inputName: "Data", nullable: false}
 ];
 
 export const addMatchRequirements = [
