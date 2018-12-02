@@ -8,14 +8,12 @@ import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
 import Typography from '@material-ui/core/Typography';
+import Grid from '@material-ui/core/Grid';
 
 const styles = theme => ({
   root: {
     top:120,
-    marginTop: theme.spacing.unit * 3,
-    overflowX: 'auto',
-    backgroundColor: '#E3F2FD',
-    width:400,
+    marginTop: theme.spacing.unit * 7,
     textAlign:'center'
   },
   left: {
@@ -31,6 +29,7 @@ const styles = theme => ({
   },
   boldCell: {
       fontWeight: 700,
+      fontSize: 32
   },
   overline: {
     textAlign: 'center',
@@ -46,39 +45,15 @@ const MatchDetailsTable = props => {
     const { classes, game, round, location,pushIntoRoute, players } = props;
     return (
         <div style={{marginTop: 50}}>
-        <Paper className={classes.root}>            
-            <Table className={classes.table}>
-                <TableBody>
-                        <TableRow>
-                            <TableCell className={classes.boldCell}>{game.host.name}</TableCell>
-                            <TableCell numeric className={classes.boldCell}>{game.away.name}</TableCell>
-                        </TableRow>
-                        <TableRow>
-                            <TableCell className={classes.boldCell}>{game.hostScore}</TableCell>
-                            <TableCell className={classes.boldCell} numeric>{game.awayScore}</TableCell>
-                        </TableRow>
-                        <TableRow>
-                            <TableCell></TableCell>
-                            <TableCell></TableCell>
-                        </TableRow>
-                        <TableRow >
-                            <TableCell>Data meczu:</TableCell>
-                            <TableCell numeric>{game.date.slice(0,10)}</TableCell>
-                        </TableRow>
-                        <TableRow>                            
-                        <TableCell>Godzina:</TableCell>
-                            <TableCell numeric>{game.date.slice(11,-3)}</TableCell>
-                        </TableRow>
-                        <TableRow>
-                            <TableCell>Rozgrywki:</TableCell>
-                            <TableCell numeric>{game.league.name}</TableCell>
-                        </TableRow>
-                    </TableBody>
-                </Table>
-            </Paper>
+            <Grid className={classes.root} >            
+                <div className={classes.boldCell}>{game.host.name} {game.hostScore} - {game.awayScore} {game.away.name}  </div>
+                <p>Data meczu: {game.date.slice(0,10)}</p>      
+                <p>Godzina: {game.date.slice(11,-7)}</p>                     
+                <p>Rozgrywki: {game.league.name}</p>                        
+            </Grid>
             <div style={{marginTop: 50, marginBottom: 50}}>
                 <Paper className={classes.left}>            
-                    <Typography>
+                    <Typography align="center">
                         {game.host.name}
                     </Typography>
                     <Table className="playersTable">
@@ -101,7 +76,7 @@ const MatchDetailsTable = props => {
                     </Table>
                 </Paper>
                 <Paper className={classes.right}>
-                    <Typography>
+                    <Typography align="center">
                         {game.away.name}
                     </Typography>
                     <Table className="playersTable">

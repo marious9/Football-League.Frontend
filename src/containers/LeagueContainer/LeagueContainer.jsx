@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import {getLeagueByIdActionCreator} from '../../store/actions/League';
 import Spinner from '../../components/UI/spinner/spinner';
 import CardButton from '../../components/UI/cardButton/CardButton';
-import AddButton from '../../components/UI/addButton/AddButton';
+import {Grid, Typography} from '@material-ui/core/'
 
 class LeagueContainer extends React.Component{
     state = {
@@ -35,20 +35,26 @@ class LeagueContainer extends React.Component{
     render(){
         const {league} = this.props;
         const {isLeagueLoading} = this.state;
-        
+        //style={{width:'100%', top:"100px", textAlign: 'center', margin: 0}}
         return(
-            <div>
+            <Grid 
+            container
+            direction="row"
+            justify="center"
+            alignItems="center"
+          >
                 {isLeagueLoading ? <Spinner /> :
-                    <div style={{width:'100%', top:"100px", textAlign: 'center', margin: 0}}>               
-                        <h1>{league.name}</h1>
-                        <CardButton secondCard name="Mecze" path={`${this.props.history.location.pathname}/match`} /> 
+                    <Grid style={{width:'100%', top:"100px", textAlign: 'center', margin: 0}}>               
+                        <Typography align="center" style={{fontSize:33, color:'#fff', marginBottom:20}}>{league.name}</Typography>
+                        <CardButton name="Mecze" path={`${this.props.history.location.pathname}/match`} /> 
                         <CardButton name="Statystyki" path="/main" />                        
-                        <CardButton name="Tabela" wide path={`${this.props.history.location.pathname}/table`} />                                                                  
-                    </div> 
+                        <CardButton name="Tabela" path={`${this.props.history.location.pathname}/table`} /> 
+                        <CardButton name="Drużyny" path={`${this.props.history.location.pathname}/teams`} />                                                             
+                    </Grid> 
 
                 }
                     
-            </div>
+            </Grid>
         );
     }
 }

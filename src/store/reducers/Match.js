@@ -1,6 +1,5 @@
 import { GET_MATCHES, GET_MATCH_BY_ID, ADD_MATCH, EDIT_MATCH, DELETE_MATCH } from '../actionTypes.js';
 import { updateObject } from '../utility/updateObject';
-import { editMatch } from '../actions/Match.js';
 
 const initialState = {
     matches: [],

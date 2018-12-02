@@ -27,7 +27,7 @@ const succParser = response => {
 
 const errorParser = error => {
     if(error === undefined){
-        throw ["Upsaa, coś poszło nie tak"];
+        throw ["Ups, coś poszło nie tak."];
     }
     const errors = handleErrors(error);
     if(error.response.status === 401){
@@ -55,5 +55,11 @@ export const Api = {
         addMatch: (addMatchModel, leagueId) => { return dataExtractor("post", "/match/" + leagueId, addMatchModel) },
         editMatch: (editMatchModel, matchId) => { return dataExtractor("put", "/match/" + matchId, editMatchModel) },
         deleteMatch: matchId => { return dataExtractor("delete", "/match/" + matchId) }
+    },
+    Team: {
+        getTeamById: teamId => { return dataExtractor("get", "/team/" + teamId) },
+        addTeam: (addTeamModel, leagueId) => { return dataExtractor("post", "/team/" + leagueId, addTeamModel) },
+        editTeam: (editTeamModel, teamId) => { return dataExtractor("put", "/team/" + teamId, editTeamModel) },
+        deleteTeam: teamId => { return dataExtractor("delete", "/team/" + teamId) }
     }
 };

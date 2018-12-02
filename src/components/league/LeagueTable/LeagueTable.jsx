@@ -17,7 +17,6 @@ const styles = theme => ({
     overflowX: 'auto'
   },
   table: {
-    height: 300,
     minWidth: 700,
     backgroundColor: "#E3F2FD"
   },
@@ -27,6 +26,10 @@ const styles = theme => ({
   overline: {
     textAlign: 'center',
     fontSize: 40
+  },
+  title: {
+    fontSize: 40,
+    color: '#fff'  
   }
 })
 
@@ -35,8 +38,7 @@ const LeagueTable = props => {
   return (      
     <div className={classes.root}>
         <div>
-            <Typography >
-                
+            <Typography align="center" className={classes.title}>                
                 {teams.length > 0 ? league.name :
                 <span style={{fontSize:30, paddingTop:50, color:"#fff"}}>{league.name} nie zawiera drużyn.</span>}
             </Typography>

@@ -13,3 +13,8 @@ export const EDIT_MATCH = "EDIT_MATCH";
 export const ADD_MATCH = "ADD_MATCH";
 export const GET_MATCH_BY_ID = "GET_MATCH_BY_ID";
 export const GET_MATCHES = "GET_MATCHES";
+
+export const ADD_TEAM = "ADD_TEAM";
+export const EDIT_TEAM = "EDIT_TEAM";
+export const DELETE_TEAM = "DELETE_TEAM";
+export const GET_TEAM_BY_ID = "GET_TEAM_BY_ID";

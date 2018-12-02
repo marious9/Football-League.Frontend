@@ -2,7 +2,6 @@ import React from 'react';
 import { connect } from 'react-redux';
 import {getMatchesActionCreator, addMatchActionCreator} from '../../store/actions/Match';
 import Spinner from '../../components/UI/spinner/spinner';
-import CardButton from '../../components/UI/cardButton/CardButton';
 import AddButton from '../../components/UI/addButton/AddButton';
 import AddMatchModal from '../../components/match/AddMatchModal/AddMatchModal';
 import MatchesTable from '../../components/match/MatchesTable/MatchesTable';
@@ -38,7 +37,6 @@ class MatchContainer extends React.Component{
 
     renderMatchesRound() {
         const {matches} = this.props;
-        const leagueId = this.props.match.params.id;
         const sortedMatches = matches.length > 0 ? matches.sort((match1, match2) => match2.round - match1.round): [];
         let matchesSortedByRound=[];
         if(sortedMatches.length > 0) {

@@ -9,25 +9,26 @@ const styles = theme => ({
         position:'relative',
     },
     card: {
-        width: 400,
+        width: 800,
         backgroundColor: "#FF0068",
         '&:hover': {
             backgroundColor: "#e0085f",
           },
-        height: 200,
-        textAlign: 'center',
+        height: 300,
+        //textAlign: 'center',
         display: 'inline-block', 
-        marginLeft: theme.spacing.unit
+        margin: theme.spacing.unit
     },
     secondCard: {
-        width: 400,
+        width: 350,
         backgroundColor: "#FF0068",
         '&:hover': {
             backgroundColor: "#e0085f",
           },
         height: 200,
         textAlign: 'center',
-        display: 'inline-block'
+        display: 'inline-block',
+        margin: theme.spacing.unit*2
     },
     wideCard: {
         width: 810,
@@ -50,7 +51,6 @@ const styles = theme => ({
         color: "#fff",
         fontSize: 40,
         position: "relative",
-        float: "left",
         top: "50%",
         left: "50%",
         transform: "translate(-50%, -50%)"
@@ -71,7 +71,7 @@ const CardButton = props => {
     return (        
         <Link to={path} className={classes.link}>
             <Card className={props.wide ?  classes.wideCard : props.secondCard ? classes.secondCard : classes.card}>
-                <Typography className={matchText ? classes.matchText : classes.title} color="textSecondary" gutterBottom>
+                <Typography align="center" className={matchText ? classes.matchText : classes.title} color="textSecondary" gutterBottom>
                     {name}
                 </Typography>
             </Card>

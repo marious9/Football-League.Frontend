@@ -8,7 +8,9 @@ import Modal from 'react-responsive-modal';
 import EditIcon from '@material-ui/icons/Edit';
 import Form from '../../../components/UI/form/form';
 import { formTitlesGenerator } from "../../../constants/formTitles";
-import {Button} from "@material-ui/core/"
+import {Button, Tooltip} from "@material-ui/core/";
+import DeleteIcon from '@material-ui/icons/Delete';
+import Grid from '@material-ui/core/Grid';
 
 class MatchContainerDetails extends React.Component{
     state = {
@@ -51,11 +53,20 @@ class MatchContainerDetails extends React.Component{
         const {isMatchLoading, openEditModal, formItems, openDeleteModal} = this.state;
         return(
             <div>
-                {isMatchLoading ? <Spinner /> :
-                    <div style={{width:'100%', top:"100px", textAlign: 'center', margin: 0, position:"relative"}}>
-                        <h2>{game && "Mecz: " + game.date}</h2>
-                        <AddButton left tooltip="Dodaj mecz" action={this.onOpenEditModal}/>
-                        <AddButton tooltip="Usuń mecz" action={this.onOpenDeleteModal}/>
+                {isMatchLoading ? <Spinner /> :                    
+                    <Grid container alignItems="center">
+                        <div style={{position:"absolute", top:'27%', left: '27%'}}>
+                            <Tooltip title="Edytuj mecz">
+                                <Button onClick={() => this.onOpenEditModal()}>                            
+                                    <EditIcon />
+                                </Button>
+                            </Tooltip>
+                            <Tooltip title="Usuń mecz">
+                                <Button onClick={() => this.onOpenDeleteModal()} variant="contained" color="secondary">
+                                    <DeleteIcon />
+                                </Button>
+                            </Tooltip>
+                        </div>
                         <Modal
                             open={openEditModal}
                             onClose={() => this.onCloseEditModal()} >
@@ -80,12 +91,13 @@ class MatchContainerDetails extends React.Component{
                             open={openDeleteModal}
                             onClose={() => this.onCloseDeleteModal()} >
                              <div style={{padding: 20}}>
-                                 <Button color="secondary" onClick={() => deleteMatch(match.params.matchId, history, `/main/league/${match.params.id}/match`)} >Usuń</Button>                                 
-                                 <Button onClick={() => this.onCloseDeleteModal()} >Anuluj</Button>
+                                <h3>Usuwanie meczu</h3>
+                                <Button color="secondary" onClick={() => deleteMatch(match.params.matchId, history, `/main/league/${match.params.id}/match`)} >Usuń</Button>                                 
+                                <Button onClick={() => this.onCloseDeleteModal()} >Anuluj</Button>
                              </div>
                          </Modal>
                         {Object.keys(game).length > 0 && <MatchDetailsTable game={game} />}
-                    </div>
+                    </Grid>
                 }
             </div>
         );

@@ -5,11 +5,12 @@ import Authenticate from './reducers/Authenticate';
 import Account from './reducers/Account';
 import League from './reducers/League';
 import Match from './reducers/Match';
+import Team from './reducers/Team';
 
 const storeCreator = () => {
     const history = createHistory();
 
-    const rootReducer = combineReducers({Authenticate, Account, League, Match});
+    const rootReducer = combineReducers({Authenticate, Account, League, Match, Team});
    
     const composeEnhancers =
       window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;

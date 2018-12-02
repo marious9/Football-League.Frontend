@@ -1,3 +1,7 @@
+export const addEditTeamTypes = [
+    {title: "Nazwa drużyny", holder: "Podaj nazwę drużyny..", type: "text", serverName: "Name"}
+]
+
 export const editMatchTypes = [
     {title: "Bramki drużyny1", type: "number", serverName: "HostScore"},
     {title: "Bramki drużyny2", type: "number", serverName: "AwayScore"},
@@ -20,7 +24,7 @@ export const addLeagueTypes = [
 ]
 
 export const loginTypes = [
-    {title: "Nazwa użytkownika", type: "text", holder: "wpisz swoją nazwę użytkownika...", serverName: "Username"}, 
+    {title: "Nazwa użytkownika", type: "text", holder: "Wpisz swoją nazwę użytkownika...", serverName: "Username"}, 
     {title: "Hasło", type: "password", holder: "wpisz swoje hasło...", serverName: "Password"}
 ];
 export const loginRequirements = [
@@ -34,6 +38,10 @@ export const registerTypes = [
     {title: "Hasło", type: "password", holder: "wpisz swoje hasło...", serverName: "Password"}, 
     {title: "Powtórzone hasło", type: "password", holder: "wpisz swoje powtórzone hasło...", serverName: "Password"}
 ];
+
+export const addEditTeamRequirements = [
+    {inputName: "Nazwa drużyny", nullable: false, minLength: 3, maxLength: 40}
+]
 
 export const editMatchRequirements = [
     {inputName: "Bramki drużyny1", nullable: false,  minNumber: 0, maxNumber: 50},

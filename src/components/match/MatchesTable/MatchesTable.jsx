@@ -46,7 +46,7 @@ const MatchesTable = props => {
         <Paper className={classes.root}>
             <div variant='overline' className={classes.overline}>
                 <Typography >
-                    Runda:{round}
+                    Runda:{round}   
                 </Typography>
             </div>
             <Table className={classes.table}>
