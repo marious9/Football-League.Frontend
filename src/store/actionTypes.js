@@ -7,6 +7,7 @@ export const ADD_LEAGUE = "ADD_LEAGUE";
 export const GET_LEAGUES = "GET_LEAGUES";
 export const GET_LEAGUE_BY_ID = "GET_LEAGUE_BY_ID";
 export const GET_LEAGUE_TABLE = "GET_LEAGUE_TABLE";
+export const GET_STATISTICS = "GET_STATISTICS";
 
 export const DELETE_MATCH = "DELETE_MATCH";
 export const EDIT_MATCH = "EDIT_MATCH";

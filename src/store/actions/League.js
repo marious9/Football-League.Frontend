@@ -1,5 +1,11 @@
-import { GET_LEAGUES, GET_LEAGUE_BY_ID, GET_LEAGUE_TABLE, ADD_LEAGUE } from '../actionTypes.js';
+import { GET_STATISTICS, GET_LEAGUES, GET_LEAGUE_BY_ID, GET_LEAGUE_TABLE, ADD_LEAGUE } from '../actionTypes.js';
 import { Api } from '../../api/index.js';
+
+export const getStatistics = (statistics, getStatisticsErrors, getStatisticsStatus) => {
+    return {
+        type: GET_STATISTICS, statistics, getStatisticsErrors, getStatisticsStatus
+    }
+}
 
 export const getLeagues = (leagues, getLeaguesErrors, getLeaguesStatus) => {
     return {
@@ -22,6 +28,18 @@ export const getLeagueTable = (leagueTable, getLeagueTableErrors, getLeagueTable
 export const addLeague = (addLeagueResult, addLeagueErrors) => {
     return {
         type: ADD_LEAGUE, addLeagueResult, addLeagueErrors
+    }
+}
+
+export const getStatisticsActionCreator = leagueId => {
+    return dispatch => {
+        Api.League.getStatistics(leagueId)
+            .then(response => {
+                dispatch(getStatistics(response.object.players, [], true))
+            })
+            .catch(error => {
+                dispatch(getStatistics([], error.errors, false))
+            });
     }
 }
 

@@ -15,6 +15,7 @@ import { MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles';
 import MatchContainer from '../MatchContainer/MatchContainer';
 import MatchDetailsContainer from '../MatchContainer/MatchDetailsContainer/MatchDetailsContainer';
 import TeamContainer from '../TeamContainer/TeamContainer';
+import LeagueStatisticsContainer from '../LeagueContainer/LeagueStatisticsContainer/LeagueStatisticsContainer';
 
 const theme = createMuiTheme({
     typography: {
@@ -56,6 +57,7 @@ class HomePage extends React.PureComponent {
                 <Route exact path="/main" component={Main} />
                 <Route exact path="/main/league/:id" component={LeagueContainer} />
                 <Route exact path="/main/league/:id/table" component={LeagueTableContainer} />
+                <Route exact path="/main/league/:id/statistics" component={LeagueStatisticsContainer} />                
                 <Route exact path="/main/league/:id/match" component={MatchContainer} />
                 <Route exact path="/main/league/:id/teams" component={TeamContainer} />
                 <Route exact path="/main/league/:id/match/:matchId" component={MatchDetailsContainer} />

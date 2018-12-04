@@ -35,7 +35,6 @@ class LeagueContainer extends React.Component{
     render(){
         const {league} = this.props;
         const {isLeagueLoading} = this.state;
-        //style={{width:'100%', top:"100px", textAlign: 'center', margin: 0}}
         return(
             <Grid 
             container
@@ -47,7 +46,7 @@ class LeagueContainer extends React.Component{
                     <Grid style={{width:'100%', top:"100px", textAlign: 'center', margin: 0}}>               
                         <Typography align="center" style={{fontSize:33, color:'#fff', marginBottom:20}}>{league.name}</Typography>
                         <CardButton name="Mecze" path={`${this.props.history.location.pathname}/match`} /> 
-                        <CardButton name="Statystyki" path="/main" />                        
+                        <CardButton name="Statystyki" path={`${this.props.history.location.pathname}/statistics`} />                        
                         <CardButton name="Tabela" path={`${this.props.history.location.pathname}/table`} /> 
                         <CardButton name="Drużyny" path={`${this.props.history.location.pathname}/teams`} />                                                             
                     </Grid> 
