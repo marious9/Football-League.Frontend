@@ -19,34 +19,19 @@ class LeagueStatisticsContainer extends React.Component{
         }, 2000)        
     }
 
-    sortBy(param) {
-        const {statistics} = this.props;
-        switch(param){
-            case "GOALS":
-                return statistics.sort((a,b) => b.goals-a.goals);
-            case "ASSISTS":
-                return statistics.sort((a,b) => b.assists-a.assists);
-            case "YELLOW_CARDS":
-                return statistics.sort((a,b) => b.yellowCards-a.yellowCards);
-            case "RED_CARDS":
-                return statistics.sort((a,b) => b.redCards-a.redCards);
-            default:
-                break;
-        }
-    }
+    
 
     render(){
         const {statistics} = this.props;
         const {isStatsLoading} = this.state;
-        statistics ? console.log(this.sortBy("ASSISTS")) : console.log("twoja stara");
         return(
             <Grid 
             container
             direction="row"
             justify="center"
           >
-            <div style={{width:'100%', top:"100px", textAlign: 'center', margin: 0, position:'absolute'}}>
-                <StatTab statistics={statistics} param="goals"/>
+            <div style={{top:"100px", textAlign: 'center', margin: 0, position:'absolute'}}>
+                {isStatsLoading ? <Spinner /> : <StatTab statistics={statistics ? statistics : [] }/>}
                     
             </div>
             </Grid>

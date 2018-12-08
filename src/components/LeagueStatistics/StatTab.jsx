@@ -9,7 +9,7 @@ import LeagueStatisticsTable from '../league/LeagueStatisticsTable/LeagueStatist
 
 const TabContainer = props => {
   return (
-    <Typography component="div" style={{ padding: 8 * 3 }}>
+    <Typography component="div">
       {props.children}
     </Typography>
   );
@@ -19,10 +19,18 @@ TabContainer.propTypes = {
   children: PropTypes.node.isRequired,
 };
 
+const tabsNames = {
+    GOALS: "Bramki",
+    ASSISTS: "Asysty",
+    YELLOW_CARDS: "Żółte kartki",
+    RED_CARDS: "Czerwone kartki"
+}
+
 const styles = theme => ({
   root: {
+    width:800,
     flexGrow: 1,
-    backgroundColor: theme.palette.background.paper,
+    backgroundColor: "#E3F2FD"
   },
 });
 
@@ -35,6 +43,22 @@ class StatTab extends React.Component {
     this.setState({ value });
   };
 
+  sortBy(param) {
+    const {statistics} = this.props;
+    switch(param){
+        case tabsNames.GOALS:
+            return statistics.sort((a,b) => b.goals-a.goals).slice(0,10);
+        case tabsNames.ASSISTS:
+            return statistics.sort((a,b) => b.assists-a.assists).slice(0,10);
+        case tabsNames.YELLOW_CARDS:
+            return statistics.sort((a,b) => b.yellowCards-a.yellowCards).slice(0,10);
+        case tabsNames.RED_CARDS:
+            return statistics.sort((a,b) => b.redCards-a.redCards).slice(0,10);
+        default:
+            break;
+    }
+}
+
   render() {
     const { classes } = this.props;
     const { value } = this.state;
@@ -43,16 +67,16 @@ class StatTab extends React.Component {
       <div className={classes.root}>
         <AppBar position="static">
           <Tabs centered value={value} onChange={this.handleChange}> 
-            <Tab label="Bramki" />
-            <Tab label="Asysty" />
-            <Tab label="Żółte kartki" />
-            <Tab label="Czerwone kartki" />
+            <Tab label={tabsNames.GOALS} />
+            <Tab label={tabsNames.ASSISTS} />
+            <Tab label={tabsNames.YELLOW_CARDS} />
+            <Tab label={tabsNames.RED_CARDS} />
           </Tabs>
         </AppBar>
-        {value === 0 && <TabContainer> <LeagueStatisticsTable statistics={this.props.statistics} param="Bramki"/> </TabContainer>}
-        {value === 1 && <TabContainer> <LeagueStatisticsTable statistics={this.props.statistics} param="Asysty"/>  </TabContainer>}
-        {value === 2 && <TabContainer> <LeagueStatisticsTable statistics={this.props.statistics} param="Żółte kartki"/> </TabContainer>}        
-        {value === 3 && <TabContainer> <LeagueStatisticsTable statistics={this.props.statistics} param="Czerwone kartki"/> </TabContainer>}
+        {value === 0 && <TabContainer> <LeagueStatisticsTable statistics={this.sortBy(tabsNames.GOALS)} param={tabsNames.GOALS}/> </TabContainer>}
+        {value === 1 && <TabContainer> <LeagueStatisticsTable statistics={this.sortBy(tabsNames.ASSISTS)} param={tabsNames.ASSISTS}/>  </TabContainer>}
+        {value === 2 && <TabContainer> <LeagueStatisticsTable statistics={this.sortBy(tabsNames.YELLOW_CARDS)} param={tabsNames.YELLOW_CARDS}/> </TabContainer>}        
+        {value === 3 && <TabContainer> <LeagueStatisticsTable statistics={this.sortBy(tabsNames.RED_CARDS)} param={tabsNames.RED_CARDS}/> </TabContainer>}
       </div>
     );
   }

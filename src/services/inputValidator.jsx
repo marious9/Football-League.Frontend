@@ -48,7 +48,7 @@ export const validateInput = (inputValue, requirements) => {
         }
     }
     
-    return ""
+    return "";
 }
 
 export const checkPasswordsAreTheSame = (password, repeatedPassword) => {

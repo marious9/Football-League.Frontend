@@ -1,6 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import {getMatchByIdActionCreator, editMatchActionCreator, deleteMatchActionCreator} from '../../../store/actions/Match';
+import { getMatchByIdActionCreator, editMatchActionCreator, deleteMatchActionCreator } from '../../../store/actions/Match';
+import { addStatisticActionCreator } from '../../../store/actions/Statistic';
 import Spinner from '../../../components/UI/spinner/spinner';
 import AddButton from '../../../components/UI/addButton/AddButton';
 import MatchDetailsTable from '../../../components/match/MatchDetailsTable/MatchDetailsTable';
@@ -10,19 +11,29 @@ import Form from '../../../components/UI/form/form';
 import { formTitlesGenerator } from "../../../constants/formTitles";
 import {Button, Tooltip} from "@material-ui/core/";
 import DeleteIcon from '@material-ui/icons/Delete';
+import AddIcon from '@material-ui/icons/AddCircle';
 import Grid from '@material-ui/core/Grid';
 
 class MatchContainerDetails extends React.Component{
     state = {
         isMatchLoading: true,
         openEditModal: false,
-        openDeleteModal:false,
+        openDeleteModal: false,
+        openAddStatisticModal: false,
         formItems: []
     }
 
     setFields = (name, formItems) => { 
         this.setState({[name]: formItems});
-      }
+    }
+
+    onOpenAddStatisticModal = () => {
+        this.setState({ openAddStatisticModal: true });
+    };
+
+    onCloseAddStatisticModal = () => {
+        this.setState({ openAddStatisticModal: false });
+    };
 
     onOpenEditModal = () => {
         this.setState({ openEditModal: true });
@@ -40,6 +51,16 @@ class MatchContainerDetails extends React.Component{
         this.setState({ openDeleteModal: false });
     };
 
+    addStatistic = (formItems) => {
+        const addStatisticIds = {
+            playerId: 6,
+            matchId: this.props.match.params.matchId
+        }
+        
+        this.props.addStatistic(formItems, addStatisticIds);
+
+    }
+
     componentDidMount(){
         const matchId = this.props.match.params.matchId;
         setTimeout( () => {
@@ -49,8 +70,8 @@ class MatchContainerDetails extends React.Component{
     }
 
     render(){
-        const {game, editMatchResult, editMatchErrors, editMatch, match, deleteMatch, history } = this.props;
-        const {isMatchLoading, openEditModal, formItems, openDeleteModal} = this.state;
+        const {game, editMatchResult, editMatchErrors, editMatch, match, deleteMatch, history, addStatisticResult, addStatisticErrors } = this.props;
+        const {isMatchLoading, openEditModal, formItems, openDeleteModal, openAddStatisticModal} = this.state;
         return(
             <div>
                 {isMatchLoading ? <Spinner /> :                    
@@ -62,11 +83,38 @@ class MatchContainerDetails extends React.Component{
                                 </Button>
                             </Tooltip>
                             <Tooltip title="Usuń mecz">
-                                <Button onClick={() => this.onOpenDeleteModal()} variant="contained" color="secondary">
+                                <Button onClick={() => this.onOpenDeleteModal()} color="secondary">
                                     <DeleteIcon />
                                 </Button>
                             </Tooltip>
+                            <Tooltip title="Dodaj statystykę">
+                                <Button onClick={() => this.onOpenAddStatisticModal()} >
+                                    <AddIcon style={{color: '#75e900'}} />
+                                </Button>
+                            </Tooltip>
                         </div>
+                        <Modal
+                            open={openAddStatisticModal}
+                            onClose={() => this.onCloseAddStatisticModal()} >
+                            <Form 
+                                submitResult={addStatisticResult}
+                                submitErrors={addStatisticErrors}
+                                onSubmit={() => this.addStatistic(formItems)}
+                                additionalClasses={"form-add-statistic-container"}
+                                setFields={this.setFields}
+                                arrayName="formItems"
+                                formItems={formItems}
+                                key={2}
+                                {...formTitlesGenerator(
+                                "addStatisticTypes",
+                                "addStatisticRequirements",
+                                "Dodawanie statystyki"
+                                )}
+                                btnTitle="Dodaj"
+                                />
+                         </Modal>
+
+
                         <Modal
                             open={openEditModal}
                             onClose={() => this.onCloseEditModal()} >
@@ -106,10 +154,15 @@ class MatchContainerDetails extends React.Component{
 
 const mapStateToProps = state => {
     return {
+        addStatisticErrors: state.Statistic.addStatisticErrors,
+        addStatisticResult: state.Statistic.addStatisticResult,
+
         editMatchResult: state.Match.editMatchResult,
         editMatchErrors: state.Match.editMatchErrors,
+
         deleteMatchResult: state.Match.deleteMatchResult,
         deleteMatchErrors: state.Match.deleteMatchErrors,
+
         game: state.Match.match,
         league: state.League.league    
     };
@@ -119,7 +172,8 @@ const mapDispatchToProps = dispatch => {
     return {
         getMatch: matchId => dispatch(getMatchByIdActionCreator(matchId)),
         editMatch: (formItems,matchId) => dispatch(editMatchActionCreator(formItems, matchId)),
-        deleteMatch: (matchId, history, path) => dispatch(deleteMatchActionCreator(matchId, history, path))
+        deleteMatch: (matchId, history, path) => dispatch(deleteMatchActionCreator(matchId, history, path)),
+        addStatistic: (formItems, statIds) => dispatch(addStatisticActionCreator(formItems, statIds))
     };
 }
 export default connect(mapStateToProps, mapDispatchToProps)(MatchContainerDetails);

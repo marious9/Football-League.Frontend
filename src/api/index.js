@@ -62,5 +62,11 @@ export const Api = {
         addTeam: (addTeamModel, leagueId) => { return dataExtractor("post", "/team/" + leagueId, addTeamModel) },
         editTeam: (editTeamModel, teamId) => { return dataExtractor("put", "/team/" + teamId, editTeamModel) },
         deleteTeam: teamId => { return dataExtractor("delete", "/team/" + teamId) }
+    },
+    Statistic: {
+        getStatisticById: statisticId => { return dataExtractor("get", "/statistic/" + statisticId) },
+        getMatchStatistics: matchId => { return dataExtractor("get", "/statistic/match", + matchId) },
+        addStatistic: addStatisticModel => { return dataExtractor("post", "/statistic", addStatisticModel) },
     }
+
 };

@@ -1,3 +1,14 @@
+export const addStatisticTypes = [
+    {title: "Minuta meczu", type: "number", serverName: "Minute"},
+    {title: "Akcja", type: "number", serverName: "Action"}
+]
+
+
+export const addStatisticRequirements = [
+    {inputName: "Minuta meczu", nullable: false, minNumber: 0, maxNumber: 90},
+    {inputName: "Akcja", nullable: true , minNumber: 0, maxNumber: 3}
+];
+
 export const addEditTeamTypes = [
     {title: "Nazwa drużyny", holder: "Podaj nazwę drużyny..", type: "text", serverName: "Name"}
 ]
@@ -27,6 +38,7 @@ export const loginTypes = [
     {title: "Nazwa użytkownika", type: "text", holder: "Wpisz swoją nazwę użytkownika...", serverName: "Username"}, 
     {title: "Hasło", type: "password", holder: "wpisz swoje hasło...", serverName: "Password"}
 ];
+
 export const loginRequirements = [
     {inputName: "Login", nullable: false, minLength: 5, maxLength: 30},
     {inputName: "Hasło", nullable: false, minLength: 5, maxLength: 20}

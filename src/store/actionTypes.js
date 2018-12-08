@@ -19,3 +19,9 @@ export const ADD_TEAM = "ADD_TEAM";
 export const EDIT_TEAM = "EDIT_TEAM";
 export const DELETE_TEAM = "DELETE_TEAM";
 export const GET_TEAM_BY_ID = "GET_TEAM_BY_ID";
+
+export const ADD_STATISTIC = "ADD_STATISTIC";
+export const EDIT_STATISTIC = "EDIT_STATISTIC";
+export const DELETE_STATISTIC = "DELETE_STATISTIC";
+export const GET_STATISTIC_BY_ID = "GET_STATISTIC_ID"; 
+export const GET_MATCH_STATISTICS = "GET_MATCH_STATISTICS";

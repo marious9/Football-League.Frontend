@@ -17,7 +17,6 @@ const styles = theme => ({
     overflowX: 'auto'
   },
   table: {
-    minWidth: 700,
     backgroundColor: "#E3F2FD"
   },
   boldCell: {
@@ -66,8 +65,7 @@ const LeagueStatisticsTable = props => {
 }
 
 LeagueStatisticsTable.propTypes = {
-  classes: PropTypes.object.isRequired,
-  teams: PropTypes.array.isRequired
+  classes: PropTypes.object.isRequired
 };
 
 export default withStyles(styles)(LeagueStatisticsTable);
