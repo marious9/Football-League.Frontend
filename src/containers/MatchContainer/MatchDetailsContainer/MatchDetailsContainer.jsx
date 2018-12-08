@@ -13,6 +13,7 @@ import {Button, Tooltip} from "@material-ui/core/";
 import DeleteIcon from '@material-ui/icons/Delete';
 import AddIcon from '@material-ui/icons/AddCircle';
 import Grid from '@material-ui/core/Grid';
+import FormInput from '../../../components/UI/form/formInput/formInput'
 
 class MatchContainerDetails extends React.Component{
     state = {
@@ -20,15 +21,21 @@ class MatchContainerDetails extends React.Component{
         openEditModal: false,
         openDeleteModal: false,
         openAddStatisticModal: false,
-        formItems: []
+        formItems: [],
+        players:[],
+        currentPlayerId: 0
     }
 
     setFields = (name, formItems) => { 
         this.setState({[name]: formItems});
     }
 
+    setPlayerId = (name) => {
+        this.setState({currentPlayerId: name});
+    }
+
     onOpenAddStatisticModal = () => {
-        this.setState({ openAddStatisticModal: true });
+        this.setState({players: this.getMatchPlayers(), openAddStatisticModal: true });
     };
 
     onCloseAddStatisticModal = () => {
@@ -53,12 +60,21 @@ class MatchContainerDetails extends React.Component{
 
     addStatistic = (formItems) => {
         const addStatisticIds = {
-            playerId: 6,
+            playerId: this.state.currentPlayerId,
             matchId: this.props.match.params.matchId
         }
         
         this.props.addStatistic(formItems, addStatisticIds);
+    }
 
+    getMatchPlayers() {
+        const {game} = this.props;
+        if(Object.keys(game).length === 0 ) return [];
+        let players = [];
+        game.host && game.host.players.map(p => players.push({label: p.firstname + " " + p.lastname, value: p.id})) 
+        game.away && game.away.players.map(p => players.push({label: p.firstname + " " + p.lastname, value: p.id}))
+
+        return players;
     }
 
     componentDidMount(){
@@ -66,7 +82,8 @@ class MatchContainerDetails extends React.Component{
         setTimeout( () => {
             this.props.getMatch(matchId);            
             this.setState({isMatchLoading: false});
-        }, 2000)        
+        }, 2000)
+        
     }
 
     render(){
@@ -97,6 +114,7 @@ class MatchContainerDetails extends React.Component{
                             open={openAddStatisticModal}
                             onClose={() => this.onCloseAddStatisticModal()} >
                             <Form 
+                                marginTop
                                 submitResult={addStatisticResult}
                                 submitErrors={addStatisticErrors}
                                 onSubmit={() => this.addStatistic(formItems)}
@@ -112,6 +130,17 @@ class MatchContainerDetails extends React.Component{
                                 )}
                                 btnTitle="Dodaj"
                                 />
+                                <FormInput
+                                    irregularClass
+                                    nullable 
+                                    selectItems={this.state.players}
+                                    onChange={e => this.setPlayerId(e.target.value)}
+                                    value={this.state.players.value}
+                                    error={this.state.players.error}
+                                    key={10} 
+                                    type={"select"}
+                                    placeholder={"Wybierz zawodnika"}
+                                    title={"Zawodnik"} />
                          </Modal>
 
 

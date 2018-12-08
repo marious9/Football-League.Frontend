@@ -75,9 +75,9 @@ export const editMatchActionCreator = (editMatchArray, matchId) => {
     const editMatchModel = {
         "hostScore": editMatchArray[0].value,
         "awayScore": editMatchArray[1].value,
-        "round": editMatchArray[2].value,
-        "date": editMatchArray[3].value,
+        "date": editMatchArray[2].value + 'T20:00:00.000',
     }
+    console.log(editMatchModel)
     return dispatch => {
         console.log(editMatchModel, matchId);
         Api.Match.editMatch(editMatchModel, matchId)

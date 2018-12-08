@@ -62,9 +62,10 @@ export const addStatisticActionCreator = (addStatisticArray, addStatisticIds) =>
         "playerId": addStatisticIds.playerId,
         "matchId": addStatisticIds.matchId,
     }
+    console.log(addStatisticModel)
     return dispatch => {
         Api.Statistic.addStatistic(addStatisticModel)
             .then(() => dispatch(addStatistic([], true)))
-            .catch(errors => dispatch(addStatistic(errors,false)));
+            .catch(error => dispatch(addStatistic(error[0],false)));
     }
 }

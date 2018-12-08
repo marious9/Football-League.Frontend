@@ -21,7 +21,7 @@ class Form extends React.PureComponent{
         if(this.props.formItems.length === 0){
             const items = [];
             for(let i = 0; i < Types[this.props.type].length; i++){
-                items.push({value: Types[this.props.type][i].type === "select" ? "wybierz pole" : "", error: ""});
+                items.push({value: Types[this.props.type][i].type === "select" ? "0" : "", error: ""});
             }
             this.props.setFields(this.props.arrayName, items);
         }
@@ -103,7 +103,8 @@ class Form extends React.PureComponent{
                         );
                     })
                 }
-                <SpinnerButton 
+                <SpinnerButton
+                marginTop={this.props.marginTop}
                 startClass="reg-btn"
                 isLoading={this.state.isSubmiting}
                 btnType="submit"

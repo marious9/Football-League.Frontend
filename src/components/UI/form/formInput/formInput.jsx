@@ -1,7 +1,7 @@
 import React from "react";
 import "./formInput.css";
 
-const formInput = ({ type, error, title, selectItems, nullable, ...props }) => {
+const formInput = ({ type, error, title, selectItems, nullable, irregularClass, ...props }) => {
 
   const inputClass = error ? "invalid-input" : "valid-input";
   let input = null;
@@ -23,7 +23,13 @@ const formInput = ({ type, error, title, selectItems, nullable, ...props }) => {
       break;
   }
   return (
-    <section className="input-container">
+    <section className="input-container" style={irregularClass? 
+        {position: 'absolute',        
+        padding: '10px',
+        top: '350px',
+        width: '500px',
+        boxSizing: 'border-box'
+    }: {}}>
       <label htmlFor={title}>{title}{nullable || "*"}</label>
       {input}
       <p className="u-form-validation">{error && <span>{error}</span>}</p>

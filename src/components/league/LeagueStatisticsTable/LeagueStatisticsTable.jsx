@@ -40,8 +40,8 @@ const LeagueStatisticsTable = props => {
         <Table className={classes.table}>
             <TableHead>
             <TableRow>                
-                <TableCell numeric>Zawodnik</TableCell>
-                <TableCell numeric>Nazwa drużyny</TableCell>
+                <TableCell >Zawodnik</TableCell>
+                <TableCell >Nazwa drużyny</TableCell>
                 <TableCell numeric className={classes.boldCell}>{props.param}</TableCell>
             </TableRow>
             </TableHead>
@@ -49,8 +49,8 @@ const LeagueStatisticsTable = props => {
             {statistics.length && statistics.map((stat,i) => {
                 return (
                 <TableRow key={i}>
-                    <TableCell numeric>{stat.player.firstname + " " + stat.player.lastname }</TableCell>
-                    <TableCell numeric>Dodać na backendzie drużynę</TableCell>
+                    <TableCell >{stat.player.firstname + " " + stat.player.lastname }</TableCell>
+                    <TableCell >{stat.player.teamName}</TableCell>
                     { param === "Bramki" && <TableCell numeric>{stat.goals}</TableCell> }
                     { param === "Asysty" && <TableCell numeric>{stat.assists}</TableCell> } 
                     { param === "Żółte kartki" && <TableCell numeric>{stat.yellowCards}</TableCell> } 

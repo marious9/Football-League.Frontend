@@ -1,12 +1,29 @@
 export const addStatisticTypes = [
     {title: "Minuta meczu", type: "number", serverName: "Minute"},
-    {title: "Akcja", type: "number", serverName: "Action"}
+    {title: "Akcja", type: "select", serverName: "Action", selectItems: [
+        {
+            value: 0,
+            label: "Bramka"
+        },
+        {
+            value: 1,
+            label:"Asysta"
+        },
+        {
+            value: 2,
+            label:"Żółta kartka"
+        },
+        {
+            value: 3,
+            label: "Czerwona kartka"
+        }
+    ]}
 ]
 
 
 export const addStatisticRequirements = [
     {inputName: "Minuta meczu", nullable: false, minNumber: 0, maxNumber: 90},
-    {inputName: "Akcja", nullable: true , minNumber: 0, maxNumber: 3}
+    {inputName: "Akcja", nullable: true }
 ];
 
 export const addEditTeamTypes = [
@@ -16,7 +33,6 @@ export const addEditTeamTypes = [
 export const editMatchTypes = [
     {title: "Bramki drużyny1", type: "number", serverName: "HostScore"},
     {title: "Bramki drużyny2", type: "number", serverName: "AwayScore"},
-    {title: "Kolejka", type: "number", serverName: "Round"},
     {title: "Data spotkania", type: "date", serverName: "Date"}
 ]
 
@@ -58,7 +74,6 @@ export const addEditTeamRequirements = [
 export const editMatchRequirements = [
     {inputName: "Bramki drużyny1", nullable: false,  minNumber: 0, maxNumber: 50},
     {inputName: "Bramki drużyny2", nullable: false,  minNumber: 0, maxNumber: 50},
-    {inputName: "Kolejka", nullable: false,  minNumber: 1, maxNumber: 63},
     {inputName: "Data", nullable: false}
 ];
 

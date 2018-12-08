@@ -43,6 +43,8 @@ export const validateInput = (inputValue, requirements) => {
                 return validateNumber(inputValue, requirements.minNumber, requirements.maxNumber)
             case "Kolejka":                
                 return validateNumber(inputValue, requirements.minNumber, requirements.maxNumber)
+            case "Minuta meczu":
+                return validateNumber(inputValue, requirements.minNumber, requirements.maxNumber)
             default:
             break;
         }
