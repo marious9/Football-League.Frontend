@@ -86,6 +86,7 @@ class Form extends React.PureComponent{
                 <header>
                     <h1>{this.props.formTitle}</h1>
                 </header>
+                {additionalClasses==='form-add-match-container' && <div style={{marginTop:282}}></div>}
                 {formItems.length > 0 && 
                     Types[this.props.type].map((i, index) => {
                     return (
@@ -108,7 +109,7 @@ class Form extends React.PureComponent{
                 startClass="reg-btn"
                 isLoading={this.state.isSubmiting}
                 btnType="submit"
-                validation={this.state.ableToSubmit}
+                validation={this.props.canSubmit !==undefined ? this.props.canSubmit && this.state.ableToSubmit : this.state.ableToSubmit}
                 btnName={this.props.btnTitle}
                 disClass="reg-btn-dis"
                 corClass="reg-btn-cor"

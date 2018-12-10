@@ -1,7 +1,23 @@
 import React from "react";
 import "./formInput.css";
 
-const formInput = ({ type, error, title, selectItems, nullable, irregularClass, ...props }) => {
+const homeTeamSelectStyle = {
+  position: 'absolute',        
+  padding: '10px',
+  top: '100px',
+  width: '500px',
+  boxSizing: 'border-box'
+}
+
+const awayTeamSelectStyle = {
+  position: 'absolute',        
+  padding: '10px',
+  top: '241px',
+  width: '500px',
+  boxSizing: 'border-box'
+}
+
+const formInput = ({ type, error, title, selectItems, nullable, irregularClass, addMatchClassHomeTeamSelect, addMatchClassAwayTeamSelect, ...props }) => {
 
   const inputClass = error ? "invalid-input" : "valid-input";
   let input = null;
@@ -29,7 +45,7 @@ const formInput = ({ type, error, title, selectItems, nullable, irregularClass, 
         top: '350px',
         width: '500px',
         boxSizing: 'border-box'
-    }: {}}>
+    }: addMatchClassHomeTeamSelect ? homeTeamSelectStyle : addMatchClassAwayTeamSelect ? awayTeamSelectStyle : {}}>
       <label htmlFor={title}>{title}{nullable || "*"}</label>
       {input}
       <p className="u-form-validation">{error && <span>{error}</span>}</p>

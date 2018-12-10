@@ -1,4 +1,5 @@
 import React from 'react';
+import * as moment from 'moment';
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 import Table from '@material-ui/core/Table';
@@ -65,7 +66,7 @@ const MatchesTable = props => {
                             <TableCell>{match.host.name}</TableCell>
                             <TableCell>{match.hostScore === -1 ? '-' : match.hostScore}:{match.awayScore === -1 ? '-' : match.awayScore}</TableCell>
                             <TableCell>{match.away.name}</TableCell>
-                            <TableCell>{match.date.slice(0,10)}</TableCell>
+                            <TableCell>{moment(match.date).format('DD-MM-YYYY')}</TableCell>
                         </TableRow>
                     );
                 })}

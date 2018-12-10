@@ -1,4 +1,5 @@
 import React from 'react';
+import * as moment from 'moment';
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 import Table from '@material-ui/core/Table';
@@ -46,9 +47,11 @@ const MatchDetailsTable = props => {
     return (
         <div style={{marginTop: 50}}>
             <Grid className={classes.root} >            
-                <div className={classes.boldCell}>{game.host.name} {game.hostScore} - {game.awayScore} {game.away.name}  </div>
-                <p>Data meczu: {game.date.slice(0,10)}</p>      
-                <p>Godzina: {game.date.slice(11,-7)}</p>                     
+                <div className={classes.boldCell}>
+                    {game.host.name} {game.hostScore !== -1 ? game.hostScore : ' - '}{' : '}
+                     {game.awayScore !== -1 ? game.awayScore : ' - '} {game.away.name}  </div>
+                <p>Data meczu: {moment(game.date).format('DD-MM-YYYY')}</p>      
+                <p>Godzina: {moment(game.date).format('hh:mm')}</p>                   
                 <p>Rozgrywki: {game.league.name}</p>                        
             </Grid>
             <div style={{marginTop: 50, marginBottom: 50}}>
@@ -69,7 +72,7 @@ const MatchDetailsTable = props => {
                             <TableRow key={player.id}>
                                 <TableCell numeric>{player.firstname}</TableCell>
                                 <TableCell numeric>{player.lastname}</TableCell>
-                                <TableCell numeric>{player.birthDate.slice(0,10)}</TableCell>
+                                <TableCell numeric>{moment(player.birthDate).format('DD-MM-YYYY')}</TableCell>
                             </TableRow>
                         )}
                         </TableBody>
@@ -88,11 +91,11 @@ const MatchDetailsTable = props => {
                             </TableRow>
                         </TableHead>
                         <TableBody>
-                        {game.host.players.length > 0 && game.host.players.map(player => 
+                        {game.away.players.length > 0 && game.away.players.map(player => 
                             <TableRow key={player.id}>
                                 <TableCell numeric>{player.firstname}</TableCell>
                                 <TableCell numeric>{player.lastname}</TableCell>
-                                <TableCell numeric>{player.birthDate.slice(0,10)}</TableCell>
+                                <TableCell numeric>{moment(player.birthDate).format('DD-MM-YYYY')}</TableCell>
                             </TableRow>
                         )}
                         </TableBody>

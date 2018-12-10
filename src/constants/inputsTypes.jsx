@@ -37,8 +37,8 @@ export const editMatchTypes = [
 ]
 
 export const addMatchTypes = [
-    {title: "Drużyna1", type: "number", serverName: "HostId"},
-    {title: "Drużyna2", type: "number", serverName: "AwayId"},
+    //{title: "Drużyna1", type: "number", serverName: "HostId"},
+    //{title: "Drużyna2", type: "number", serverName: "AwayId"},
     {title: "Bramki drużyny1", type: "number", serverName: "HostScore"},
     {title: "Bramki drużyny2", type: "number", serverName: "AwayScore"},
     {title: "Kolejka", type: "number", serverName: "Round"},
@@ -78,8 +78,8 @@ export const editMatchRequirements = [
 ];
 
 export const addMatchRequirements = [
-    {inputName: "Drużyna1", nullable: false},
-    {inputName: "Drużyna2", nullable: false},
+    //{inputName: "Drużyna1", nullable: false},
+    //{inputName: "Drużyna2", nullable: false},
     {inputName: "Bramki drużyny1", nullable: false,  minNumber: 0, maxNumber: 50},
     {inputName: "Bramki drużyny2", nullable: false,  minNumber: 0, maxNumber: 50},
     {inputName: "Kolejka", nullable: false,  minNumber: 1, maxNumber: 63},

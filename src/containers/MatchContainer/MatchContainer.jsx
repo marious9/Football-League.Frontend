@@ -1,6 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import {getMatchesActionCreator, addMatchActionCreator} from '../../store/actions/Match';
+import { getMatchesActionCreator, addMatchActionCreator } from '../../store/actions/Match';
+import { getLeagueByIdActionCreator } from '../../store/actions/League';
 import Spinner from '../../components/UI/spinner/spinner';
 import AddButton from '../../components/UI/addButton/AddButton';
 import AddMatchModal from '../../components/match/AddMatchModal/AddMatchModal';
@@ -11,7 +12,21 @@ class MatchContainer extends React.Component{
         isMatchLoading: true,
         openModal: false,
         formItems: [],
-        matches: []
+        matches: [],
+        selectTeams: [],
+        currentHostId: null,
+        currentAwayId: null,
+        currentHostError: '',
+        currentAwayError: '',
+        canSubmit:false
+    }
+
+    setHostId = (id) => {
+        this.setState({currentHostId: id});
+    }
+
+    setAwayId = (id) => {
+        this.setState({currentAwayId: id});
     }
 
     setFields = (name, formItems) => { 
@@ -19,7 +34,7 @@ class MatchContainer extends React.Component{
       }
 
     onOpenModal = () => {
-        this.setState({ openModal: true });
+        this.setState({ openModal: true, selectTeams: this.getLeagueTeamsToSelect()});
     };
      
     onCloseModal = () => {
@@ -30,9 +45,20 @@ class MatchContainer extends React.Component{
     componentDidMount(){
         const leagueId = this.props.match.params.id;
         setTimeout( () => {
-            this.props.getMatches(leagueId);            
+            this.props.getMatches(leagueId);    
+            this.props.getLeague(leagueId)
             this.setState({isMatchLoading: false, matches: this.props.matches});
         }, 2000)        
+    }
+
+    getLeagueTeamsToSelect() {
+        const {league} = this.props;
+        if(Object.keys(league).length === 0 ) return [];
+        let teams = [];
+        league.teams && league.teams.map(team => teams.push({label: team.name, value: team.id}))
+        this.setState({currentHostId: teams[0].value, currentAwayId: teams[0].value})
+
+        return teams;
     }
 
     renderMatchesRound() {
@@ -54,14 +80,34 @@ class MatchContainer extends React.Component{
         this.props.history.push(path);
     }
 
+    validateSelectTeams() {
+        const {currentHostId, currentAwayId, currentHostError, currentAwayError} = this.state;
+        if(currentHostId === currentAwayId) {
+            const errMsg = "Wybrane drużyny są takie same";
+            this.setState({currentHostError: errMsg, currentAwayError: errMsg, canSubmit:false})
+        }
+        if(currentHostError.length > 0  || currentAwayError.length > 0) {
+            return false
+        }
+        return true;
+    }
+
+    addMatch = () => {
+        const {currentHostId, currentAwayId, currentHostError, currentAwayError, canSubmit} = this.state;
+        this.validateSelectTeams();
+        if ((currentHostError  || currentAwayError) && !canSubmit ) {
+            this.props.addMatch(this.state.formItems, this.props.match.params.id, {hostId: currentHostId, awayId: currentAwayId})
+        }
+    }
+
     render(){
-        const {addMatchResult, addMatchErrors, addMatch } = this.props;
-        const {isMatchLoading, openModal, formItems} = this.state;
+        const {addMatchResult, addMatchErrors } = this.props;
+        const {isMatchLoading, openModal, formItems, canSubmit} = this.state;
         const sortedMatches = this.renderMatchesRound();
         const league = sortedMatches.length > 0 ? sortedMatches[0].league : null;
         const id = this.props.match.params.id;
         let rounds = sortedMatches.length;
-        
+        console.log(this.state)
         return(
             <div>
                 {isMatchLoading ? <Spinner /> :
@@ -69,12 +115,20 @@ class MatchContainer extends React.Component{
                     <h2>{league && "Mecze ligii: " + league.name}</h2>
                     <AddButton left tooltip="Dodaj mecz" action={this.onOpenModal}/>  
                     <AddMatchModal
+                        canSubmit={canSubmit}
+                        currentHostError={this.state.currentHostError}
+                        currentAwayError={this.state.currentAwayError}                        
+                        setHostId={this.setHostId}
+                        setAwayId={this.setAwayId}
+                        currentHostId={this.state.currentHostId}
+                        currentAwayId={this.state.currentAwayId}
+                        selectTeams={this.state.selectTeams}
                         leagueId={id}
                         addMatchResult={addMatchResult}
                         addMatchErrors={addMatchErrors} 
                         openModal={openModal} 
                         closeModal={this.onCloseModal} 
-                        addMatch={addMatch} 
+                        addMatch={this.addMatch} 
                         setFields={this.setFields} 
                         formItems={formItems} />
                         {sortedMatches.length > 0 ? sortedMatches.map((queue,i)=>
@@ -106,8 +160,9 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
     return {
+        getLeague: leagueId => dispatch(getLeagueByIdActionCreator(leagueId)),
         getMatches: leagueId => dispatch(getMatchesActionCreator(leagueId)),
-        addMatch: (formItems,matchId) => dispatch(addMatchActionCreator(formItems, matchId))
+        addMatch: (formItems, leagueId, matchTeams) => dispatch(addMatchActionCreator(formItems, leagueId, matchTeams))
     };
 }
 export default connect(mapStateToProps, mapDispatchToProps)(MatchContainer);

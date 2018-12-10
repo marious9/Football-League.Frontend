@@ -73,6 +73,7 @@ class MatchContainerDetails extends React.Component{
         let players = [];
         game.host && game.host.players.map(p => players.push({label: p.firstname + " " + p.lastname, value: p.id})) 
         game.away && game.away.players.map(p => players.push({label: p.firstname + " " + p.lastname, value: p.id}))
+        this.setState({currentPlayerId: players[0].value})
 
         return players;
     }
@@ -94,19 +95,19 @@ class MatchContainerDetails extends React.Component{
                 {isMatchLoading ? <Spinner /> :                    
                     <Grid container alignItems="center">
                         <div style={{position:"absolute", top:'27%', left: '27%'}}>
-                            <Tooltip title="Edytuj mecz">
+                            <Tooltip title="Edytuj mecz" color="primary" variant="contained">
                                 <Button onClick={() => this.onOpenEditModal()}>                            
                                     <EditIcon />
                                 </Button>
                             </Tooltip>
                             <Tooltip title="Usuń mecz">
-                                <Button onClick={() => this.onOpenDeleteModal()} color="secondary">
+                                <Button onClick={() => this.onOpenDeleteModal()} color="secondary" variant="contained">
                                     <DeleteIcon />
                                 </Button>
                             </Tooltip>
                             <Tooltip title="Dodaj statystykę">
-                                <Button onClick={() => this.onOpenAddStatisticModal()} >
-                                    <AddIcon style={{color: '#75e900'}} />
+                                <Button onClick={() => this.onOpenAddStatisticModal()} variant="contained" style={{backgroundColor: '#388e3c'}} >
+                                    <AddIcon />
                                 </Button>
                             </Tooltip>
                         </div>

@@ -1,3 +1,4 @@
+import * as moment from 'moment';
 import { GET_MATCHES, GET_MATCH_BY_ID, ADD_MATCH, EDIT_MATCH, DELETE_MATCH } from '../actionTypes.js';
 import { Api } from '../../api/index.js';
 
@@ -55,14 +56,14 @@ export const getMatchByIdActionCreator = matchId => {
     }
 }
 
-export const addMatchActionCreator = (addMatchArray, leagueId) => {
+export const addMatchActionCreator = (addMatchArray, leagueId, matchTeams) => {
     const addMatchModel = {
-        "HostId": addMatchArray[0].value,
-        "AwayId": addMatchArray[1].value,
-        "HostScore": addMatchArray[2].value,
-        "AwayScore": addMatchArray[3].value,
-        "Round": addMatchArray[4].value,
-        "Date": addMatchArray[5].value
+        "HostId": matchTeams.hostId,
+        "AwayId": matchTeams.awayId,
+        "HostScore": addMatchArray[0].value,
+        "AwayScore": addMatchArray[1].value,
+        "Round": addMatchArray[2].value,
+        "Date": moment(addMatchArray[3].value).format('YYYY-MM-DD hh:mm')
     }
     return dispatch => {
         Api.Match.addMatch(addMatchModel, leagueId)
@@ -75,9 +76,8 @@ export const editMatchActionCreator = (editMatchArray, matchId) => {
     const editMatchModel = {
         "hostScore": editMatchArray[0].value,
         "awayScore": editMatchArray[1].value,
-        "date": editMatchArray[2].value + 'T20:00:00.000',
+        "date": moment(editMatchArray[2].value).format('YYYY-MM-DD hh:mm')
     }
-    console.log(editMatchModel)
     return dispatch => {
         console.log(editMatchModel, matchId);
         Api.Match.editMatch(editMatchModel, matchId)

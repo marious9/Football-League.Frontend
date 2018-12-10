@@ -9,21 +9,21 @@ const styles = theme => ({
         position:'relative',
     },
     card: {
-        width: 800,
-        backgroundColor: "#FF0068",
+        width: 650,
+        backgroundColor: "#757de8",
         '&:hover': {
-            backgroundColor: "#e0085f",
+            backgroundColor: "#002984",
           },
-        height: 300,
+        height: 270,
         //textAlign: 'center',
         display: 'inline-block', 
         margin: theme.spacing.unit
     },
     secondCard: {
         width: 350,
-        backgroundColor: "#FF0068",
+        backgroundColor: "#757de8",
         '&:hover': {
-            backgroundColor: "#e0085f",
+            backgroundColor: "#002984",
           },
         height: 200,
         textAlign: 'center',

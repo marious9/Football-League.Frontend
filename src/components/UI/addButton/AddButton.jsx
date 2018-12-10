@@ -7,7 +7,7 @@ import AddIcon from '@material-ui/icons/Add';
 const styles = theme => ({
   button: {
     margin: theme.spacing.unit,
-    backgroundColor:"#36FFD9",
+    backgroundColor:"#757de8",
     '&:hover': {
         backgroundColor: "#3feac8",
       },
@@ -15,7 +15,7 @@ const styles = theme => ({
   buttonLeft: {
     right:380,
     margin: theme.spacing.unit,
-    backgroundColor:"#0c48c9",
+    backgroundColor:"#757de8",
     '&:hover': {
         backgroundColor: "#0a3ba4",
       },

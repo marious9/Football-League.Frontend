@@ -66,6 +66,6 @@ export const addStatisticActionCreator = (addStatisticArray, addStatisticIds) =>
     return dispatch => {
         Api.Statistic.addStatistic(addStatisticModel)
             .then(() => dispatch(addStatistic([], true)))
-            .catch(error => dispatch(addStatistic(error[0],false)));
+            .catch(error => dispatch(addStatistic(error,false)));
     }
 }
