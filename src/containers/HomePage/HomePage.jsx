@@ -51,7 +51,7 @@ class HomePage extends React.PureComponent {
         <MuiThemeProvider theme={theme}>
             <div className="home-page">
             
-                <Navbar pushIntoRoute={this.pushIntoRoute} isLogged={isLogged} logout={() => logout(history)}/>
+                <MaterialNavbar pushIntoRoute={this.pushIntoRoute} isLogged={isLogged} logout={() => logout(history)}/>
                 {history.location.pathname === "/" && <Redirect
                     to={"/main"} />}                
                 <Route exact path="/main" component={Main} />

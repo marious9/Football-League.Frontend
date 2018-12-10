@@ -44,7 +44,7 @@ class LeagueContainer extends React.Component{
           >
                 {isLeagueLoading ? <Spinner /> :
                     <Grid style={{width:'100%', top:"100px", textAlign: 'center', margin: 0}}>               
-                        <Typography align="center" style={{fontSize:33, color:'#fff', marginBottom:20}}>{league.name}</Typography>
+                        <Typography align="center" style={{fontSize:33, color:"#fff", marginBottom:20}}>{league.name}</Typography>
                         <CardButton name="Mecze" path={`${this.props.history.location.pathname}/match`} /> 
                         <CardButton name="Statystyki" path={`${this.props.history.location.pathname}/statistics`} />                        
                         <CardButton name="Tabela" path={`${this.props.history.location.pathname}/table`} /> 

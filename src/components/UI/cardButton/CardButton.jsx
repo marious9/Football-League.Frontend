@@ -10,9 +10,9 @@ const styles = theme => ({
     },
     card: {
         width: 650,
-        backgroundColor: "#757de8",
+        backgroundColor: "#63a4ff",
         '&:hover': {
-            backgroundColor: "#002984",
+            backgroundColor: "#1976d2",
           },
         height: 270,
         //textAlign: 'center',

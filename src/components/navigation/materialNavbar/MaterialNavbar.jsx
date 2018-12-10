@@ -19,10 +19,12 @@ const styles = {
     position: "absolute",
     top: "0",
     left: "0",
-    width: "100%"
+    width: "100%",
+    backgroundColor: "#004ba0",
   },
   grow: {
     flexGrow: 1,
+    fontSize: 24,
   },
   menuButton: {
     marginLeft: -12,
@@ -55,13 +57,10 @@ class MaterialNavbar extends React.Component {
 
     return (
       <div className={classes.root}>
-        <AppBar position="static">
-          <Toolbar>
-            <IconButton className={classes.menuButton} color="inherit" aria-label="Menu">
-              <MenuIcon />
-            </IconButton>
+        <AppBar style={{backgroundColor: "#004ba0", height: 80, justifyContent: 'center'}} position="static">
+          <Toolbar>            
             <Typography color="inherit" className={classes.grow}>
-              Photos
+              Football Leagues Management
             </Typography>
             {auth && (
               <div>

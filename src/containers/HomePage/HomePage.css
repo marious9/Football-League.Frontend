@@ -5,6 +5,6 @@
     display: flex;
     justify-content: center;
     background-color: #1657E9;
-    background-position-y: 80px; 
+    background-position-y: -80px; 
     background-image: url("../../img/6336562068_ed1fd4f3d5_o.jpg")
 }
