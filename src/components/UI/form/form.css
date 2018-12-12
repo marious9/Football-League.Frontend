@@ -12,6 +12,11 @@
     height: 1070px;
 }
 
+.form-edit-match-container{
+    width: 500px;
+    height: 600px;
+}
+
 .space-from-bottom{
     margin-bottom: 100px !important;
 }

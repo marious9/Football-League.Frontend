@@ -15,18 +15,23 @@ class MatchContainer extends React.Component{
         matches: [],
         selectTeams: [],
         currentHostId: null,
-        currentAwayId: null,
+        currentAwayId: -null,
         currentHostError: '',
-        currentAwayError: '',
-        canSubmit:false
+        currentAwayError: ''
     }
 
     setHostId = (id) => {
-        this.setState({currentHostId: id});
+        this.setState({currentHostId: id });
+        if(id !== this.state.currentAwayId){
+            this.setState({currentHostError: '', currentAwayError: ''})
+        }
     }
 
     setAwayId = (id) => {
-        this.setState({currentAwayId: id});
+        this.setState({currentAwayId: id });
+        if(this.state.currentHostId !== id){
+            this.setState({currentHostError: '', currentAwayError: ''})
+        }
     }
 
     setFields = (name, formItems) => { 
@@ -50,6 +55,13 @@ class MatchContainer extends React.Component{
             this.setState({isMatchLoading: false, matches: this.props.matches});
         }, 2000)        
     }
+
+    // componentDidUpdate(prevProps) {
+    //     if(prevProps.addMatchResult !== true && this.props.addMatchResult === true){
+    //         console.log('halo')
+    //         this.setState({openModal: false})
+    //     }
+    // }
 
     getLeagueTeamsToSelect() {
         const {league} = this.props;
@@ -84,25 +96,25 @@ class MatchContainer extends React.Component{
         const {currentHostId, currentAwayId, currentHostError, currentAwayError} = this.state;
         if(currentHostId === currentAwayId) {
             const errMsg = "Wybrane drużyny są takie same";
-            this.setState({currentHostError: errMsg, currentAwayError: errMsg, canSubmit:false})
+            this.setState({currentHostError: errMsg, currentAwayError: errMsg})
         }
-        if(currentHostError.length > 0  || currentAwayError.length > 0) {
+        if(currentHostError  || currentAwayError) {
             return false
         }
         return true;
     }
 
     addMatch = () => {
-        const {currentHostId, currentAwayId, currentHostError, currentAwayError, canSubmit} = this.state;
+        const {currentHostId, currentAwayId, currentHostError, currentAwayError} = this.state;
         this.validateSelectTeams();
-        if ((currentHostError  || currentAwayError) && !canSubmit ) {
+        if (!(currentHostError  || currentAwayError)) {
             this.props.addMatch(this.state.formItems, this.props.match.params.id, {hostId: currentHostId, awayId: currentAwayId})
         }
     }
 
     render(){
         const {addMatchResult, addMatchErrors } = this.props;
-        const {isMatchLoading, openModal, formItems, canSubmit} = this.state;
+        const {isMatchLoading, openModal, formItems} = this.state;
         const sortedMatches = this.renderMatchesRound();
         const league = sortedMatches.length > 0 ? sortedMatches[0].league : null;
         const id = this.props.match.params.id;
@@ -115,7 +127,7 @@ class MatchContainer extends React.Component{
                     <h2>{league && "Mecze ligii: " + league.name}</h2>
                     <AddButton left tooltip="Dodaj mecz" action={this.onOpenModal}/>  
                     <AddMatchModal
-                        canSubmit={canSubmit}
+                        selectTeams={this.state.selectTeams}
                         currentHostError={this.state.currentHostError}
                         currentAwayError={this.state.currentAwayError}                        
                         setHostId={this.setHostId}

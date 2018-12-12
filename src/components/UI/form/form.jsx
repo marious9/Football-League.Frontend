@@ -8,7 +8,6 @@ import { validateInput, checkPasswordsAreTheSame } from '../../../services/input
 import SpinnerButton from '../spinner-button/spinner-button';
 class Form extends React.PureComponent{
     state = {
-        isSubmiting: false,
         ableToSubmit: null
     }
 
@@ -66,12 +65,13 @@ class Form extends React.PureComponent{
         e.preventDefault();
         const items = this.validateBeforeSubmit();
         const ableToSubmit = isSomethingExists(items, "error").result;
-        if(ableToSubmit){
+        if(ableToSubmit) {        
             this.setState({ableToSubmit: false});
-            this.props.setFields(this.props.arrayName, items);
+            this.props.setFields(this.props.arrayName, items);        
         }
         else{
-           this.setState({isSubmiting: true, ableToSubmit: true});
+            console.log("co tu sie dzieje")
+           this.setState({ableToSubmit: true});
            this.props.onSubmit();
         }
        
@@ -107,9 +107,8 @@ class Form extends React.PureComponent{
                 <SpinnerButton
                 marginTop={this.props.marginTop}
                 startClass="reg-btn"
-                isLoading={this.state.isSubmiting}
                 btnType="submit"
-                validation={this.props.canSubmit !==undefined ? this.props.canSubmit && this.state.ableToSubmit : this.state.ableToSubmit}
+                validation={this.state.ableToSubmit}
                 btnName={this.props.btnTitle}
                 disClass="reg-btn-dis"
                 corClass="reg-btn-cor"

@@ -11,12 +11,14 @@ class AddLeagueModal extends React.PureComponent {
 
 
     render() {
-    const { closeModal, openModal, addMatch, setFields, addMatchErrors, addMatchResult,canSubmit} = this.props;
+    const { closeModal, openModal, addMatch, setFields, addMatchErrors, addMatchResult} = this.props;
     const {formItems} = this.props;
         return (
             <Modal open={openModal} onClose={() => closeModal()} center>
-                <Form 
-                    canSubmit={canSubmit}
+                <Form
+                    currentHostError={this.props.currentHostError}
+                    currentAwayError={this.props.currentAwayError}
+                    selectTeams={this.props.selectTeams}
                     submitResult={addMatchResult}
                     submitErrors={addMatchErrors}
                     onSubmit={addMatch}

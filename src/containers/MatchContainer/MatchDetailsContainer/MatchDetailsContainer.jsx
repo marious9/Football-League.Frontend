@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { getMatchByIdActionCreator, editMatchActionCreator, deleteMatchActionCreator } from '../../../store/actions/Match';
-import { addStatisticActionCreator } from '../../../store/actions/Statistic';
+import { getMatchByIdActionCreator, editMatchActionCreator, deleteMatchActionCreator, editMatch } from '../../../store/actions/Match';
+import { addStatisticActionCreator, addStatistic } from '../../../store/actions/Statistic';
 import Spinner from '../../../components/UI/spinner/spinner';
 import AddButton from '../../../components/UI/addButton/AddButton';
 import MatchDetailsTable from '../../../components/match/MatchDetailsTable/MatchDetailsTable';
@@ -21,7 +21,8 @@ class MatchContainerDetails extends React.Component{
         openEditModal: false,
         openDeleteModal: false,
         openAddStatisticModal: false,
-        formItems: [],
+        addStatisticFormItems: [],
+        editMatchFormItems: [],
         players:[],
         currentPlayerId: 0
     }
@@ -83,13 +84,30 @@ class MatchContainerDetails extends React.Component{
         setTimeout( () => {
             this.props.getMatch(matchId);            
             this.setState({isMatchLoading: false});
-        }, 2000)
-        
+        }, 2000)        
+    }
+
+    componentDidUpdate(prevProps){
+        const matchId = this.props.match.params.matchId;
+        // if(Object.keys(prevProps.game) && Object.keys(this.props.game) && prevProps.game !== this.props.game){
+        //     console.log("this.props", this.props.game)
+        //     console.log("prevprops", prevProps.game)
+        //     this.props.getMatch(matchId);
+        // }
+        if(!prevProps.editMatchResult && this.props.editMatchResult) {
+            this.props.clearEditMatch();
+            this.setState({openEditModal: false})
+        }
+
+        if(!prevProps.addStatisticResult && this.props.addStatisticResult) {
+            this.props.clearAddStatistic();
+            this.setState({openAddStatisticModal: false})
+        }
     }
 
     render(){
         const {game, editMatchResult, editMatchErrors, editMatch, match, deleteMatch, history, addStatisticResult, addStatisticErrors } = this.props;
-        const {isMatchLoading, openEditModal, formItems, openDeleteModal, openAddStatisticModal} = this.state;
+        const {isMatchLoading, openEditModal, formItems, openDeleteModal, openAddStatisticModal, addStatisticFormItems, editMatchFormItems} = this.state;        
         return(
             <div>
                 {isMatchLoading ? <Spinner /> :                    
@@ -118,11 +136,11 @@ class MatchContainerDetails extends React.Component{
                                 marginTop
                                 submitResult={addStatisticResult}
                                 submitErrors={addStatisticErrors}
-                                onSubmit={() => this.addStatistic(formItems)}
+                                onSubmit={() => this.addStatistic(addStatisticFormItems)}
                                 additionalClasses={"form-add-statistic-container"}
                                 setFields={this.setFields}
-                                arrayName="formItems"
-                                formItems={formItems}
+                                arrayName="addStatisticFormItems"
+                                formItems={addStatisticFormItems}
                                 key={2}
                                 {...formTitlesGenerator(
                                 "addStatisticTypes",
@@ -151,11 +169,11 @@ class MatchContainerDetails extends React.Component{
                             <Form 
                                 submitResult={editMatchResult}
                                 submitErrors={editMatchErrors}
-                                onSubmit={() => editMatch(formItems,match.params.matchId)}
-                                additionalClasses={"form-add-match-container"}
+                                onSubmit={() => editMatch(editMatchFormItems,match.params.matchId)}
+                                additionalClasses={"form-edit-match-container"}
                                 setFields={this.setFields}
-                                arrayName="formItems"
-                                formItems={formItems}
+                                arrayName="editMatchFormItems"
+                                formItems={editMatchFormItems}
                                 key={3}
                                 {...formTitlesGenerator(
                                 "editMatchTypes",
@@ -201,6 +219,8 @@ const mapStateToProps = state => {
 const mapDispatchToProps = dispatch => {
     return {
         getMatch: matchId => dispatch(getMatchByIdActionCreator(matchId)),
+        clearAddStatistic: () => dispatch(addStatistic([], null)),
+        clearEditMatch: () => dispatch(editMatch([], null)),
         editMatch: (formItems,matchId) => dispatch(editMatchActionCreator(formItems, matchId)),
         deleteMatch: (matchId, history, path) => dispatch(deleteMatchActionCreator(matchId, history, path)),
         addStatistic: (formItems, statIds) => dispatch(addStatisticActionCreator(formItems, statIds))
