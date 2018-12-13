@@ -65,7 +65,7 @@ export const Api = {
     },
     Statistic: {
         getStatisticById: statisticId => { return dataExtractor("get", "/statistic/" + statisticId) },
-        getMatchStatistics: matchId => { return dataExtractor("get", "/statistic/match", + matchId) },
+        getMatchStatistics: matchId => { return dataExtractor("get", "/statistic/match/" + matchId) },
         addStatistic: addStatisticModel => { return dataExtractor("post", "/statistic", addStatisticModel) },
     }
 

@@ -36,45 +36,14 @@ const styles = theme => ({
     textAlign: 'center',
     fontSize: 40
   },
-  subheader: {
-    textAlign: 'center',
-    fontSize: 32
-  },
   playersTable: {
       
     marginTop: theme.spacing.unit * 3,
-  },
-  colorWhite: {
-      color: '#fff',
-      fontWeight: 600
   }
 })
 
-const getHostPlayer = (statistic, hostName) => {
-    let player = {};
-    if(statistic.matchPlayer.player.teamName === hostName) {
-        const fullName = statistic.minute + "' " + statistic.matchPlayer.player.firstname + " " + statistic.matchPlayer.player.lastname;
-        player = {fullName, id: statistic.matchPlayer.player.id, icon: <i className="fas fa-futbol"></i>}
-    }
-    return player;
-}
-
-const getAwayPlayer = (statistic, awayName) => {
-    let player = {};
-    if(statistic.matchPlayer.player.teamName === awayName) {
-        const fullName = statistic.minute + "' " + statistic.matchPlayer.player.firstname + " " + statistic.matchPlayer.player.lastname;
-        player = {fullName, id: statistic.matchPlayer.player.id, icon: <i className="fas fa-futbol"></i>}
-    }
-    return player;
-}
-
-const incrementScore = (statistic, player, hostName) => {
-   
-
-}
-
 const MatchDetailsTable = props => {
-    const { classes, game, matchStatistics } = props; 
+    const { classes, game, round, location,pushIntoRoute, players } = props;
     return (
         <div style={{marginTop: 50}}>
             <Grid className={classes.root} >            
@@ -83,33 +52,11 @@ const MatchDetailsTable = props => {
                      {game.awayScore !== -1 ? game.awayScore : ' - '} {game.away.name}  </div>
                 <p>Data meczu: {moment(game.date).format('DD-MM-YYYY')}</p>      
                 <p>Godzina: {moment(game.date).format('hh:mm')}</p>                   
-                <p>Rozgrywki: {game.league.name}</p>
+                <p>Rozgrywki: {game.league.name}</p>                        
             </Grid>
             <div style={{marginTop: 50, marginBottom: 50}}>
-                {matchStatistics.length > 0 && <div style={{marginBottom: 50}}>
-                    <Typography align="center" className={classes.colorWhite + ' ' + classes.subheader} style={{color:"#fff"}}>
-                        Bramki
-                    </Typography>
-                    <Table>
-                        <TableBody>
-                            {matchStatistics.map((statistic, index) => {
-                                if(statistic.action === 0) return(
-                                <TableRow key={index}>
-                                    <TableCell className={classes.colorWhite}>                                    
-                                        {getHostPlayer(statistic, game.host.name).icon || ''} {' '} 
-                                        {getHostPlayer(statistic, game.host.name).fullName || ''}
-                                    </TableCell>
-                                    <TableCell numeric className={classes.colorWhite}>
-                                        {getHostPlayer(statistic, game.away.name).icon || ''} {' '}
-                                        {getHostPlayer(statistic, game.away.name).fullName || ''} {' '}
-                                    </TableCell>                                                                        
-                                </TableRow>)  }
-                            )}                     
-                        </TableBody>
-                    </Table>
-                </div>}
                 <Paper className={classes.left}>            
-                    <Typography align="center" className={classes.subheader}>
+                    <Typography align="center">
                         {game.host.name}
                     </Typography>
                     <Table className="playersTable">
@@ -132,7 +79,7 @@ const MatchDetailsTable = props => {
                     </Table>
                 </Paper>
                 <Paper className={classes.right}>
-                    <Typography align="center" className={classes.subheader}>
+                    <Typography align="center">
                         {game.away.name}
                     </Typography>
                     <Table className="playersTable">

@@ -1,9 +1,9 @@
 import {ADD_STATISTIC, EDIT_STATISTIC, DELETE_STATISTIC, GET_STATISTIC_BY_ID, GET_MATCH_STATISTICS} from '../actionTypes';
 import { Api } from '../../api/index.js';
 
-export const getMatchStatistics = (statistic, getMatchStatisticsErrors, getMatchStatisticsStatus) => {
+export const getMatchStatistics = (matchStatistics, getMatchStatisticsErrors, getMatchStatisticsStatus) => {
     return {
-        type: GET_MATCH_STATISTICS, statistic, getMatchStatisticsErrors, getMatchStatisticsStatus
+        type: GET_MATCH_STATISTICS, matchStatistics, getMatchStatisticsErrors, getMatchStatisticsStatus
     }
 }
 
@@ -35,7 +35,7 @@ export const getMatchStatisticsActionCreator = matchId => {
     return dispatch => {
         Api.Statistic.getMatchStatistics(matchId)
             .then(response => {
-                dispatch(getMatchStatistics(response.object, [], true))
+                dispatch(getMatchStatistics(response.object.statistics, [], true))
             })
             .catch(error => {
                 dispatch(getMatchStatistics([], error.errors, false))

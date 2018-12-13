@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { getMatchByIdActionCreator, editMatchActionCreator, deleteMatchActionCreator, editMatch } from '../../../store/actions/Match';
-import { addStatisticActionCreator, addStatistic } from '../../../store/actions/Statistic';
+import { addStatisticActionCreator, addStatistic, getMatchStatisticsActionCreator } from '../../../store/actions/Statistic';
 import Spinner from '../../../components/UI/spinner/spinner';
 import AddButton from '../../../components/UI/addButton/AddButton';
 import MatchDetailsTable from '../../../components/match/MatchDetailsTable/MatchDetailsTable';
@@ -82,7 +82,8 @@ class MatchContainerDetails extends React.Component{
     componentDidMount(){
         const matchId = this.props.match.params.matchId;
         setTimeout( () => {
-            this.props.getMatch(matchId);            
+            this.props.getMatch(matchId);   
+            this.props.getMatchStatistic(matchId);
             this.setState({isMatchLoading: false});
         }, 2000)        
     }
@@ -106,8 +107,9 @@ class MatchContainerDetails extends React.Component{
     }
 
     render(){
-        const {game, editMatchResult, editMatchErrors, editMatch, match, deleteMatch, history, addStatisticResult, addStatisticErrors } = this.props;
-        const {isMatchLoading, openEditModal, formItems, openDeleteModal, openAddStatisticModal, addStatisticFormItems, editMatchFormItems} = this.state;        
+        const {game, editMatchResult, editMatchErrors, editMatch, match, deleteMatch, history, addStatisticResult, addStatisticErrors, matchStatistics } = this.props;
+        const {isMatchLoading, openEditModal, formItems, openDeleteModal, openAddStatisticModal, addStatisticFormItems, editMatchFormItems} = this.state;  
+        console.log()     
         return(
             <div>
                 {isMatchLoading ? <Spinner /> :                    
@@ -124,7 +126,7 @@ class MatchContainerDetails extends React.Component{
                                 </Button>
                             </Tooltip>
                             <Tooltip title="Dodaj statystykę">
-                                <Button onClick={() => this.onOpenAddStatisticModal()} variant="contained" style={{backgroundColor: '#388e3c'}} >
+                                <Button onClick={() => this.onOpenAddStatisticModal()} variant="contained" style={{backgroundColor: '#388e3c', color: '#fff'}} >
                                     <AddIcon />
                                 </Button>
                             </Tooltip>
@@ -192,7 +194,7 @@ class MatchContainerDetails extends React.Component{
                                 <Button onClick={() => this.onCloseDeleteModal()} >Anuluj</Button>
                              </div>
                          </Modal>
-                        {Object.keys(game).length > 0 && <MatchDetailsTable game={game} />}
+                        {Object.keys(game).length > 0 && <MatchDetailsTable matchStatistics={matchStatistics} game={game} />}
                     </Grid>
                 }
             </div>
@@ -211,6 +213,7 @@ const mapStateToProps = state => {
         deleteMatchResult: state.Match.deleteMatchResult,
         deleteMatchErrors: state.Match.deleteMatchErrors,
 
+        matchStatistics: state.Statistic.matchStatistics,
         game: state.Match.match,
         league: state.League.league    
     };
@@ -218,6 +221,7 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
     return {
+        getMatchStatistic: matchId => dispatch(getMatchStatisticsActionCreator(matchId)),
         getMatch: matchId => dispatch(getMatchByIdActionCreator(matchId)),
         clearAddStatistic: () => dispatch(addStatistic([], null)),
         clearEditMatch: () => dispatch(editMatch([], null)),
