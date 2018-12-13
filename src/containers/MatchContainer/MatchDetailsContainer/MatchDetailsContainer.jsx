@@ -90,13 +90,9 @@ class MatchContainerDetails extends React.Component{
 
     componentDidUpdate(prevProps){
         const matchId = this.props.match.params.matchId;
-        // if(Object.keys(prevProps.game) && Object.keys(this.props.game) && prevProps.game !== this.props.game){
-        //     console.log("this.props", this.props.game)
-        //     console.log("prevprops", prevProps.game)
-        //     this.props.getMatch(matchId);
-        // }
         if(!prevProps.editMatchResult && this.props.editMatchResult) {
-            this.props.clearEditMatch();
+            this.props.clearEditMatch();            
+            this.props.getMatch(matchId);
             this.setState({openEditModal: false})
         }
 
