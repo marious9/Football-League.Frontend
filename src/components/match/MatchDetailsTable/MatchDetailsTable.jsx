@@ -47,36 +47,35 @@ const styles = theme => ({
   colorWhite: {
       color: '#fff',
       fontWeight: 600
-  }
+  },
+  yellowCard: {
+      color: 'yellow'
+  },  
+  redCard: {
+    color: 'red'
+}
 })
 
-const getHostPlayer = (statistic, hostName) => {
+const getPlayer = (statistic, hostName, deleteFunction) => {
     let player = {};
     if(statistic.matchPlayer.player.teamName === hostName) {
         const fullName = statistic.minute + "' " + statistic.matchPlayer.player.firstname + " " + statistic.matchPlayer.player.lastname;
-        player = {fullName, id: statistic.matchPlayer.player.id, icon: <i className="fas fa-futbol"></i>}
+        player = {fullName, id: statistic.matchPlayer.player.id,
+            icon: <i onClick={ () => deleteFunction(statistic.id)} className="fas fa-futbol" 
+            style={{cursor:'pointer', '&:hover':{color:'#ef5350'}}}></i>}
     }
     return player;
 }
 
-const getAwayPlayer = (statistic, awayName) => {
-    let player = {};
-    if(statistic.matchPlayer.player.teamName === awayName) {
-        const fullName = statistic.minute + "' " + statistic.matchPlayer.player.firstname + " " + statistic.matchPlayer.player.lastname;
-        player = {fullName, id: statistic.matchPlayer.player.id, icon: <i className="fas fa-futbol"></i>}
-    }
-    return player;
-}
-
-const incrementScore = (statistic, player, hostName) => {
-   
-
+const getPlayerStatistic = (statistics, playerId) => {
+        return statistics.filter(stat => stat.action !== 0 && stat.action !== 1 && stat.matchPlayer.playerId === playerId)    
 }
 
 const MatchDetailsTable = props => {
-    const { classes, game, matchStatistics } = props; 
+    const { classes, game, matchStatistics, onOpenDeleteStatisticModal } = props; 
+    console.log(matchStatistics);
     return (
-        <div style={{marginTop: 50}}>
+        <div style={{marginTop: 60}}>
             <Grid className={classes.root} >            
                 <div className={classes.boldCell}>
                     {game.host.name} {game.hostScore !== -1 ? game.hostScore : ' - '}{' : '}
@@ -96,12 +95,12 @@ const MatchDetailsTable = props => {
                                 if(statistic.action === 0) return(
                                 <TableRow key={index}>
                                     <TableCell className={classes.colorWhite}>                                    
-                                        {getHostPlayer(statistic, game.host.name).icon || ''} {' '} 
-                                        {getHostPlayer(statistic, game.host.name).fullName || ''}
+                                        {getPlayer(statistic, game.host.name, onOpenDeleteStatisticModal).icon || ''} {' '} 
+                                        {getPlayer(statistic, game.host.name, onOpenDeleteStatisticModal).fullName || ''}
                                     </TableCell>
                                     <TableCell numeric className={classes.colorWhite}>
-                                        {getHostPlayer(statistic, game.away.name).icon || ''} {' '}
-                                        {getHostPlayer(statistic, game.away.name).fullName || ''} {' '}
+                                        {getPlayer(statistic, game.away.name, onOpenDeleteStatisticModal).icon || ''} {' '}
+                                        {getPlayer(statistic, game.away.name, onOpenDeleteStatisticModal).fullName || ''} {' '}
                                     </TableCell>                                                                        
                                 </TableRow>)  }
                             )}                     
@@ -117,7 +116,7 @@ const MatchDetailsTable = props => {
                             <TableRow>
                                 <TableCell numeric>Imię</TableCell>
                                 <TableCell numeric>Nazwisko</TableCell>
-                                <TableCell numeric>Data urodzenia</TableCell>
+                                <TableCell numeric>Statystyka</TableCell>
                             </TableRow>
                         </TableHead>
                         <TableBody>
@@ -125,7 +124,13 @@ const MatchDetailsTable = props => {
                             <TableRow key={player.id}>
                                 <TableCell numeric>{player.firstname}</TableCell>
                                 <TableCell numeric>{player.lastname}</TableCell>
-                                <TableCell numeric>{moment(player.birthDate).format('DD-MM-YYYY')}</TableCell>
+                                <TableCell numeric>{getPlayerStatistic(matchStatistics, player.id).map((pStat, index) =>
+                                    <span key={index}>
+                                        <i className='fas fa-stop' onClick={ () => onOpenDeleteStatisticModal(pStat.id)} 
+                                            style={{color: pStat.action === 2 ? 'yellow' : 'red', marginRight: 2, cursor:'pointer'}} />
+                                        {pStat.minute}'
+                                    </span>
+                                )}</TableCell>
                             </TableRow>
                         )}
                         </TableBody>
@@ -140,7 +145,7 @@ const MatchDetailsTable = props => {
                             <TableRow>
                                 <TableCell numeric>Imię</TableCell>
                                 <TableCell numeric>Nazwisko</TableCell>
-                                <TableCell numeric>Data urodzenia</TableCell>
+                                <TableCell numeric>Statystyka</TableCell>
                             </TableRow>
                         </TableHead>
                         <TableBody>
@@ -148,7 +153,13 @@ const MatchDetailsTable = props => {
                             <TableRow key={player.id}>
                                 <TableCell numeric>{player.firstname}</TableCell>
                                 <TableCell numeric>{player.lastname}</TableCell>
-                                <TableCell numeric>{moment(player.birthDate).format('DD-MM-YYYY')}</TableCell>
+                                <TableCell numeric>{getPlayerStatistic(matchStatistics, player.id).map((pStat, index) =>
+                                    <span key={index}>
+                                        <i className='fas fa-stop' onClick={ () => onOpenDeleteStatisticModal(pStat.id)}
+                                            style={{color: pStat.action === 2 ? 'yellow' : 'red', marginRight: 2, cursor:'pointer'}} />
+                                        {pStat.minute}'
+                                    </span>
+                                )}</TableCell>
                             </TableRow>
                         )}
                         </TableBody>

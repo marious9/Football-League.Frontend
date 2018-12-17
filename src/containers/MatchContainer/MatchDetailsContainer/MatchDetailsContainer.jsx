@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { getMatchByIdActionCreator, editMatchActionCreator, deleteMatchActionCreator, editMatch } from '../../../store/actions/Match';
-import { addStatisticActionCreator, addStatistic, getMatchStatisticsActionCreator } from '../../../store/actions/Statistic';
+import { addStatisticActionCreator, addStatistic, getMatchStatisticsActionCreator, deleteStatisticActionCreator, deleteStatistic } from '../../../store/actions/Statistic';
 import Spinner from '../../../components/UI/spinner/spinner';
 import AddButton from '../../../components/UI/addButton/AddButton';
 import MatchDetailsTable from '../../../components/match/MatchDetailsTable/MatchDetailsTable';
@@ -17,6 +17,8 @@ import FormInput from '../../../components/UI/form/formInput/formInput'
 
 class MatchContainerDetails extends React.Component{
     state = {
+        idOfStatisticToDelete: null,
+        openDeleteStatisticModal: false,
         isMatchLoading: true,
         openEditModal: false,
         openDeleteModal: false,
@@ -42,6 +44,16 @@ class MatchContainerDetails extends React.Component{
     onCloseAddStatisticModal = () => {
         this.setState({ openAddStatisticModal: false });
     };
+
+    onOpenDeleteStatisticModal = e => {
+        this.setState({ openDeleteStatisticModal: true, idOfStatisticToDelete: e });
+        
+        console.log(this.state.idOfStatisticToDelete, e)
+    };
+
+    onCloseDeleteStatisticModal = () => {
+        this.setState({ openDeleteStatisticModal: false});
+    }
 
     onOpenEditModal = () => {
         this.setState({ openEditModal: true });
@@ -90,27 +102,35 @@ class MatchContainerDetails extends React.Component{
 
     componentDidUpdate(prevProps){
         const matchId = this.props.match.params.matchId;
-        if(!prevProps.editMatchResult && this.props.editMatchResult) {
+        if(this.props.editMatchResult && prevProps.editMatchErrors !== this.props.editMatchErrors) {
             this.props.clearEditMatch();            
             this.props.getMatch(matchId);
             this.setState({openEditModal: false})
         }
 
-        if(!prevProps.addStatisticResult && this.props.addStatisticResult) {
-            this.props.clearAddStatistic();
+        if(this.props.addStatisticResult && this.props.addStatisticErrors !== prevProps.addStatisticErrors) {
+            this.props.clearAddStatistic();               
+            this.props.getMatchStatistic(matchId);
             this.setState({openAddStatisticModal: false})
+        }
+
+        if(this.props.deleteStatisticResult && this.props.deleteStatisticErrors !== prevProps.deleteStatisticErrors) {
+            this.props.clearDeleteStatistic();               
+            this.props.getMatchStatistic(matchId);
+            this.setState({openDeleteStatisticModal: false})
         }
     }
 
     render(){
-        const {game, editMatchResult, editMatchErrors, editMatch, match, deleteMatch, history, addStatisticResult, addStatisticErrors, matchStatistics } = this.props;
-        const {isMatchLoading, openEditModal, formItems, openDeleteModal, openAddStatisticModal, addStatisticFormItems, editMatchFormItems} = this.state;  
-        console.log()     
+        const {game, editMatchResult, editMatchErrors, editMatch, match, deleteMatch, history, addStatisticResult,
+            addStatisticErrors, matchStatistics } = this.props;
+        const {isMatchLoading, openEditModal, openDeleteModal, openAddStatisticModal, addStatisticFormItems,
+            editMatchFormItems, openDeleteStatisticModal, idOfStatisticToDelete} = this.state;
         return(
             <div>
                 {isMatchLoading ? <Spinner /> :                    
                     <Grid container alignItems="center">
-                        <div style={{position:"absolute", top:'27%', left: '27%'}}>
+                        <div style={{position:"absolute", top:'270px', left: '460px'}}>
                             <Tooltip title="Edytuj mecz" color="primary" variant="contained">
                                 <Button onClick={() => this.onOpenEditModal()}>                            
                                     <EditIcon />
@@ -181,6 +201,17 @@ class MatchContainerDetails extends React.Component{
                                 btnTitle="Edytuj"
                                 />
                          </Modal>
+                        
+                         <Modal
+                            open={openDeleteStatisticModal}
+                            onClose={() => this.onCloseDeleteStatisticModal()} >
+                             <div style={{padding: 20}}>
+                                <h3>Usuwanie statystyki</h3>
+                                <Button color="secondary" onClick={() => this.props.deleteStatistic(idOfStatisticToDelete)} >Usuń</Button>                                 
+                                <Button onClick={() => this.onCloseDeleteStatisticModal()} >Anuluj</Button>
+                             </div>
+                         </Modal>
+
                          <Modal
                             open={openDeleteModal}
                             onClose={() => this.onCloseDeleteModal()} >
@@ -190,7 +221,7 @@ class MatchContainerDetails extends React.Component{
                                 <Button onClick={() => this.onCloseDeleteModal()} >Anuluj</Button>
                              </div>
                          </Modal>
-                        {Object.keys(game).length > 0 && <MatchDetailsTable matchStatistics={matchStatistics} game={game} />}
+                        {Object.keys(game).length > 0 && <MatchDetailsTable onOpenDeleteStatisticModal={this.onOpenDeleteStatisticModal} matchStatistics={matchStatistics} game={game} />}
                     </Grid>
                 }
             </div>
@@ -200,6 +231,9 @@ class MatchContainerDetails extends React.Component{
 
 const mapStateToProps = state => {
     return {
+        deleteStatisticErrors: state.Statistic.deleteStatisticErrors,
+        deleteStatisticResult: state.Statistic.deleteStatisticResult,
+
         addStatisticErrors: state.Statistic.addStatisticErrors,
         addStatisticResult: state.Statistic.addStatisticResult,
 
@@ -217,9 +251,11 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
     return {
+        deleteStatistic: statisticId => dispatch(deleteStatisticActionCreator(statisticId)),
         getMatchStatistic: matchId => dispatch(getMatchStatisticsActionCreator(matchId)),
         getMatch: matchId => dispatch(getMatchByIdActionCreator(matchId)),
-        clearAddStatistic: () => dispatch(addStatistic([], null)),
+        clearAddStatistic: () => dispatch(addStatistic([], null)),        
+        clearDeleteStatistic: () => dispatch(deleteStatistic([], null)),
         clearEditMatch: () => dispatch(editMatch([], null)),
         editMatch: (formItems,matchId) => dispatch(editMatchActionCreator(formItems, matchId)),
         deleteMatch: (matchId, history, path) => dispatch(deleteMatchActionCreator(matchId, history, path)),
