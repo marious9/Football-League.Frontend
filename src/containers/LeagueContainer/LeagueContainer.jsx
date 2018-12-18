@@ -59,7 +59,10 @@ class LeagueContainer extends React.Component{
 }
 
 const mapStateToProps = state => {
-    return {    
+    return {
+        addLeagueResult: state.League.addLeagueResult,
+        addLeagueErrors: state.League.addLeagueErrors,
+
         league: state.League.league
     };
 }

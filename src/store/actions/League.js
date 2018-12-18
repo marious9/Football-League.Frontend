@@ -1,5 +1,11 @@
-import { GET_STATISTICS, GET_LEAGUES, GET_LEAGUE_BY_ID, GET_LEAGUE_TABLE, ADD_LEAGUE } from '../actionTypes.js';
+import { GET_STATISTICS, GET_LEAGUES, GET_LEAGUE_BY_ID, GET_LEAGUE_TABLE, ADD_LEAGUE, GENERATE_SCHEDULE } from '../actionTypes.js';
 import { Api } from '../../api/index.js';
+
+export const generateSchedule = (generateScheduleResult, generateScheduleErrors) => {
+    return {
+        type: GENERATE_SCHEDULE, generateScheduleResult, generateScheduleErrors
+    }
+}
 
 export const getStatistics = (statistics, getStatisticsErrors, getStatisticsStatus) => {
     return {
@@ -90,3 +96,9 @@ export const addLeagueActionCreator = (addLeagueArray) => {
             .catch(errors => dispatch(addLeague(false,errors)));
     }
 }
+
+export const generateScheduleActionCreator = (leagueId) => dispatch => 
+    Api.League.generateSchedule(leagueId)
+        .then(() => dispatch(generateSchedule(true,[])))
+        .catch(error => dispatch(generateSchedule(false, error)));
+                

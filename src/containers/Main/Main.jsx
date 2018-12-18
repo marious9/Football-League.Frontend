@@ -20,6 +20,12 @@ class Main extends React.Component{
             this.setState({isLeaguesLoading: false});
         }, 2000)    
     };
+    
+    componentDidUpdate(prevProps) {
+        if(this.props.addLeagueResult && this.props.addLeagueErrors !== prevProps.addLeagueErrors){
+            this.props.getLeagueById(this.props.match.params.id);
+        }
+    }
 
     setFields = (name, formItems) => { 
         this.setState({[name]: formItems});

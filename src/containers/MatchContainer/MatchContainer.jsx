@@ -1,11 +1,13 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { getMatchesActionCreator, addMatchActionCreator } from '../../store/actions/Match';
-import { getLeagueByIdActionCreator } from '../../store/actions/League';
+import { getLeagueByIdActionCreator, generateScheduleActionCreator } from '../../store/actions/League';
 import Spinner from '../../components/UI/spinner/spinner';
 import AddButton from '../../components/UI/addButton/AddButton';
 import AddMatchModal from '../../components/match/AddMatchModal/AddMatchModal';
 import MatchesTable from '../../components/match/MatchesTable/MatchesTable';
+import {Button} from '@material-ui/core/';
+import ServerError from '../../components/UI/server-error-prompt/server-error';
 
 class MatchContainer extends React.Component{
     state = {
@@ -15,9 +17,13 @@ class MatchContainer extends React.Component{
         matches: [],
         selectTeams: [],
         currentHostId: null,
-        currentAwayId: -null,
+        currentAwayId: null,
         currentHostError: '',
         currentAwayError: ''
+    }
+
+    generateSchedule = () => {
+        this.props.generateSchedule(this.props.match.params.id)
     }
 
     setHostId = (id) => {
@@ -49,19 +55,21 @@ class MatchContainer extends React.Component{
 
     componentDidMount(){
         const leagueId = this.props.match.params.id;
+        
         setTimeout( () => {
             this.props.getMatches(leagueId);    
-            this.props.getLeague(leagueId)
-            this.setState({isMatchLoading: false, matches: this.props.matches});
-        }, 2000)        
+            this.props.getLeague(leagueId);            
+            this.setState({isMatchLoading: false});  
+        }, 2000)      
     }
 
-    // componentDidUpdate(prevProps) {
-    //     if(prevProps.addMatchResult !== true && this.props.addMatchResult === true){
-    //         console.log('halo')
-    //         this.setState({openModal: false})
-    //     }
-    // }
+    componentDidUpdate(prevProps) {
+        const leagueId = this.props.match.params.id;
+        if(this.props.addMatchResult && this.props.addMatchErrors !== prevProps.addMatchErrors){
+            this.setState({openModal: false})
+            this.props.getMatches(leagueId);
+        }
+    }
 
     getLeagueTeamsToSelect() {
         const {league} = this.props;
@@ -113,19 +121,17 @@ class MatchContainer extends React.Component{
     }
 
     render(){
-        const {addMatchResult, addMatchErrors } = this.props;
+        const {addMatchResult, addMatchErrors, league, generateScheduleErrors, generateScheduleResult } = this.props;
         const {isMatchLoading, openModal, formItems} = this.state;
         const sortedMatches = this.renderMatchesRound();
-        const league = sortedMatches.length > 0 ? sortedMatches[0].league : null;
         const id = this.props.match.params.id;
         let rounds = sortedMatches.length;
-        console.log(this.state)
         return(
             <div>
                 {isMatchLoading ? <Spinner /> :
-                    <div style={{width:'100%', top:"100px", textAlign: 'center', margin: 0, position:"relative"}}>                    
+                    <div style={{width:'100%', top:"140px", textAlign: 'center', margin: 0, position:"relative"}}>                    
                     <h2>{league && "Mecze ligii: " + league.name}</h2>
-                    <AddButton left tooltip="Dodaj mecz" action={this.onOpenModal}/>  
+                {league  && league.teams && league.teams.length  ? <AddButton left tooltip="Dodaj mecz" action={this.onOpenModal}/> : '' }
                     <AddMatchModal
                         selectTeams={this.state.selectTeams}
                         currentHostError={this.state.currentHostError}
@@ -151,7 +157,17 @@ class MatchContainer extends React.Component{
                                 matches={queue}
                                 location={this.props.history.location.pathname}
                                 pushIntoRoute={this.pushIntoRoute}
-                                 />) : <h3>Brak meczów w lidze.</h3>}
+                                 />) : 
+                                 <div>
+                                    <h3>Brak meczów w lidze.</h3>
+                                    <Button onClick={() => this.generateSchedule()}
+                                        variant="contained" color="primary">Wygeneruj mecze</Button>
+                                    <ServerError 
+                                        mainClass="server-error-container"
+                                        show={(generateScheduleResult === false && generateScheduleResult !== undefined &&
+                                            generateScheduleErrors.length > 0)}
+                                        content={generateScheduleErrors[0]} />
+                                 </div> }
 
                     </div> 
                 }
@@ -163,6 +179,9 @@ class MatchContainer extends React.Component{
 
 const mapStateToProps = state => {
     return {
+        generateScheduleResult: state.League.generateScheduleResult,
+        generateScheduleErrors: state.League.generateScheduleErrors,
+
         addMatchResult: state.Match.addMatchResult,
         addMatchErrors: state.Match.addMatchErrors,
         matches: state.Match.matches,
@@ -172,6 +191,7 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
     return {
+        generateSchedule: leagueId => dispatch(generateScheduleActionCreator(leagueId)),
         getLeague: leagueId => dispatch(getLeagueByIdActionCreator(leagueId)),
         getMatches: leagueId => dispatch(getMatchesActionCreator(leagueId)),
         addMatch: (formItems, leagueId, matchTeams) => dispatch(addMatchActionCreator(formItems, leagueId, matchTeams))

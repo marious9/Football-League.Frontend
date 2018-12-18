@@ -3,6 +3,7 @@ export const LOGIN = "LOGIN";
 export const GET_USER_DATA = "GET_USER_DATA";
 export const LOGOUT = "LOGOUT";
 
+export const GENERATE_SCHEDULE = "GENERATE_SCHEDULE";
 export const ADD_LEAGUE = "ADD_LEAGUE";
 export const GET_LEAGUES = "GET_LEAGUES";
 export const GET_LEAGUE_BY_ID = "GET_LEAGUE_BY_ID";
