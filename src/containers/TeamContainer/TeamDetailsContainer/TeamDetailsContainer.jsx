@@ -147,8 +147,8 @@ class TeamDetailsContainer extends React.Component{
                                 <TableCell className={classes.tableCell} component="th" scope="row">
                                 {player.firstname}
                                 </TableCell>
-                                <TableCell className={classes.tableCell} numeric>{player.lastname}</TableCell>
-                                <TableCell className={classes.tableCell} numeric>{moment(player.birthDate).format('DD-MM-YYYY')}</TableCell>
+                                <TableCell className={classes.tableCell} >{player.lastname}</TableCell>
+                                <TableCell className={classes.tableCell} >{moment(player.birthDate).format('DD-MM-YYYY')}</TableCell>
                                 <TableCell className={classes.tableCell} >
                                     <i onClick={() => this.onOpenEditPlayerModal(player.id)} className={"far fa-edit " + classes.editPlayerIcon}></i> {'   '}
                                     <i onClick={() => this.onOpenDeletePlayerModal(player.id)} className={"fas fa-user-times " + classes.deletePlayerIcon}></i>
