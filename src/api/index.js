@@ -40,7 +40,7 @@ const errorParser = error => {
 export const Api = {
     Authorization: {
         login: loginModel => { return dataExtractor("post", "/account/login/", loginModel) },
-        logOut: () => { return dataExtractor("post", "/account/logout")},
+        logOut: () => { return dataExtractor("post", "/account/logout") },
         register: registerModel => { return dataExtractor("post", "/account/register/", registerModel) }
     },
     League: {
@@ -69,6 +69,11 @@ export const Api = {
         getMatchStatistics: matchId => { return dataExtractor("get", "/statistic/match/" + matchId) },
         addStatistic: addStatisticModel => { return dataExtractor("post", "/statistic", addStatisticModel) },
         deleteStatistic: statisticId => { return dataExtractor("delete", "/statistic/" + statisticId ) }
+    },
+    Player: {
+        addPlayer: (teamId, addPlayerModel) => { return dataExtractor("post", "/player/" + teamId, addPlayerModel) },
+        editPlayer: (playerId, editPlayerModel) => { return dataExtractor("put", "/player/" + playerId, editPlayerModel) },
+        deletePlayer: playerId => { return dataExtractor("delete", "/player/" + playerId) }
     }
 
 };

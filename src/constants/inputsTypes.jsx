@@ -1,3 +1,16 @@
+export const addEditPlayerTypes = [
+    {title: "Imię", type: "text", serverName: "Firstname"},
+    {title: "Nazwisko", type: "text", serverName: "Lirstname"},
+    {title: "Data urodzenia", type: "date", serverName: "BirthDate"}
+]
+
+export const addEditPlayerRequirements = [
+    {inputName: "Imię", nullable: false,  minLength: 2, maxLength: 40},
+    {inputName: "Nazwisko", nullable: false,  minLength: 2, maxLength: 40},
+    {inputName: "Data urodzenia", nullable: false}
+];
+
+
 export const addStatisticTypes = [
     {title: "Minuta meczu", type: "number", serverName: "Minute"},
     {title: "Akcja", type: "select", serverName: "Action", selectItems: [
