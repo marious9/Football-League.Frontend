@@ -18,6 +18,12 @@ class LeagueTableContainer extends React.Component{
         }, 2000)        
     }
 
+    
+    
+    pushIntoRoute = (path) => {
+        this.props.history.push(path)
+    }
+
     render(){
         const {league, leagueTable} = this.props;
         const {isLeagueLoading} = this.state;
@@ -27,7 +33,7 @@ class LeagueTableContainer extends React.Component{
                 {isLeagueLoading ? <Spinner /> :
                     <div >               
                         <h1>{league.name}</h1>
-                        <LeagueTable teams={leagueTable.length > 0 ? leagueTable : ''} league={league} />                                                                
+                        <LeagueTable pushIntoRoute={this.pushIntoRoute} location={`/main/league/${league.id}/teams/`} teams={leagueTable.length > 0 ? leagueTable : ''} league={league} />                                                                
                     </div> 
 
                 }

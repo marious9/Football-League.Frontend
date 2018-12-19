@@ -44,8 +44,8 @@ export const Api = {
         register: registerModel => { return dataExtractor("post", "/account/register/", registerModel) }
     },
     League: {
-        generateSchedule: leagueId => { return dataExtractor("get", "league/generateSchedule" + leagueId )},
-        getStatistics: leagueId => {return dataExtractor("get", "/statistic/league/" + leagueId) },
+        generateSchedule: leagueId => {console.log("wysylam sie"); return dataExtractor("post", "/league/generateSchedule" + leagueId )},
+        getStatistics: leagueId => { return dataExtractor("get", "/statistic/league/" + leagueId) },
         addLeague: addLeagueModel => { return dataExtractor("post", "/league", addLeagueModel) },
         getLeagues: () => { return dataExtractor("get", "/league") },
         getLeagueById: leagueId => { return dataExtractor("get", "/league/" + leagueId) },

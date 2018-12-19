@@ -72,8 +72,7 @@ const getPlayerStatistic = (statistics, playerId) => {
 }
 
 const MatchDetailsTable = props => {
-    const { classes, game, matchStatistics, onOpenDeleteStatisticModal } = props; 
-    console.log(matchStatistics);
+    const { classes, game, matchStatistics, onOpenDeleteStatisticModal } = props;
     return (
         <div style={{marginTop: 60}}>
             <Grid className={classes.root} >            

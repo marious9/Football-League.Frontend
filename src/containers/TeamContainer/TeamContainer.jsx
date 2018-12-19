@@ -40,7 +40,7 @@ class TeamContainer extends React.Component{
 
     render(){
         const {isTeamsLoading, openModal, formItems} = this.state;
-        const {league, addTeamResult, addTeamErrors, addTeam, match} = this.props;
+        const {league, addTeamResult, addTeamErrors, addTeam, match, history} = this.props;
         return (
             <Grid 
             container
@@ -53,7 +53,7 @@ class TeamContainer extends React.Component{
                 <AddButton tooltip="Dodaj drużynę" action={this.onOpenModal}/> 
                     <Typography align="center" style={{fontSize:33, color:'#fff', marginBottom:20}}>{league.name}</Typography>
                     {league.teams ? league.teams.length > 0 ? 
-                        league.teams.map((team,i) => <CardButton secondCard name={team.name} key={i} path="" /> ) : "Brak drużyn w lidze."  : ''}
+                        league.teams.map((team,i) => <CardButton secondCard name={team.name} key={i} path={history.location.pathname+'/'+team.id} /> ) : "Brak drużyn w lidze."  : ''}
                 </Grid>}
                 <Modal
                     open={openModal}

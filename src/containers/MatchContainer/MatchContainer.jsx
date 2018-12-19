@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { getMatchesActionCreator, addMatchActionCreator } from '../../store/actions/Match';
-import { getLeagueByIdActionCreator, generateScheduleActionCreator } from '../../store/actions/League';
+import { getLeagueByIdActionCreator, generateScheduleActionCreator, generateSchedule } from '../../store/actions/League';
 import Spinner from '../../components/UI/spinner/spinner';
 import AddButton from '../../components/UI/addButton/AddButton';
 import AddMatchModal from '../../components/match/AddMatchModal/AddMatchModal';
@@ -23,6 +23,7 @@ class MatchContainer extends React.Component{
     }
 
     generateSchedule = () => {
+        console.log('jestem')
         this.props.generateSchedule(this.props.match.params.id)
     }
 
@@ -55,7 +56,7 @@ class MatchContainer extends React.Component{
 
     componentDidMount(){
         const leagueId = this.props.match.params.id;
-        
+        this.props.clearGenerateSchedule();
         setTimeout( () => {
             this.props.getMatches(leagueId);    
             this.props.getLeague(leagueId);            
@@ -166,7 +167,7 @@ class MatchContainer extends React.Component{
                                         mainClass="server-error-container"
                                         show={(generateScheduleResult === false && generateScheduleResult !== undefined &&
                                             generateScheduleErrors.length > 0)}
-                                        content={generateScheduleErrors[0]} />
+                                        content={generateScheduleErrors} />
                                  </div> }
 
                     </div> 
@@ -191,6 +192,7 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
     return {
+        clearGenerateSchedule: () => dispatch(generateSchedule(null,[])),
         generateSchedule: leagueId => dispatch(generateScheduleActionCreator(leagueId)),
         getLeague: leagueId => dispatch(getLeagueByIdActionCreator(leagueId)),
         getMatches: leagueId => dispatch(getMatchesActionCreator(leagueId)),

@@ -29,11 +29,17 @@ const styles = theme => ({
   title: {
     fontSize: 40,
     color: '#fff'  
+  },
+  redirectCell: {
+    cursor: 'pointer',
+    '&:hover':{
+      backgroundColor: '#fff'
+    }
   }
 })
 
 const LeagueTable = props => {
-  const { classes, teams, league } = props;
+  const { classes, teams, league, pushIntoRoute, location } = props;
   return (      
     <div className={classes.root}>
         <div>
@@ -61,7 +67,7 @@ const LeagueTable = props => {
             {teams.length && teams.map(team => {
                 return (
                 <TableRow key={team.teamId}>
-                    <TableCell component="th" scope="row">
+                    <TableCell component="th" scope="row" className={classes.redirectCell} onClick={() => pushIntoRoute(location+team.teamId)}>
                     {team.name}
                     </TableCell>
                     <TableCell numeric>{team.matchesPlayed}</TableCell>

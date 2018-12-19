@@ -21,9 +21,9 @@ const styles = theme => ({
     },
     secondCard: {
         width: 350,
-        backgroundColor: "#757de8",
+        backgroundColor: "#63a4ff",
         '&:hover': {
-            backgroundColor: "#002984",
+            backgroundColor: "#1976d2",
           },
         height: 200,
         textAlign: 'center',
