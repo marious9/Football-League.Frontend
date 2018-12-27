@@ -23,7 +23,6 @@ class MatchContainer extends React.Component{
     }
 
     generateSchedule = () => {
-        console.log('jestem')
         this.props.generateSchedule(this.props.match.params.id)
     }
 
@@ -68,6 +67,10 @@ class MatchContainer extends React.Component{
         const leagueId = this.props.match.params.id;
         if(this.props.addMatchResult && this.props.addMatchErrors !== prevProps.addMatchErrors){
             this.setState({openModal: false})
+            this.props.getMatches(leagueId);
+        }
+
+        if(this.props.generateScheduleResult && this.props.generateScheduleErrors !== prevProps.generateScheduleErrors){
             this.props.getMatches(leagueId);
         }
     }

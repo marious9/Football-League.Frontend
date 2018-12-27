@@ -1,4 +1,4 @@
-import { GET_STATISTICS, GET_LEAGUES, GET_LEAGUE_BY_ID, GET_LEAGUE_TABLE, ADD_LEAGUE, GENERATE_SCHEDULE } from '../actionTypes.js';
+import { GET_STATISTICS, GET_LEAGUES, GET_LEAGUE_BY_ID, GET_LEAGUE_TABLE, ADD_LEAGUE, GENERATE_SCHEDULE, DELETE_LEAGUE, EDIT_LEAGUE } from '../actionTypes.js';
 import { Api } from '../../api/index.js';
 
 export const generateSchedule = (generateScheduleResult, generateScheduleErrors) => {
@@ -34,6 +34,12 @@ export const getLeagueTable = (leagueTable, getLeagueTableErrors, getLeagueTable
 export const addLeague = (addLeagueResult, addLeagueErrors) => {
     return {
         type: ADD_LEAGUE, addLeagueResult, addLeagueErrors
+    }
+}
+
+export const editLeague = (editLeagueResult, editLeagueErrors) => {
+    return {
+        type: EDIT_LEAGUE, editLeagueResult, editLeagueErrors
     }
 }
 

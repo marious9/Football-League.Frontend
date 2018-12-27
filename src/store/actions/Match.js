@@ -79,7 +79,6 @@ export const editMatchActionCreator = (editMatchArray, matchId) => {
         "date": moment(editMatchArray[2].value).format('YYYY-MM-DD hh:mm')
     }
     return dispatch => {
-        console.log(editMatchModel, matchId);
         Api.Match.editMatch(editMatchModel, matchId)
             .then(() => dispatch(editMatch([], true)))
             .catch(errors => dispatch(editMatch(errors, false)));

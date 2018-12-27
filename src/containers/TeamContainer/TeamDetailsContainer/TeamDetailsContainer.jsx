@@ -1,25 +1,23 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { deletePlayerActionCreator, addPlayerActionCreator, editPlayerActionCreator } from '../../../store/actions/Player';
-import { getTeamByIdActionCreator } from '../../../store/actions/Team';
+import { getTeamByIdActionCreator, editTeamActionCreator } from '../../../store/actions/Team';
 import Spinner from '../../../components/UI/spinner/spinner';
 import AddButton from '../../../components/UI/addButton/AddButton';
-import MatchDetailsTable from '../../../components/match/MatchDetailsTable/MatchDetailsTable';
 import Modal from 'react-responsive-modal';
 import EditIcon from '@material-ui/icons/Edit';
 import Form from '../../../components/UI/form/form';
 import { formTitlesGenerator } from "../../../constants/formTitles";
 import {Button} from "@material-ui/core/";
-import Grid from '@material-ui/core/Grid';
-import FormInput from '../../../components/UI/form/formInput/formInput'
-import {Table, TableCell, TableRow, TableHead, TableBody, Typography  } from '@material-ui/core/';
+import {Table, TableCell, TableRow, TableHead, TableBody, Typography, Tooltip  } from '@material-ui/core/';
 import moment from 'moment';
 import { withStyles } from '@material-ui/core/styles';
 
 const styles = theme => ({
     table: {
         minWidth: 700,
-        marginBottom: 100
+        marginBottom: 100,
+        backgroundColor: 'rgba(0, 0, 0, 0.3)'
       },
       tableCell: {
           color: '#fff',
@@ -51,8 +49,10 @@ class TeamDetailsContainer extends React.Component{
         openAddPlayerModal: false,
         addPlayerFormItems: [],
         editPlayerFormItems: [],
+        editTeamFormItems: [],
         currentEditPlayerId: null,
-        openEditPlayerModal: false
+        openEditPlayerModal: false,
+        openEditTeamModal: false
 
     }
     componentDidMount(){
@@ -76,6 +76,10 @@ class TeamDetailsContainer extends React.Component{
         if(this.props.editPlayerResult && this.props.editPlayerErrors !== prevProps.editPlayerErrors) {            
             this.props.getTeam(teamId);
             this.setState({openEditPlayerModal: false});            
+        }
+        if(this.props.editTeamResult && this.props.editTeamErrors !== prevProps.editTeamErrors) {            
+            this.props.getTeam(teamId);
+            this.setState({openEditTeamModal: false});            
         }
     }
 
@@ -108,7 +112,7 @@ class TeamDetailsContainer extends React.Component{
         this.setState({openAddPlayerModal: true});
     }
 
-    onCloseAddPlayerModal= () => {
+    onCloseAddPlayerModal = () => {
         this.setState({openAddPlayerModal: false});
     }
 
@@ -116,20 +120,34 @@ class TeamDetailsContainer extends React.Component{
         this.setState({openEditPlayerModal: true, currentEditPlayerId: playerId});
     }
 
-    onCloseEditPlayerModal= () => {
+    onCloseEditPlayerModal = () => {
         this.setState({openEditPlayerModal: false});
+    }
+
+    onOpenEditTeamModal = () => {        
+        this.setState({openEditTeamModal: true});
+    }
+    
+    onCloseEditTeamModal = () => {        
+        this.setState({openEditTeamModal: false});
     }
 
 
     render(){
-        const {team, classes, addPlayerErrors, addPlayerResult, editPlayerResult, editPlayerErrors} = this.props;
-        const {isTeamLoading, openDeletePlayerModal, addPlayerFormItems, openAddPlayerModal, editPlayerFormItems, openEditPlayerModal} = this.state;
+        const {team, classes, addPlayerErrors, addPlayerResult, editPlayerResult, editPlayerErrors, editTeamResult, editTeamErrors} = this.props;
+        const {isTeamLoading, openDeletePlayerModal, addPlayerFormItems, openAddPlayerModal, editPlayerFormItems, openEditPlayerModal, openEditTeamModal, editTeamFormItems} = this.state;        
+        const teamId = this.props.match.params.teamId;
         return(
             <div>
                 {isTeamLoading ? <Spinner /> :                    
                     <div style={{width:'100%', top:"100px", textAlign: 'center', margin: 0, position:"relative"}}>
                     <Typography align="center" className={classes.title}> {team.name}</Typography>                     
                     <AddButton tooltip="Dodaj zawodnika" action={this.onOpenAddPlayerModal}/>
+                    <Tooltip title="Edytuj mecz" color="primary" variant="contained">
+                                <Button onClick={() => this.onOpenEditTeamModal()}>                            
+                                    <EditIcon />
+                                </Button>
+                    </Tooltip>
                     {team.players &&
                     <Table className={classes.table} >
                         <TableHead>
@@ -198,7 +216,7 @@ class TeamDetailsContainer extends React.Component{
                             setFields={this.setFields}
                             arrayName="editPlayerFormItems"
                             formItems={editPlayerFormItems}
-                            key={1}
+                            key={2}
                             {...formTitlesGenerator(
                             "addEditPlayerTypes",
                             "addEditPlayerRequirements",
@@ -207,6 +225,28 @@ class TeamDetailsContainer extends React.Component{
                             btnTitle="Edytuj"
                         />
                     </Modal>
+                    <Modal 
+                        open={openEditTeamModal}
+                        onClose={() => this.onCloseEditTeamModal()}>
+                            <Form
+                                submitResult={editTeamResult}
+                                submitErrors={editTeamErrors}                                
+                                arrayName="editTeamFormItems"
+                                additionalClasses={"form-add-edit-player-container"}
+                                formItems={editTeamFormItems}       
+                                onSubmit={() => this.props.editTeam(teamId, editTeamFormItems)}                            
+                                setFields={this.setFields}                                
+                                key={3}
+                                {...formTitlesGenerator(
+                                    "addEditTeamTypes",
+                                    "addEditTeamRequirements",
+                                    "Edytowanie drużyny"
+                                    )}
+                                    
+                            btnTitle="Edytuj"
+                            />
+                    </Modal>
+
 
                     </div>
                 }
@@ -237,7 +277,8 @@ const mapDispatchToProps = dispatch => {
         addPlayer: (teamId, formItems) => dispatch(addPlayerActionCreator(formItems, teamId)),
         deletePlayer: playerId => dispatch(deletePlayerActionCreator(playerId)),
         editPlayer: (playerId, formItems) => dispatch(editPlayerActionCreator(formItems, playerId)),        
-        getTeam: teamId => dispatch(getTeamByIdActionCreator(teamId))
+        getTeam: teamId => dispatch(getTeamByIdActionCreator(teamId)),
+        editTeam: (teamId, formItems) => dispatch(editTeamActionCreator(formItems, teamId))
     };
 }
 export default connect(mapStateToProps, mapDispatchToProps)(withStyles(styles)(TeamDetailsContainer));

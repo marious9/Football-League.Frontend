@@ -5,6 +5,8 @@ export const LOGOUT = "LOGOUT";
 
 export const GENERATE_SCHEDULE = "GENERATE_SCHEDULE";
 export const ADD_LEAGUE = "ADD_LEAGUE";
+export const EDIT_LEAGUE = "EDIT_LEAGUE";
+export const DELETE_LEAGUE = "DELETE_LEAGUE";
 export const GET_LEAGUES = "GET_LEAGUES";
 export const GET_LEAGUE_BY_ID = "GET_LEAGUE_BY_ID";
 export const GET_LEAGUE_TABLE = "GET_LEAGUE_TABLE";

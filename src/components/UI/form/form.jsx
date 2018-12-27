@@ -70,7 +70,6 @@ class Form extends React.PureComponent{
             this.props.setFields(this.props.arrayName, items);        
         }
         else{
-            console.log("co tu sie dzieje")
            this.setState({ableToSubmit: true});
            this.props.onSubmit();
         }
