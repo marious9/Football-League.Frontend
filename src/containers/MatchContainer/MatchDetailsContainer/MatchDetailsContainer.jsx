@@ -3,7 +3,6 @@ import { connect } from 'react-redux';
 import { getMatchByIdActionCreator, editMatchActionCreator, deleteMatchActionCreator, editMatch } from '../../../store/actions/Match';
 import { addStatisticActionCreator, addStatistic, getMatchStatisticsActionCreator, deleteStatisticActionCreator, deleteStatistic } from '../../../store/actions/Statistic';
 import Spinner from '../../../components/UI/spinner/spinner';
-import AddButton from '../../../components/UI/addButton/AddButton';
 import MatchDetailsTable from '../../../components/match/MatchDetailsTable/MatchDetailsTable';
 import Modal from 'react-responsive-modal';
 import EditIcon from '@material-ui/icons/Edit';
@@ -47,8 +46,6 @@ class MatchContainerDetails extends React.Component{
 
     onOpenDeleteStatisticModal = e => {
         this.setState({ openDeleteStatisticModal: true, idOfStatisticToDelete: e });
-        
-        console.log(this.state.idOfStatisticToDelete, e)
     };
 
     onCloseDeleteStatisticModal = () => {

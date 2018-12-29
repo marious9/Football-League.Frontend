@@ -58,10 +58,18 @@ export const addMatchTypes = [
     {title: "Data spotkania", type: "date", serverName: "Date"}
 ]
 
+export const editLeagueTypes = [
+    {title: "Nazwa", type: "text", holder: "Wpisz nazwę ligii...", serverName: "Name"}
+];
+
+export const editLeagueRequirements = [
+    {inputName: "Dodaj ligę", nullable: false, minLength: 5, maxLength: 30}
+];
+
 export const addLeagueTypes = [
     {title: "Nazwa", type: "text", holder: "Wpisz nazwę ligii...", serverName: "Name"},
     {title: "Ilość drużyn", type: "number", serverName:"Quantity"}
-]
+];
 
 export const loginTypes = [
     {title: "Nazwa użytkownika", type: "text", holder: "Wpisz swoją nazwę użytkownika...", serverName: "Username"}, 

@@ -37,6 +37,12 @@ export const addLeague = (addLeagueResult, addLeagueErrors) => {
     }
 }
 
+export const deleteLeague = (deleteLeagueResult, deleteLeagueErrors) => {
+    return {
+        type: DELETE_LEAGUE, deleteLeagueResult, deleteLeagueErrors
+    }
+}
+
 export const editLeague = (editLeagueResult, editLeagueErrors) => {
     return {
         type: EDIT_LEAGUE, editLeagueResult, editLeagueErrors
@@ -100,6 +106,23 @@ export const addLeagueActionCreator = (addLeagueArray) => {
         Api.League.addLeague(addLeagueModel)
             .then(() => dispatch(addLeague(true, [])))
             .catch(errors => dispatch(addLeague(false,errors)));
+    }
+}
+
+export const deleteLeagueActionCreator = leagueId =>
+    dispatch => 
+        Api.League.deleteLeague(leagueId)
+            .then(() => dispatch(deleteLeague(true, [])))
+            .catch(errors => dispatch(deleteLeague(false, errors)));
+
+export const editLeagueActionCreator = (editLeagueArray, leagueId) => {
+    const editLeagueModel = {
+        "Name": editLeagueArray[0].value
+    }
+    return dispatch => {
+        Api.League.editLeague(editLeagueModel, leagueId)
+            .then(() => dispatch(editLeague(true, [])))
+            .catch(errors => dispatch(editLeague(false,errors)));
     }
 }
 

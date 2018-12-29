@@ -1,4 +1,4 @@
-import { GET_STATISTICS, GET_LEAGUES, GET_LEAGUE_BY_ID, GET_LEAGUE_TABLE, ADD_LEAGUE, GENERATE_SCHEDULE } from '../actionTypes.js';
+import { GET_STATISTICS, GET_LEAGUES, GET_LEAGUE_BY_ID, GET_LEAGUE_TABLE, ADD_LEAGUE, EDIT_LEAGUE, GENERATE_SCHEDULE, DELETE_LEAGUE } from '../actionTypes.js';
 import { updateObject } from '../utility/updateObject';
 
 const initialState = {
@@ -20,6 +20,12 @@ const initialState = {
     addLeagueErrors: [],
     addLeagueResult: null,
 
+    deleteLeagueErrors: [],
+    deleteLeagueResult: null,
+    
+    editLeagueErrors: [],
+    editLeagueResult: null,
+
     statistics: [],
     getStatisticsErrors: [],
     getStatisticsStatus: null
@@ -36,6 +42,12 @@ const League = (state = initialState, action) => {
         case ADD_LEAGUE:
             return updateObject(state, {addLeagueErrors: action.addLeagueErrors,
                 addLeagueResult: action.addLeagueResult});
+        case DELETE_LEAGUE:
+            return updateObject(state, {deleteLeagueErrors: action.deleteLeagueErrors, 
+                deleteLeagueResult: action.deleteLeagueResult});
+        case EDIT_LEAGUE:
+            return updateObject(state, {editLeagueErrors: action.editLeagueErrors,
+                editLeagueResult: action.editLeagueResult});
         case GET_LEAGUES:
             return updateObject(state, { getLeaguesErrors: action.getLeaguesErrors,
                 leagues: action.leagues, getLeaguesStatus: action.getLeaguesStatus});

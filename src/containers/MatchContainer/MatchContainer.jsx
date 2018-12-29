@@ -144,7 +144,6 @@ class MatchContainer extends React.Component{
                         setAwayId={this.setAwayId}
                         currentHostId={this.state.currentHostId}
                         currentAwayId={this.state.currentAwayId}
-                        selectTeams={this.state.selectTeams}
                         leagueId={id}
                         addMatchResult={addMatchResult}
                         addMatchErrors={addMatchErrors} 

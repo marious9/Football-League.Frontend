@@ -90,8 +90,8 @@ const MatchDetailsTable = props => {
                     </Typography>
                     <Table>
                         <TableBody>
-                            {matchStatistics.map((statistic, index) => {
-                                if(statistic.action === 0) return(
+                            {matchStatistics.map((statistic, index) => 
+                                statistic.action === 0 &&
                                 <TableRow key={index}>
                                     <TableCell className={classes.colorWhite}>                                    
                                         {getPlayer(statistic, game.host.name, onOpenDeleteStatisticModal).icon || ''} {' '} 
@@ -101,7 +101,7 @@ const MatchDetailsTable = props => {
                                         {getPlayer(statistic, game.away.name, onOpenDeleteStatisticModal).icon || ''} {' '}
                                         {getPlayer(statistic, game.away.name, onOpenDeleteStatisticModal).fullName || ''} {' '}
                                     </TableCell>                                                                        
-                                </TableRow>)  }
+                                </TableRow>
                             )}                     
                         </TableBody>
                     </Table>

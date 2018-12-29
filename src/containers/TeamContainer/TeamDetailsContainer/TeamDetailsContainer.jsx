@@ -1,11 +1,12 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { deletePlayerActionCreator, addPlayerActionCreator, editPlayerActionCreator } from '../../../store/actions/Player';
-import { getTeamByIdActionCreator, editTeamActionCreator } from '../../../store/actions/Team';
+import { getTeamByIdActionCreator, editTeamActionCreator, deleteTeamActionCreator } from '../../../store/actions/Team';
 import Spinner from '../../../components/UI/spinner/spinner';
 import AddButton from '../../../components/UI/addButton/AddButton';
 import Modal from 'react-responsive-modal';
 import EditIcon from '@material-ui/icons/Edit';
+import DeleteIcon from '@material-ui/icons/Delete';
 import Form from '../../../components/UI/form/form';
 import { formTitlesGenerator } from "../../../constants/formTitles";
 import {Button} from "@material-ui/core/";
@@ -52,7 +53,8 @@ class TeamDetailsContainer extends React.Component{
         editTeamFormItems: [],
         currentEditPlayerId: null,
         openEditPlayerModal: false,
-        openEditTeamModal: false
+        openEditTeamModal: false,
+        openDeleteTeamModal: false,
 
     }
     componentDidMount(){
@@ -81,6 +83,11 @@ class TeamDetailsContainer extends React.Component{
             this.props.getTeam(teamId);
             this.setState({openEditTeamModal: false});            
         }
+    }
+    
+    deleteTeam = (teamId, path) => {
+        this.props.deleteTeam(teamId);
+        this.props.history.push(path);
     }
 
     deletePlayer = () => {
@@ -123,6 +130,14 @@ class TeamDetailsContainer extends React.Component{
     onCloseEditPlayerModal = () => {
         this.setState({openEditPlayerModal: false});
     }
+    
+    onOpenDeleteTeamModal = () => {
+        this.setState({openDeleteTeamModal: true})
+    }
+
+    onCloseDeleteTeamModal = () => {
+        this.setState({openDeleteTeamModal: false})
+    }
 
     onOpenEditTeamModal = () => {        
         this.setState({openEditTeamModal: true});
@@ -134,8 +149,10 @@ class TeamDetailsContainer extends React.Component{
 
 
     render(){
-        const {team, classes, addPlayerErrors, addPlayerResult, editPlayerResult, editPlayerErrors, editTeamResult, editTeamErrors} = this.props;
-        const {isTeamLoading, openDeletePlayerModal, addPlayerFormItems, openAddPlayerModal, editPlayerFormItems, openEditPlayerModal, openEditTeamModal, editTeamFormItems} = this.state;        
+        const {team, classes, addPlayerErrors, addPlayerResult, editPlayerResult, editPlayerErrors, editTeamResult, 
+            editTeamErrors, match, history} = this.props;
+        const {isTeamLoading, openDeletePlayerModal, addPlayerFormItems, openAddPlayerModal, editPlayerFormItems, openEditPlayerModal,
+            openEditTeamModal, editTeamFormItems, openDeleteTeamModal} = this.state;        
         const teamId = this.props.match.params.teamId;
         return(
             <div>
@@ -146,6 +163,11 @@ class TeamDetailsContainer extends React.Component{
                     <Tooltip title="Edytuj mecz" color="primary" variant="contained">
                                 <Button onClick={() => this.onOpenEditTeamModal()}>                            
                                     <EditIcon />
+                                </Button>
+                    </Tooltip>
+                    <Tooltip title="Usuń mecz" color="secondary" variant="contained">
+                                <Button onClick={() => this.onOpenDeleteTeamModal()}>                            
+                                    <DeleteIcon />
                                 </Button>
                     </Tooltip>
                     {team.players &&
@@ -246,6 +268,15 @@ class TeamDetailsContainer extends React.Component{
                             btnTitle="Edytuj"
                             />
                     </Modal>
+                    <Modal
+                        open={openDeleteTeamModal}
+                        onClose={() => this.onCloseDeleteTeamModal()}>
+                        <div style={{padding: 20}}>
+                                <h3>Usuwanie drużyny</h3>
+                                <Button color="secondary" onClick={() => this.deleteTeam(match.params.teamId, history, `/main/league/${match.params.id}/teams`)} >Usuń</Button>                                 
+                                <Button onClick={() => this.onCloseDeleteModal()} >Anuluj</Button>
+                             </div>
+                    </Modal>s
 
 
                     </div>
@@ -266,6 +297,9 @@ const mapStateToProps = state => {
         deletePlayerErrors: state.Player.deletePlayerErrors,
         deletePlayerResult: state.Player.deletePlayerResult,
 
+        deleteTeamErrors: state.Player.deleteTeamErrors,
+        deleteTeamResult: state.Player.deleteTeamResult,
+
         editTeamErrors: state.Team.editTeamErrors,
         editTeamResult: state.Team.editTeamResult,
         team: state.Team.team,
@@ -278,7 +312,8 @@ const mapDispatchToProps = dispatch => {
         deletePlayer: playerId => dispatch(deletePlayerActionCreator(playerId)),
         editPlayer: (playerId, formItems) => dispatch(editPlayerActionCreator(formItems, playerId)),        
         getTeam: teamId => dispatch(getTeamByIdActionCreator(teamId)),
-        editTeam: (teamId, formItems) => dispatch(editTeamActionCreator(formItems, teamId))
+        editTeam: (teamId, formItems) => dispatch(editTeamActionCreator(formItems, teamId)),
+        deleteTeam: teamId => dispatch(deleteTeamActionCreator(teamId))
     };
 }
 export default connect(mapStateToProps, mapDispatchToProps)(withStyles(styles)(TeamDetailsContainer));

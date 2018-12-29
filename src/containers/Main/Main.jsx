@@ -1,6 +1,5 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import LeagueCard from '../../components/league/LeagueCard';
 import {getLeaguesActionCreator, addLeagueActionCreator} from '../../store/actions/League';
 import './Main.css';import Spinner from '../../components/UI/spinner/spinner';
 import AddButton from '../../components/UI/addButton/AddButton';

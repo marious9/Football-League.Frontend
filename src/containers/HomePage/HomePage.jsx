@@ -9,7 +9,7 @@ import { connect } from 'react-redux';
 import { withCookies } from 'react-cookie';
 import { logoutActionCreator } from '../../store/actions/Authenticate';
 import LeagueContainer from '../../containers/LeagueContainer/LeagueContainer';
-import MaterialNavbar from '../../components/navigation/materialNavbar/MaterialNavbar';
+//import MaterialNavbar from '../../components/navigation/materialNavbar/MaterialNavbar';
 import LeagueTableContainer from "../LeagueContainer/LeagueTableContainer/LeagueTableContainer";
 import { MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles';
 import MatchContainer from '../MatchContainer/MatchContainer';

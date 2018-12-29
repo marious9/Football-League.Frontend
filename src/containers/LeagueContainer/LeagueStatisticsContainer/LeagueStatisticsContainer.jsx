@@ -2,7 +2,6 @@ import React from 'react';
 import { connect } from 'react-redux';
 import {getStatisticsActionCreator} from '../../../store/actions/League';
 import Spinner from '../../../components/UI/spinner/spinner';
-import LeagueTable from '../../../components/league/LeagueTable/LeagueTable';
 import StatTab from '../../../components/LeagueStatistics/StatTab';
 import { Grid } from '@material-ui/core/'
 
