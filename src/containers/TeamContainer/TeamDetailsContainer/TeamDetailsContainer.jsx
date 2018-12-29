@@ -6,7 +6,7 @@ import Spinner from '../../../components/UI/spinner/spinner';
 import AddButton from '../../../components/UI/addButton/AddButton';
 import Modal from 'react-responsive-modal';
 import EditIcon from '@material-ui/icons/Edit';
-import DeleteIcon from '@material-ui/icons/Delete';
+// import DeleteIcon from '@material-ui/icons/Delete';
 import Form from '../../../components/UI/form/form';
 import { formTitlesGenerator } from "../../../constants/formTitles";
 import {Button} from "@material-ui/core/";
@@ -165,11 +165,11 @@ class TeamDetailsContainer extends React.Component{
                                     <EditIcon />
                                 </Button>
                     </Tooltip>
-                    <Tooltip title="Usuń mecz" color="secondary" variant="contained">
+                    {/* <Tooltip title="Usuń druzyne" color="secondary" variant="contained">
                                 <Button onClick={() => this.onOpenDeleteTeamModal()}>                            
                                     <DeleteIcon />
                                 </Button>
-                    </Tooltip>
+                    </Tooltip> */}
                     {team.players &&
                     <Table className={classes.table} >
                         <TableHead>
@@ -272,11 +272,11 @@ class TeamDetailsContainer extends React.Component{
                         open={openDeleteTeamModal}
                         onClose={() => this.onCloseDeleteTeamModal()}>
                         <div style={{padding: 20}}>
-                                <h3>Usuwanie drużyny</h3>
-                                <Button color="secondary" onClick={() => this.deleteTeam(match.params.teamId, history, `/main/league/${match.params.id}/teams`)} >Usuń</Button>                                 
-                                <Button onClick={() => this.onCloseDeleteModal()} >Anuluj</Button>
-                             </div>
-                    </Modal>s
+                            <h3>Usuwanie drużyny</h3>
+                            <Button color="secondary" onClick={() => this.deleteTeam(match.params.teamId, history, `/main/league/${match.params.id}/teams`)} >Usuń</Button>                                 
+                            <Button onClick={() => this.onCloseDeleteModal()} >Anuluj</Button>
+                        </div>
+                    </Modal>
 
 
                     </div>

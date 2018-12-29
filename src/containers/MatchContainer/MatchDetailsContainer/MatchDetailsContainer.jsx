@@ -126,8 +126,11 @@ class MatchContainerDetails extends React.Component{
         return(
             <div>
                 {isMatchLoading ? <Spinner /> :                    
-                    <Grid container alignItems="center">
-                        <div style={{position:"absolute", top:'270px', left: '460px'}}>
+                    <Grid container
+                    direction="row"
+                    justify="center"
+                    alignItems="center">
+                        <div style={{position:"absolute", top:'275px'}}>
                             <Tooltip title="Edytuj mecz" color="primary" variant="contained">
                                 <Button onClick={() => this.onOpenEditModal()}>                            
                                     <EditIcon />

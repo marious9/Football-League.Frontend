@@ -44,7 +44,7 @@ class Main extends React.Component{
         return(
             <div>
             {isLeaguesLoading ? <Spinner /> :
-                <div className="main-container">
+            <div style={{width:'100%', top:"140px", textAlign: 'center', margin: 0, position:"relative"}}>
                     <AddButton tooltip="Dodaj ligę" action={this.onOpenModal}/>
                     <AddLeagueModal
                         addLeagueResult={addLeagueResult}
