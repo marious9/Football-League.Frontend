@@ -113,7 +113,14 @@ class Form extends React.PureComponent{
                 corClass="reg-btn-cor"
                 />
 
-                {(submitResult === false && submitResult !== undefined && 
+                {(
+                    submitResult !== undefined && this.props.passwordUpdated === true &&
+                    <div className="success-message">
+                        Zmieniono pomyślnie
+                    </div>
+                )}
+
+                {(submitResult !== undefined && submitResult === false &&  
                     submitErrors.length > 0) &&
                     <ServerError 
                     mainClass="server-error-container"

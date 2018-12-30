@@ -17,6 +17,7 @@ import MatchDetailsContainer from '../MatchContainer/MatchDetailsContainer/Match
 import TeamContainer from '../TeamContainer/TeamContainer';
 import LeagueStatisticsContainer from '../LeagueContainer/LeagueStatisticsContainer/LeagueStatisticsContainer';
 import TeamDetailsContainer from '../TeamContainer/TeamDetailsContainer/TeamDetailsContainer';
+import AccountContainer from '../AccountContainer/AccountContainer';
 
 const theme = createMuiTheme({
     typography: {
@@ -63,10 +64,12 @@ class HomePage extends React.PureComponent {
                 <Route exact path="/main/league/:id/teams" component={TeamContainer} />
                 <Route exact path="/main/league/:id/match/:matchId" component={MatchDetailsContainer} />
                 <Route exact path="/main/league/:id/teams/:teamId" component={TeamDetailsContainer} />
+                {isLogged && <Route exact path="/account" component={AccountContainer} /> }
 
-                {!isLogged && <Route path="/login" render={() => 
-                    <Login pushIntoRoute={this.pushIntoRoute} /> }
-                 />}
+                {!isLogged && <div> 
+                    <Route path="/login" render={() => <Login pushIntoRoute={this.pushIntoRoute} /> }/>   
+                 </div>
+                 }
                 <Footer />
             </div>
         </MuiThemeProvider>

@@ -1,3 +1,7 @@
+export const CHANGE_PASSWORD = "CHANGE_PASSWORD";
+export const EDIT_PROFILE = "EDIT_PROFILE";
+export const GET_ACCOUNT = "GET_ACCOUNT";
+
 export const REGISTER = "REGISTER";
 export const LOGIN = "LOGIN";
 export const GET_USER_DATA = "GET_USER_DATA";

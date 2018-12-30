@@ -1,3 +1,14 @@
+.success-message{
+    position: absolute;
+    background-color: rgba(21, 196, 65, 0.74);
+    bottom: 160px;
+    padding: 10px 10px;
+    box-sizing: border-box;
+    font-size: 15px;
+    color: #fff;
+    box-shadow: -1px 1px 38px -2px rgba(255, 255, 255, 0.897);
+}
+
 .form-add-edit-player-container{
     width: 500px;
     height: 550px;
@@ -91,7 +102,7 @@
 
 .login-screen-description h1{
     font-weight: 900;   
-    color:  rgb(161,233,161);
+    color:  rgb(35, 163, 78);
     position: absolute;
     top:150px;
     left:100px;

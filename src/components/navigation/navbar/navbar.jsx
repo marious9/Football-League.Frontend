@@ -1,6 +1,7 @@
 import React from 'react';
 import "./navbar.css";
 import Button from "../../UI/button/button";
+//import UserIcon from "@material-ui/icons/AccountBox"
 
 const Navbar = (props) => (
 
@@ -14,11 +15,20 @@ const Navbar = (props) => (
                 className="big-btn"
         /> }
         {props.isLogged &&
-            <Button 
-                onClick={() => props.logout()}
-                name="Wyloguj się"
-                className="big-btn"
-            />
+            <div>
+                <Button 
+                    onClick={() => props.logout()}
+                    name="Wyloguj się"
+                    className="big-btn"
+                />
+                {/* <UserIcon style={{}}fontSize="large"/> */}
+                
+                <Button 
+                    onClick={() => props.pushIntoRoute("/account")}
+                    name="Moje konto"
+                    className="big-btn"
+                />
+            </div>
         }
         </div>
     </div>

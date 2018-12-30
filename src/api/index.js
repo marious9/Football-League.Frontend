@@ -38,6 +38,11 @@ const errorParser = error => {
 }
 
 export const Api = {
+    Account: {
+        getAccount: () => { return dataExtractor("get", "/account/getAccount") },
+        changePassword: changePasswordModel => { return dataExtractor("post", "/account/changePassword", changePasswordModel) },
+        editProfile: editProfileModel => { return dataExtractor("post", "/account/editProfile", editProfileModel) },
+    },
     Authorization: {
         login: loginModel => { return dataExtractor("post", "/account/login/", loginModel) },
         logOut: () => { return dataExtractor("post", "/account/logout") },

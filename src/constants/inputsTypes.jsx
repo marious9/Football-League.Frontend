@@ -1,15 +1,36 @@
+export const editProfileTypes = [
+    {title: "Imię", type: "text", serverName: "Firstname"},
+    {title: "Nazwisko", type: "text", serverName: "Lirstname"},    
+];
+
+export const editProfileRequirements = [
+    {inputName: "Imię", nullable: false,  minLength: 2, maxLength: 40},
+    {inputName: "Nazwisko", nullable: false,  minLength: 2, maxLength: 40}
+];
+
+export const changePasswordTypes = [    
+    {title: "Hasło", type: "password", serverName: "Password"}, 
+    {title: "Nowe hasło", type: "password", serverName: "NewPassword"},
+    {title: "Potwierdź nowe hasło", type: "password", serverName: "ConfirmNewPassword"},    
+];
+
+export const changePasswordRequirements = [
+    {inputName: "Hasło", nullable: false, minLength: 5, maxLength: 20},
+    {inputName: "Hasło", nullable: false, minLength: 5, maxLength: 20},
+    {inputName: "Hasło", nullable: false, minLength: 5, maxLength: 20}
+];
+
 export const addEditPlayerTypes = [
     {title: "Imię", type: "text", serverName: "Firstname"},
     {title: "Nazwisko", type: "text", serverName: "Lirstname"},
     {title: "Data urodzenia", type: "date", serverName: "BirthDate"}
-]
+];
 
 export const addEditPlayerRequirements = [
     {inputName: "Imię", nullable: false,  minLength: 2, maxLength: 40},
     {inputName: "Nazwisko", nullable: false,  minLength: 2, maxLength: 40},
     {inputName: "Data urodzenia", nullable: false}
 ];
-
 
 export const addStatisticTypes = [
     {title: "Minuta meczu", type: "number", serverName: "Minute"},
@@ -32,7 +53,6 @@ export const addStatisticTypes = [
         }
     ]}
 ]
-
 
 export const addStatisticRequirements = [
     {inputName: "Minuta meczu", nullable: false, minNumber: 0, maxNumber: 90},
