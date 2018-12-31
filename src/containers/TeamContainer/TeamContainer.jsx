@@ -31,11 +31,11 @@ class TeamContainer extends React.Component{
 
 
     componentDidMount(){
-        const leagueId = this.props.match.params.id;
+        const leagueId = this.props.match.params.id;        
+        this.props.getTeams(leagueId);            
         setTimeout( () => {
-            this.props.getTeams(leagueId);            
-            this.setState({isTeamsLoading: false, teams: this.props.league ?  this.props.league.teams : []});
-        }, 2000)        
+            this.setState({isTeamsLoading: false});
+        }, 1500)        
     }
 
     render(){
@@ -50,8 +50,8 @@ class TeamContainer extends React.Component{
             >
                 {isTeamsLoading ? <Spinner /> : 
                 <Grid style={{width:'100%', top:"80px", textAlign: 'center', margin: 0}}>
-                <AddButton tooltip="Dodaj drużynę" action={this.onOpenModal}/> 
-                    <Typography align="center" style={{fontSize:33, color:'#fff', marginBottom:20}}>{league.name}</Typography>
+                {!league.quantity === league.teams.length && <AddButton tooltip="Dodaj drużynę" action={this.onOpenModal}/> }
+                    <Typography align="center" style={{fontSize:33, color:'#fff', marginBottom:20, marginTop:20}}>{league.name}</Typography>
                     {league.teams ? league.teams.length > 0 ? 
                         league.teams.map((team,i) => <CardButton secondCard name={team.name} key={i} path={history.location.pathname+'/'+team.id} /> ) : "Brak drużyn w lidze."  : ''}
                 </Grid>}

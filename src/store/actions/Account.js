@@ -51,7 +51,7 @@ export const changePasswordActionCreator = (changePasswordArray) => {
         }
         Api.Account.changePassword(changePasswordModel)
         .then(() => dispatch(changePassword(true, [])))
-        .catch(errors =>{ console.log(errors); dispatch(changePassword(false,errors)) } );
+        .catch(errors =>{dispatch(changePassword(false,errors)) } );
     }
 }
 

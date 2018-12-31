@@ -1,7 +1,5 @@
 .success-message{
-    position: absolute;
     background-color: rgba(21, 196, 65, 0.74);
-    bottom: 160px;
     padding: 10px 10px;
     box-sizing: border-box;
     font-size: 15px;

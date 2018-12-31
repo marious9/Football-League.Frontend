@@ -17,12 +17,12 @@ class Main extends React.Component{
         setTimeout( () => {
             this.props.getLeagues();
             this.setState({isLeaguesLoading: false});
-        }, 2000)    
+        }, 1500)    
     };
     
     componentDidUpdate(prevProps) {
         if(this.props.addLeagueResult && this.props.addLeagueErrors !== prevProps.addLeagueErrors){
-            this.props.getLeagueById(this.props.match.params.id);
+            this.props.getLeagues();
         }
     }
 

@@ -34,7 +34,6 @@ class Form extends React.PureComponent{
         newItems[itemsId].value = value;
         newItems[itemsId].error = validateInput(value, 
             Types[this.props.requirements][itemsId]);
-
         if(this.props.comparePasswordIndexes){
             const { comparePasswordIndexes } = this.props;
             if(isSomethingEqual(comparePasswordIndexes, itemsId) && 
@@ -123,7 +122,7 @@ class Form extends React.PureComponent{
                 {(submitResult !== undefined && submitResult === false &&  
                     submitErrors.length > 0) &&
                     <ServerError 
-                    mainClass="server-error-container"
+                    mainClass={this.props.accountErrorClass || "server-error-container"}
                     show={(submitResult === false && submitResult !== undefined && 
                     submitErrors.length > 0)}
                     content={submitErrors[0]} />

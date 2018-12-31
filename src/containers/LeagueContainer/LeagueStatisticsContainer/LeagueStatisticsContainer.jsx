@@ -15,7 +15,7 @@ class LeagueStatisticsContainer extends React.Component{
             this.props.getStatistics(this.props.match.params.id);
             
             this.setState({isStatsLoading: false});
-        }, 2000)        
+        }, 1500)        
     }
 
     

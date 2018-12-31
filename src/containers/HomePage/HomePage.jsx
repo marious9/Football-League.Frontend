@@ -46,6 +46,19 @@ class HomePage extends React.PureComponent {
         }
     }
 
+    getLeagueIdFromUrl () {
+        const path = this.props.history.location.pathname.split('');
+        let forthSlashIndex = 0
+        path.reduce((acc,char, index) => {
+            if(char === '/' && acc === 3) forthSlashIndex = index;
+            return char === '/' ? acc + 1 : acc
+        }, 0)
+        const leagueId = path.slice(0,forthSlashIndex).filter((char) => {
+            return Number(char)
+        } )
+        return leagueId.toString()
+    }
+
   render() {
        const {isLogged} = this.state;
        const {history, logout} = this.props;
@@ -53,7 +66,7 @@ class HomePage extends React.PureComponent {
         <MuiThemeProvider theme={theme}>
             <div className="home-page">
             
-                <Navbar pushIntoRoute={this.pushIntoRoute} isLogged={isLogged} logout={() => logout(history)}/>
+                <Navbar pushIntoRoute={this.pushIntoRoute} isLogged={isLogged} leagueId={this.getLeagueIdFromUrl()} logout={() => logout(history)}/>
                 {history.location.pathname === "/" && <Redirect
                     to={"/main"} />}                
                 <Route exact path="/main" component={Main} />
@@ -87,6 +100,7 @@ const mapStateToProps = (state, ownProps) => {
   const mapDispatchToProps = dispatch => {
     return {
         logout: history => dispatch(logoutActionCreator(history,"/main"))
+
     };
   }
 export default connect(mapStateToProps, mapDispatchToProps)(withCookies(HomePage));

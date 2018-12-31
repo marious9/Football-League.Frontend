@@ -15,7 +15,7 @@ class LeagueTableContainer extends React.Component{
             this.props.getLeagueById(this.props.match.params.id);
             
             this.setState({isLeagueLoading: false});
-        }, 2000)        
+        }, 1500)        
     }
 
     

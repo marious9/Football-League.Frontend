@@ -94,7 +94,7 @@ class MatchContainerDetails extends React.Component{
             this.props.getMatch(matchId);   
             this.props.getMatchStatistic(matchId);
             this.setState({isMatchLoading: false});
-        }, 2000)        
+        }, 1500)        
     }
 
     componentDidUpdate(prevProps){

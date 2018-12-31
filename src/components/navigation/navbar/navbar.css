@@ -12,6 +12,11 @@
     right: 30px;
     top: 15px;
 }
+.nav-league-btns{
+    position: absolute;
+    left: 500px;
+    top: 15px;
+}
 .logo{
     font-size: 28px;
     font-weight: 700;

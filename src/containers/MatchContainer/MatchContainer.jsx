@@ -60,7 +60,7 @@ class MatchContainer extends React.Component{
             this.props.getMatches(leagueId);    
             this.props.getLeague(leagueId);            
             this.setState({isMatchLoading: false});  
-        }, 2000)      
+        }, 1500)      
     }
 
     componentDidUpdate(prevProps) {

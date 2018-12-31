@@ -7,7 +7,29 @@ const Navbar = (props) => (
 
     <div className="navbar">
         <div className="logo">Football Leagues Management</div>
-        <div className="nav-btns">
+        <div className="nav-league-btns">
+        {props.leagueId && 
+        <div>
+            <Button
+            onClick={() => props.pushIntoRoute(`/main/league/${props.leagueId}/table`)}
+            name="Tabela"
+            className="mid-btn"
+            />
+            <Button
+            onClick={() => props.pushIntoRoute(`/main/league/${props.leagueId}/teams`)}
+            name="Drużyny"
+            className="mid-btn"
+            />
+            
+            <Button
+            onClick={() => props.pushIntoRoute(`/main/league/${props.leagueId}/statistics`)}
+            name="Statystyki"
+            className="mid-btn"
+            />
+        </div>
+        }
+        </div>
+        <div className="nav-btns">        
         {!props.isLogged &&
             <Button
                 onClick={() => props.pushIntoRoute("/login")}

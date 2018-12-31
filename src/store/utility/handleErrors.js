@@ -17,7 +17,10 @@ export const handleErrors = errorObject => {
     }
 
     if(errorObject.response.status > 399){
-        return errorObject.response.data.errors;
+        const errorMsg = errorObject.response.data.errors
+        if(errorMsg !== undefined) return errorMsg;
+        const irrErrMsg = Object.values(errorObject.response.data).shift()
+        return irrErrMsg;
     }
 
     return [NotStandardErrors[500]];

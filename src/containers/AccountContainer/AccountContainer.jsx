@@ -2,10 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import {editProfileActionCreator, changePasswordActionCreator, getAccountActionCreator, clearChangePassword} from '../../store/actions/Account';
 import Spinner from '../../components/UI/spinner/spinner';
-import CardButton from '../../components/UI/cardButton/CardButton';
-import {Grid, Typography, Tooltip, Button} from '@material-ui/core/';
-import EditIcon from '@material-ui/icons/Edit';
-import Modal from 'react-responsive-modal';
+import {Grid, Typography} from '@material-ui/core/';
 import Form from '../../components/UI/form/form';
 import {formTitlesGenerator} from '../../constants/formTitles';
 import { withStyles } from '@material-ui/core/styles';
@@ -29,22 +26,13 @@ class AccountContainer extends React.Component{
     }
 
     componentDidUpdate(prevProps, prevState) {
-        // if(this.props.getAccountStatus && this.props.getAccountErrors !== prevProps.getAccountErrors){
-        //     let editProfileFormItems = [...this.state.editProfileFormItems];
-        //     for(let i in editProfileFormItems){
-        //         if(i === 0) editProfileFormItems[i].value = this.props.account.firstname;
-        //         if(i === 1) editProfileFormItems[i].value = this.props.account.lastname;
-        //     }
-        //     this.setState({editProfileFormItems})
-        //     console.log("editProfileFormItems", editProfileFormItems)
-        // }
         if(this.props.editProfileResult && this.props.editProfileErrors !== prevProps.editProfileErrors) {
             this.props.getAccount();
         }
         if(this.props.changePasswordResult && this.props.changePasswordErrors !== prevProps.changePasswordErrors) {
             let changePasswordFormItems = [...this.state.changePasswordFormItems];
             for(let item of changePasswordFormItems){
-                item.value = this.props.account.firstname
+                item.value = ''
             }
             this.setState({changePasswordFormItems})
             this.props.clearChangePassword();
@@ -70,7 +58,8 @@ class AccountContainer extends React.Component{
                     <Typography color="inherit" variant="h3" align="center">Witaj {`${account.firstname} ${account.lastname}`}</Typography>
                 </Grid>
                 <Grid item xs={4}>
-                    <Form 
+                    <Form                     
+                        accountErrorClass="account-server-error-container"
                         firstname={account.firstname}
                         lastname={account.lastname}
                         submitResult={editProfileResult}
@@ -90,7 +79,9 @@ class AccountContainer extends React.Component{
                     />
                 </Grid>
                 <Grid item xs={4}>
-                    <Form 
+                    <Form
+                        accountErrorClass="account-server-error-container"
+                        comparePasswordIndexes={this.state.changePasswordFormItems.slice(1)}
                         passwordUpdated={changePasswordResult}
                         submitResult={changePasswordResult}
                         submitErrors={changePasswordErrors}
@@ -99,7 +90,7 @@ class AccountContainer extends React.Component{
                         setFields={this.setFields}
                         arrayName="changePasswordFormItems"
                         formItems={changePasswordFormItems}
-                        key={1}
+                        key={2}
                         {...formTitlesGenerator(
                         "changePasswordTypes",
                         "changePasswordRequirements",
