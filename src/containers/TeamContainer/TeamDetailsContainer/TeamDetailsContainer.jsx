@@ -13,6 +13,7 @@ import {Button} from "@material-ui/core/";
 import {Table, TableCell, TableRow, TableHead, TableBody, Typography, Tooltip  } from '@material-ui/core/';
 import moment from 'moment';
 import { withStyles } from '@material-ui/core/styles';
+import { withCookies } from 'react-cookie';
 
 const styles = theme => ({
     table: {
@@ -55,6 +56,7 @@ class TeamDetailsContainer extends React.Component{
         openEditPlayerModal: false,
         openEditTeamModal: false,
         openDeleteTeamModal: false,
+        isLogged: !!this.props.cookies.get('FootballApp')
 
     }
     componentDidMount(){
@@ -152,19 +154,22 @@ class TeamDetailsContainer extends React.Component{
         const {team, classes, addPlayerErrors, addPlayerResult, editPlayerResult, editPlayerErrors, editTeamResult, 
             editTeamErrors, match, history} = this.props;
         const {isTeamLoading, openDeletePlayerModal, addPlayerFormItems, openAddPlayerModal, editPlayerFormItems, openEditPlayerModal,
-            openEditTeamModal, editTeamFormItems, openDeleteTeamModal} = this.state;        
+            openEditTeamModal, editTeamFormItems, openDeleteTeamModal, isLogged} = this.state;        
         const teamId = this.props.match.params.teamId;
         return(
             <div>
                 {isTeamLoading ? <Spinner /> :                    
                     <div style={{width:'100%', top:"100px", textAlign: 'center', margin: 0, position:"relative"}}>
-                    <Typography align="center" className={classes.title}> {team.name}</Typography>                     
-                    <AddButton tooltip="Dodaj zawodnika" action={this.onOpenAddPlayerModal}/>
-                    <Tooltip title="Edytuj mecz" color="primary" variant="contained">
-                                <Button onClick={() => this.onOpenEditTeamModal()}>                            
-                                    <EditIcon />
-                                </Button>
-                    </Tooltip>
+                    <Typography align="center" className={classes.title}> {team.name}</Typography>
+                    {isLogged &&
+                    <React.Fragment>
+                        <AddButton tooltip="Dodaj zawodnika" action={this.onOpenAddPlayerModal}/>
+                        <Tooltip title="Edytuj mecz" color="primary" variant="contained">
+                                    <Button onClick={() => this.onOpenEditTeamModal()}>                            
+                                        <EditIcon />
+                                    </Button>
+                        </Tooltip>
+                    </React.Fragment>}
                     {/* <Tooltip title="Usuń druzyne" color="secondary" variant="contained">
                                 <Button onClick={() => this.onOpenDeleteTeamModal()}>                            
                                     <DeleteIcon />
@@ -177,7 +182,7 @@ class TeamDetailsContainer extends React.Component{
                             <TableCell className={classes.tableCell}>Imię</TableCell>
                             <TableCell className={classes.tableCell}>Nazwisko</TableCell>
                             <TableCell className={classes.tableCell}>Data urodzenia</TableCell>
-                            <TableCell className={classes.tableCell}>Akcje</TableCell>
+                            {isLogged &&<TableCell className={classes.tableCell}>Akcje</TableCell>}
                         </TableRow>
                         </TableHead>
                         <TableBody>
@@ -189,10 +194,10 @@ class TeamDetailsContainer extends React.Component{
                                 </TableCell>
                                 <TableCell className={classes.tableCell} >{player.lastname}</TableCell>
                                 <TableCell className={classes.tableCell} >{moment(player.birthDate).format('DD-MM-YYYY')}</TableCell>
-                                <TableCell className={classes.tableCell} >
+                                {isLogged && <TableCell className={classes.tableCell} >
                                     <i onClick={() => this.onOpenEditPlayerModal(player.id)} className={"far fa-edit " + classes.editPlayerIcon}></i> {'   '}
                                     <i onClick={() => this.onOpenDeletePlayerModal(player.id)} className={"fas fa-user-times " + classes.deletePlayerIcon}></i>
-                                    </TableCell>
+                                    </TableCell>}
                             </TableRow>
                             );
                         })}
@@ -286,7 +291,7 @@ class TeamDetailsContainer extends React.Component{
     }
 }
 
-const mapStateToProps = state => {
+const mapStateToProps = (state, ownProps) => {
     return {
         addPlayerErrors: state.Player.addPlayerErrors,
         addPlayerResult: state.Player.addPlayerResult,
@@ -302,7 +307,8 @@ const mapStateToProps = state => {
 
         editTeamErrors: state.Team.editTeamErrors,
         editTeamResult: state.Team.editTeamResult,
-        team: state.Team.team,
+        team: state.Team.team,        
+        cookies: ownProps.cookies
     };
 }
 
@@ -316,4 +322,4 @@ const mapDispatchToProps = dispatch => {
         deleteTeam: teamId => dispatch(deleteTeamActionCreator(teamId))
     };
 }
-export default connect(mapStateToProps, mapDispatchToProps)(withStyles(styles)(TeamDetailsContainer));
+export default connect(mapStateToProps, mapDispatchToProps)(withStyles(styles)(withCookies(TeamDetailsContainer)));

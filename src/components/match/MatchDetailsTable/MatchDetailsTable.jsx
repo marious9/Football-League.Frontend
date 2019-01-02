@@ -12,57 +12,97 @@ import Typography from '@material-ui/core/Typography';
 import Grid from '@material-ui/core/Grid';
 
 const styles = theme => ({
-  root: {
-    top:120,
-    marginTop: theme.spacing.unit * 7,
-    textAlign:'center'
-  },
-  left: {
-    display:'inline-block',
-    marginRight: 50
-  },
-  right: {
-    display:'inline-block'
-  },
-  table: {
-    minWidth: 300,
-    backgroundColor: '#E3F2FD'
-  },
-  boldCell: {
-      fontWeight: 700,
-      fontSize: 32
-  },
-  overline: {
-    textAlign: 'center',
-    fontSize: 40
-  },
-  subheader: {
-    textAlign: 'center',
-    fontSize: 32
-  },
-  playersTable: {
-      
-    marginTop: theme.spacing.unit * 3,
-  },
-  colorWhite: {
-      color: '#fff',
-      fontWeight: 600
-  },
-  yellowCard: {
-      color: 'yellow'
-  },  
-  redCard: {
-    color: 'red'
-}
+    root: {
+        top:120,
+        marginTop: theme.spacing.unit * 7,
+        textAlign:'center'
+    },
+    left: {
+        display:'inline-block',
+        marginRight: 50
+    },
+    right: {
+        display:'inline-block'
+    },
+    table: {
+        minWidth: 300,
+        backgroundColor: 'rgba(0, 0, 0, 0.3)'
+    },
+    boldCell: {
+        fontWeight: 700,
+        fontSize: 32
+    },
+    overline: {
+        textAlign: 'center',
+        fontSize: 40
+    },
+    subheader: {
+        textAlign: 'center',
+        fontSize: 32
+    },
+    playersTable: {
+        
+        marginTop: theme.spacing.unit * 3,
+    },
+    colorWhite: {
+        color: '#fff',
+        fontWeight: 600
+    },
+    yellowCard: {
+        color: 'yellow'
+    },  
+    redCard: {
+        color: 'red'
+        },
+    deleteIcon: {
+        cursor: 'pointer',
+        '&:hover':{
+        color:'#ef5350'
+        },
+    },
+    deleteYellowCard: {
+        color: 'yellow',
+        marginRight: 2,
+        cursor:'pointer',
+        '&:hover': {
+        color: '#030303'
+        }
+    },
+    deleteRedCard: {
+        color: 'red',
+        marginRight: 2,
+        cursor:'pointer',
+        '&:hover': {
+        color: '#030303'
+        }
+    },
 })
 
-const getPlayer = (statistic, hostName, deleteFunction) => {
+const unAuthCardsTooltip = {
+    yellowCard:"Żółta kartka",
+    redCard:"Czerwona kartka",
+    goal:"Bramka",
+    assist:"Asysta"
+}
+const loggedInUserCardsTooltip = {
+    yellowCard:"Usuń żółtą kartkę",
+    redCard:"Usuń czerwoną kartkę",
+    goal:"Usuń bramkę",
+    assist:"Usuń asystę"
+}
+
+const getPlayer = (statistic, hostName, deleteFunction, deleteIcon, isLogged) => {
     let player = {};
     if(statistic.matchPlayer.player.teamName === hostName) {
         const fullName = statistic.minute + "' " + statistic.matchPlayer.player.firstname + " " + statistic.matchPlayer.player.lastname;
-        player = {fullName, id: statistic.matchPlayer.player.id,
-            icon: <i onClick={ () => deleteFunction(statistic.id)} className="fas fa-futbol" 
-            style={{cursor:'pointer', '&:hover':{color:'#ef5350'}}}></i>}
+        if(isLogged) {
+            player = {fullName, id: statistic.matchPlayer.player.id,
+            icon: <i title={loggedInUserCardsTooltip.goal} onClick={ () => deleteFunction(statistic.id)} className={"fas fa-futbol " + deleteIcon} ></i>}
+        }
+        else {
+            player = {fullName, id: statistic.matchPlayer.player.id,
+                icon: <i title={unAuthCardsTooltip.goal}  className={"fas fa-futbol"} ></i>}
+        }
     }
     return player;
 }
@@ -72,7 +112,7 @@ const getPlayerStatistic = (statistics, playerId) => {
 }
 
 const MatchDetailsTable = props => {
-    const { classes, game, matchStatistics, onOpenDeleteStatisticModal } = props;
+    const { classes, game, matchStatistics, onOpenDeleteStatisticModal, isLogged } = props;
     return (
         <div style={{marginTop: 60}}>
             <Grid className={classes.root} >            
@@ -88,18 +128,18 @@ const MatchDetailsTable = props => {
                     <Typography align="center" className={classes.colorWhite + ' ' + classes.subheader} style={{color:"#fff"}}>
                         Bramki
                     </Typography>
-                    <Table>
+                    <Table className={classes}>
                         <TableBody>
                             {matchStatistics.map((statistic, index) => 
                                 statistic.action === 0 &&
                                 <TableRow key={index}>
                                     <TableCell className={classes.colorWhite}>                                    
-                                        {getPlayer(statistic, game.host.name, onOpenDeleteStatisticModal).icon || ''} {' '} 
-                                        {getPlayer(statistic, game.host.name, onOpenDeleteStatisticModal).fullName || ''}
+                                        {getPlayer(statistic, game.host.name, onOpenDeleteStatisticModal, classes.deleteIcon, isLogged).icon || ''} {' '} 
+                                        {getPlayer(statistic, game.host.name, onOpenDeleteStatisticModal, classes.deleteIcon, isLogged).fullName || ''}
                                     </TableCell>
                                     <TableCell numeric className={classes.colorWhite}>
-                                        {getPlayer(statistic, game.away.name, onOpenDeleteStatisticModal).icon || ''} {' '}
-                                        {getPlayer(statistic, game.away.name, onOpenDeleteStatisticModal).fullName || ''} {' '}
+                                        {getPlayer(statistic, game.away.name, onOpenDeleteStatisticModal, classes.deleteIcon, isLogged).icon || ''} {' '}
+                                        {getPlayer(statistic, game.away.name, onOpenDeleteStatisticModal, classes.deleteIcon, isLogged).fullName || ''} {' '}
                                     </TableCell>                                                                        
                                 </TableRow>
                             )}                     
@@ -125,9 +165,16 @@ const MatchDetailsTable = props => {
                                 <TableCell numeric>{player.lastname}</TableCell>
                                 <TableCell numeric>{getPlayerStatistic(matchStatistics, player.id).map((pStat, index) =>
                                     <span key={index}>
-                                        <i className='fas fa-stop' onClick={ () => onOpenDeleteStatisticModal(pStat.id)} 
-                                            style={{color: pStat.action === 2 ? 'yellow' : 'red', marginRight: 2, cursor:'pointer'}} />
-                                        {pStat.minute}'
+                                        {isLogged ?
+                                            <i title={pStat.action === 3 ? loggedInUserCardsTooltip.redCard: loggedInUserCardsTooltip.yellowCard} 
+                                                className={"fas fa-stop " + (pStat.action === 2 ? classes.deleteYellowCard : classes.deleteRedCard)} 
+                                                onClick={ () => onOpenDeleteStatisticModal(pStat.id)} 
+                                                 />                                        
+                                        :
+                                            <i title={pStat.action === 3 ? unAuthCardsTooltip.redCard: unAuthCardsTooltip.yellowCard} 
+                                            className='fas fa-stop' style={{color: pStat.action === 2 ? 'yellow' : 'red', marginRight: 2}} />
+                                        }
+                                       {pStat.minute}' 
                                     </span>
                                 )}</TableCell>
                             </TableRow>
@@ -154,8 +201,15 @@ const MatchDetailsTable = props => {
                                 <TableCell numeric>{player.lastname}</TableCell>
                                 <TableCell numeric>{getPlayerStatistic(matchStatistics, player.id).map((pStat, index) =>
                                     <span key={index}>
-                                        <i className='fas fa-stop' onClick={ () => onOpenDeleteStatisticModal(pStat.id)}
-                                            style={{color: pStat.action === 2 ? 'yellow' : 'red', marginRight: 2, cursor:'pointer'}} />
+                                        {isLogged ?
+                                            <i title={pStat.action === 3 ? loggedInUserCardsTooltip.redCard: loggedInUserCardsTooltip.yellowCard} 
+                                            className={"fas fa-stop " + (pStat.action === 2 ? classes.deleteYellowCard : classes.deleteRedCard)} 
+                                            onClick={ () => onOpenDeleteStatisticModal(pStat.id)} 
+                                             />                                      
+                                        :
+                                            <i title={pStat.action === 3 ? unAuthCardsTooltip.redCard: unAuthCardsTooltip.yellowCard} 
+                                            className='fas fa-stop'style={{color: pStat.action === 2 ? 'yellow' : 'red', marginRight: 2}} />
+                                        }
                                         {pStat.minute}'
                                     </span>
                                 )}</TableCell>

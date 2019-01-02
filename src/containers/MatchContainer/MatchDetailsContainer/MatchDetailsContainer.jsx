@@ -12,7 +12,8 @@ import {Button, Tooltip} from "@material-ui/core/";
 import DeleteIcon from '@material-ui/icons/Delete';
 import AddIcon from '@material-ui/icons/AddCircle';
 import Grid from '@material-ui/core/Grid';
-import FormInput from '../../../components/UI/form/formInput/formInput'
+import FormInput from '../../../components/UI/form/formInput/formInput';
+import { withCookies } from 'react-cookie';
 
 class MatchContainerDetails extends React.Component{
     state = {
@@ -25,7 +26,8 @@ class MatchContainerDetails extends React.Component{
         addStatisticFormItems: [],
         editMatchFormItems: [],
         players:[],
-        currentPlayerId: 0
+        currentPlayerId: 0,
+        isLogged: !!this.props.cookies.get('FootballApp')
     }
 
     setFields = (name, formItems) => { 
@@ -122,7 +124,7 @@ class MatchContainerDetails extends React.Component{
         const {game, editMatchResult, editMatchErrors, editMatch, match, deleteMatch, history, addStatisticResult,
             addStatisticErrors, matchStatistics } = this.props;
         const {isMatchLoading, openEditModal, openDeleteModal, openAddStatisticModal, addStatisticFormItems,
-            editMatchFormItems, openDeleteStatisticModal, idOfStatisticToDelete} = this.state;
+            editMatchFormItems, openDeleteStatisticModal, idOfStatisticToDelete, isLogged} = this.state;
         return(
             <div>
                 {isMatchLoading ? <Spinner /> :                    
@@ -130,7 +132,7 @@ class MatchContainerDetails extends React.Component{
                     direction="row"
                     justify="center"
                     alignItems="center">
-                        <div style={{position:"absolute", top:'275px'}}>
+                        {isLogged && <div style={{position:"absolute", top:'275px'}}>
                             <Tooltip title="Edytuj mecz" color="primary" variant="contained">
                                 <Button onClick={() => this.onOpenEditModal()}>                            
                                     <EditIcon />
@@ -146,7 +148,7 @@ class MatchContainerDetails extends React.Component{
                                     <AddIcon />
                                 </Button>
                             </Tooltip>
-                        </div>
+                        </div>}
                         <Modal
                             open={openAddStatisticModal}
                             onClose={() => this.onCloseAddStatisticModal()} >
@@ -221,7 +223,7 @@ class MatchContainerDetails extends React.Component{
                                 <Button onClick={() => this.onCloseDeleteModal()} >Anuluj</Button>
                              </div>
                          </Modal>
-                        {Object.keys(game).length > 0 && <MatchDetailsTable onOpenDeleteStatisticModal={this.onOpenDeleteStatisticModal} matchStatistics={matchStatistics} game={game} />}
+                        {Object.keys(game).length > 0 && <MatchDetailsTable isLogged={isLogged} onOpenDeleteStatisticModal={this.onOpenDeleteStatisticModal} matchStatistics={matchStatistics} game={game} />}
                     </Grid>
                 }
             </div>
@@ -229,7 +231,7 @@ class MatchContainerDetails extends React.Component{
     }
 }
 
-const mapStateToProps = state => {
+const mapStateToProps = (state, ownProps) => {
     return {
         deleteStatisticErrors: state.Statistic.deleteStatisticErrors,
         deleteStatisticResult: state.Statistic.deleteStatisticResult,
@@ -245,7 +247,8 @@ const mapStateToProps = state => {
 
         matchStatistics: state.Statistic.matchStatistics,
         game: state.Match.match,
-        league: state.League.league    
+        league: state.League.league,       
+        cookies: ownProps.cookies
     };
 }
 
@@ -262,4 +265,4 @@ const mapDispatchToProps = dispatch => {
         addStatistic: (formItems, statIds) => dispatch(addStatisticActionCreator(formItems, statIds))
     };
 }
-export default connect(mapStateToProps, mapDispatchToProps)(MatchContainerDetails);
+export default connect(mapStateToProps, mapDispatchToProps)(withCookies(MatchContainerDetails));

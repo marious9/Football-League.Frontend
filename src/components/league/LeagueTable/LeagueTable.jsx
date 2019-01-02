@@ -17,10 +17,16 @@ const styles = theme => ({
   },
   table: {
     minWidth: 700,
-    backgroundColor: "#E3F2FD"
+    // backgroundColor: "#E3F2FD",    
+    backgroundColor: 'rgba(0, 0, 0, 0.6)',
+  },
+  cell: {
+    fontWeight: 500,
+    color: '#fff' 
   },
   boldCell: {
       fontWeight: 700,
+      color: '#fff' 
   },
   overline: {
     textAlign: 'center',
@@ -31,9 +37,11 @@ const styles = theme => ({
     color: '#fff'  
   },
   redirectCell: {
+    color: 'white',
     cursor: 'pointer',
     '&:hover':{
-      backgroundColor: '#fff'
+      backgroundColor: '#fff',
+      color: '#000'
     }
   }
 })
@@ -52,14 +60,14 @@ const LeagueTable = props => {
         <Table className={classes.table}>
             <TableHead>
             <TableRow>
-                <TableCell>Nazwa drużyny</TableCell>
-                <TableCell numeric>RZ</TableCell>
-                <TableCell numeric>Z</TableCell>
-                <TableCell numeric>R</TableCell>
-                <TableCell numeric>P</TableCell>
-                <TableCell numeric>BZ</TableCell>
-                <TableCell numeric>BS</TableCell>
-                <TableCell numeric>RB</TableCell>
+                <TableCell className={classes.cell}>Nazwa drużyny</TableCell>
+                <TableCell className={classes.cell} numeric>RZ</TableCell>
+                <TableCell className={classes.cell} numeric>Z</TableCell>
+                <TableCell className={classes.cell} numeric>R</TableCell>
+                <TableCell className={classes.cell} numeric>P</TableCell>
+                <TableCell className={classes.cell} numeric>BZ</TableCell>
+                <TableCell className={classes.cell} numeric>BS</TableCell>
+                <TableCell className={classes.cell} numeric>RB</TableCell>
                 <TableCell numeric className={classes.boldCell}>P</TableCell>
             </TableRow>
             </TableHead>
@@ -70,14 +78,14 @@ const LeagueTable = props => {
                     <TableCell component="th" scope="row" className={classes.redirectCell} onClick={() => pushIntoRoute(location+team.teamId)}>
                     {team.name}
                     </TableCell>
-                    <TableCell numeric>{team.matchesPlayed}</TableCell>
-                    <TableCell numeric>{team.matchesWon}</TableCell>
-                    <TableCell numeric>{team.matchesDrawn}</TableCell>
-                    <TableCell numeric>{team.matchesLost}</TableCell>
-                    <TableCell numeric>{team.goalsScored}</TableCell>
-                    <TableCell numeric>{team.goalsLost}</TableCell>
-                    <TableCell numeric>{team.goalsBilans}</TableCell>
-                    <TableCell numeric className={classes.boldCell} >{team.points}</TableCell>
+                    <TableCell className={classes.cell} numeric>{team.matchesPlayed}</TableCell>
+                    <TableCell className={classes.cell} numeric>{team.matchesWon}</TableCell>
+                    <TableCell className={classes.cell} numeric>{team.matchesDrawn}</TableCell>
+                    <TableCell className={classes.cell} numeric>{team.matchesLost}</TableCell>
+                    <TableCell className={classes.cell} numeric>{team.goalsScored}</TableCell>
+                    <TableCell className={classes.cell} numeric>{team.goalsLost}</TableCell>
+                    <TableCell className={classes.cell} numeric>{team.goalsBilans}</TableCell>
+                    <TableCell  numeric className={classes.boldCell} >{team.points}</TableCell>
                 </TableRow>
                 );
             })}

@@ -9,12 +9,14 @@ import AddButton from '../../components/UI/addButton/AddButton';
 import Modal from 'react-responsive-modal';
 import Form from '../../components/UI/form/form';
 import { formTitlesGenerator } from "../../constants/formTitles";
+import { withCookies } from 'react-cookie';
 
 class TeamContainer extends React.Component{
     state = {
         isTeamsLoading: true,
         openModal: false,
-        formItems: []
+        formItems: [],        
+        isLogged: !!this.props.cookies.get('FootballApp')
     }
 
     setFields = (name, formItems) => { 
@@ -39,7 +41,7 @@ class TeamContainer extends React.Component{
     }
 
     render(){
-        const {isTeamsLoading, openModal, formItems} = this.state;
+        const {isTeamsLoading, openModal, formItems, isLogged} = this.state;
         const {league, addTeamResult, addTeamErrors, addTeam, match, history} = this.props;
         return (
             <Grid 
@@ -50,7 +52,7 @@ class TeamContainer extends React.Component{
             >
                 {isTeamsLoading ? <Spinner /> : 
                 <Grid style={{width:'100%', top:"80px", textAlign: 'center', margin: 0}}>
-                {!league.quantity === league.teams.length && <AddButton tooltip="Dodaj drużynę" action={this.onOpenModal}/> }
+                {league.quantity > league.teams.length && isLogged && <AddButton tooltip="Dodaj drużynę" action={this.onOpenModal}/> }
                     <Typography align="center" style={{fontSize:33, color:'#fff', marginBottom:20, marginTop:20}}>{league.name}</Typography>
                     {league.teams ? league.teams.length > 0 ? 
                         league.teams.map((team,i) => <CardButton secondCard name={team.name} key={i} path={history.location.pathname+'/'+team.id} /> ) : "Brak drużyn w lidze."  : ''}
@@ -79,11 +81,12 @@ class TeamContainer extends React.Component{
     }
 }
 
-const mapStateToProps = state => {
+const mapStateToProps = (state, ownProps) => {
     return {
         addTeamResult: state.Team.addTeamResult,
         addTeamErrors: state.Team.addTeamErrors,
-        league: state.League.league    
+        league: state.League.league,        
+        cookies: ownProps.cookies
     };
 }
 
@@ -93,4 +96,4 @@ const mapDispatchToProps = dispatch => {
         addTeam: (formItems,leagueId) => dispatch(addTeamActionCreator(formItems, leagueId))
     };
 }
-export default connect(mapStateToProps, mapDispatchToProps)(TeamContainer);
+export default connect(mapStateToProps, mapDispatchToProps)(withCookies(TeamContainer));

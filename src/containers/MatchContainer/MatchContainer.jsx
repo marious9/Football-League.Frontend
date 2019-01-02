@@ -8,6 +8,7 @@ import AddMatchModal from '../../components/match/AddMatchModal/AddMatchModal';
 import MatchesTable from '../../components/match/MatchesTable/MatchesTable';
 import {Button} from '@material-ui/core/';
 import ServerError from '../../components/UI/server-error-prompt/server-error';
+import { withCookies } from 'react-cookie';
 
 class MatchContainer extends React.Component{
     state = {
@@ -19,7 +20,8 @@ class MatchContainer extends React.Component{
         currentHostId: null,
         currentAwayId: null,
         currentHostError: '',
-        currentAwayError: ''
+        currentAwayError: '',
+        isLogged: !!this.props.cookies.get('FootballApp')
     }
 
     generateSchedule = () => {
@@ -126,7 +128,7 @@ class MatchContainer extends React.Component{
 
     render(){
         const {addMatchResult, addMatchErrors, league, generateScheduleErrors, generateScheduleResult } = this.props;
-        const {isMatchLoading, openModal, formItems} = this.state;
+        const {isMatchLoading, openModal, formItems, isLogged} = this.state;
         const sortedMatches = this.renderMatchesRound();
         const id = this.props.match.params.id;
         let rounds = sortedMatches.length;
@@ -135,7 +137,7 @@ class MatchContainer extends React.Component{
                 {isMatchLoading ? <Spinner /> :
                     <div style={{width:'100%', top:"140px", textAlign: 'center', margin: 0, position:"relative"}}>                    
                     <h2>{league && "Mecze ligii: " + league.name}</h2>
-                {league  && league.teams && league.teams.length  ? <AddButton left tooltip="Dodaj mecz" action={this.onOpenModal}/> : '' }
+                {league  && league.teams && league.teams.length  ? isLogged && <AddButton left tooltip="Dodaj mecz" action={this.onOpenModal}/> : '' }
                     <AddMatchModal
                         selectTeams={this.state.selectTeams}
                         currentHostError={this.state.currentHostError}
@@ -163,8 +165,8 @@ class MatchContainer extends React.Component{
                                  />) : 
                                  <div>
                                     <h3>Brak meczów w lidze.</h3>
-                                    <Button onClick={() => this.generateSchedule()}
-                                        variant="contained" color="primary">Wygeneruj mecze</Button>
+                                    {isLogged && <Button onClick={() => this.generateSchedule()}
+                                    variant="contained" color="primary">Wygeneruj mecze</Button> }
                                     <ServerError 
                                         mainClass="server-error-container"
                                         show={(generateScheduleResult === false && generateScheduleResult !== undefined &&
@@ -180,7 +182,7 @@ class MatchContainer extends React.Component{
     }
 }
 
-const mapStateToProps = state => {
+const mapStateToProps = (state, ownProps) => {
     return {
         generateScheduleResult: state.League.generateScheduleResult,
         generateScheduleErrors: state.League.generateScheduleErrors,
@@ -188,7 +190,8 @@ const mapStateToProps = state => {
         addMatchResult: state.Match.addMatchResult,
         addMatchErrors: state.Match.addMatchErrors,
         matches: state.Match.matches,
-        league: state.League.league    
+        league: state.League.league,
+        cookies: ownProps.cookies
     };
 }
 
@@ -201,4 +204,4 @@ const mapDispatchToProps = dispatch => {
         addMatch: (formItems, leagueId, matchTeams) => dispatch(addMatchActionCreator(formItems, leagueId, matchTeams))
     };
 }
-export default connect(mapStateToProps, mapDispatchToProps)(MatchContainer);
+export default connect(mapStateToProps, mapDispatchToProps)(withCookies(MatchContainer));

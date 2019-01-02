@@ -19,11 +19,15 @@ const Navbar = (props) => (
             onClick={() => props.pushIntoRoute(`/main/league/${props.leagueId}/teams`)}
             name="Drużyny"
             className="mid-btn"
-            />
-            
+            />            
             <Button
             onClick={() => props.pushIntoRoute(`/main/league/${props.leagueId}/statistics`)}
             name="Statystyki"
+            className="mid-btn"
+            />
+            <Button
+            onClick={() => props.pushIntoRoute(`/main/league/${props.leagueId}/match`)}
+            name="Mecze"
             className="mid-btn"
             />
         </div>

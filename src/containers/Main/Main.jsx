@@ -5,12 +5,14 @@ import './Main.css';import Spinner from '../../components/UI/spinner/spinner';
 import AddButton from '../../components/UI/addButton/AddButton';
 import AddLeagueModal from '../../components/league/AddLeagueModal/AddLeagueModal'
 import CardButton from '../../components/UI/cardButton/CardButton';
+import { withCookies } from 'react-cookie';
 
 class Main extends React.Component{
     state = {
         isLeaguesLoading: true,
         openModal: false,
-        formItems: []
+        formItems: [],
+        isLogged: !!this.props.cookies.get('FootballApp')
     }
 
     componentDidMount(){
@@ -39,13 +41,13 @@ class Main extends React.Component{
     };
 
     render(){
-        const {leagues, history, addLeague, addLeagueResult, addLeagueErrors} = this.props;
-        const {isLeaguesLoading, openModal, formItems} = this.state;
+        const {leagues, history, addLeague, addLeagueResult, addLeagueErrors, cookies} = this.props;
+        const {isLeaguesLoading, openModal, formItems, isLogged} = this.state;
         return(
             <div>
             {isLeaguesLoading ? <Spinner /> :
             <div style={{width:'100%', top:"140px", textAlign: 'center', margin: 0, position:"relative"}}>
-                    <AddButton tooltip="Dodaj ligę" action={this.onOpenModal}/>
+                    {isLogged &&<AddButton tooltip="Dodaj ligę" action={this.onOpenModal}/>}
                     <AddLeagueModal
                         addLeagueResult={addLeagueResult}
                         addLeagueErrors={addLeagueErrors} 
@@ -67,11 +69,12 @@ class Main extends React.Component{
     }
 }
 
-const mapStateToProps = state => {
+const mapStateToProps = (state, ownProps) => {
     return {
         addLeagueResult: state.League.addLeagueResult,
         addLeagueErrors: state.League.addLeagueErrors,
-        leagues: state.League.leagues
+        leagues: state.League.leagues,
+        cookies: ownProps.cookies
     };
 }
 
@@ -81,4 +84,4 @@ const mapDispatchToProps = dispatch => {
         getLeagues: () => dispatch(getLeaguesActionCreator())
     };
 }
-export default connect(mapStateToProps, mapDispatchToProps)(Main);
+export default connect(mapStateToProps, mapDispatchToProps)(withCookies(Main));

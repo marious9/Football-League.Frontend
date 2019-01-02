@@ -9,6 +9,7 @@ import DeleteIcon from '@material-ui/icons/Delete';
 import Modal from 'react-responsive-modal';
 import Form from '../../components/UI/form/form';
 import {formTitlesGenerator} from '../../constants/formTitles';
+import { withCookies } from 'react-cookie';
 
 class LeagueContainer extends React.Component{
     state = {
@@ -16,7 +17,8 @@ class LeagueContainer extends React.Component{
         openModal: false,
         formItems: [],
         openEditLeagueModal: false,
-        openDeleteLeagueModal: false
+        openDeleteLeagueModal: false,        
+        isLogged: !!this.props.cookies.get('FootballApp')
     }
 
     setFields = (name, formItems) => { 
@@ -64,7 +66,7 @@ class LeagueContainer extends React.Component{
 
     render(){
         const {league, deleteLeague, editLeague, editLeagueResult, editLeagueErrors} = this.props;
-        const {isLeagueLoading, openEditLeagueModal, formItems, openDeleteLeagueModal} = this.state;
+        const {isLeagueLoading, openEditLeagueModal, formItems, openDeleteLeagueModal, isLogged} = this.state;
         return(
             <Grid 
             container
@@ -75,6 +77,7 @@ class LeagueContainer extends React.Component{
                 {isLeagueLoading ? <Spinner /> :
                     <Grid style={{width:'100%', top:"100px", textAlign: 'center', margin: 0}}>                                   
                         <Typography align="center" style={{fontSize:33, color:"#fff"}}>{league.name}</Typography>
+                        {isLogged &&
                         <Grid style={{marginBottom: 10}}>
                             <Tooltip title="Edytuj ligę" color="primary" variant="contained">
                                 <Button onClick={() => this.onOpenEditLeagueModal()}>                            
@@ -86,12 +89,12 @@ class LeagueContainer extends React.Component{
                                     <DeleteIcon />
                                 </Button>
                             </Tooltip>
-                        </Grid>
+                        </Grid>}
                         <CardButton name="Mecze" path={`${this.props.history.location.pathname}/match`} /> 
                         <CardButton name="Statystyki" path={`${this.props.history.location.pathname}/statistics`} />                        
                         <CardButton name="Tabela" path={`${this.props.history.location.pathname}/table`} /> 
                         <CardButton name="Drużyny" path={`${this.props.history.location.pathname}/teams`} />                                                             
-                    </Grid> 
+                    </Grid>
                 }
                 <Modal
                     open={openEditLeagueModal}
@@ -129,7 +132,7 @@ class LeagueContainer extends React.Component{
     }
 }
 
-const mapStateToProps = state => {
+const mapStateToProps = (state, ownProps) => {
     return {
         editLeagueResult: state.League.editLeagueResult,
         editLeagueErrors: state.League.editLeagueErrors,
@@ -137,7 +140,8 @@ const mapStateToProps = state => {
         deleteLeagueResult: state.League.deleteLeagueResult,
         deleteLeagueErrors: state.League.deleteLeagueErrors,
 
-        league: state.League.league
+        league: state.League.league,
+        cookies: ownProps.cookies
     };
 }
 
@@ -148,4 +152,4 @@ const mapDispatchToProps = dispatch => {
         getLeagueById: leagueId => dispatch(getLeagueByIdActionCreator(leagueId))
     };
 }
-export default connect(mapStateToProps, mapDispatchToProps)(LeagueContainer);
+export default connect(mapStateToProps, mapDispatchToProps)(withCookies(LeagueContainer));
