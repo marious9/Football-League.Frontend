@@ -61,7 +61,7 @@ const LeagueTable = props => {
             <TableHead>
             <TableRow>
                 <TableCell className={classes.cell}>Nazwa drużyny</TableCell>
-                <TableCell className={classes.cell} numeric>RZ</TableCell>
+                <TableCell className={classes.cell} numeric>RS</TableCell>
                 <TableCell className={classes.cell} numeric>Z</TableCell>
                 <TableCell className={classes.cell} numeric>R</TableCell>
                 <TableCell className={classes.cell} numeric>P</TableCell>

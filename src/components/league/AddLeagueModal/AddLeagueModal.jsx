@@ -26,7 +26,7 @@ class AddLeagueModal extends React.PureComponent {
                     {...formTitlesGenerator(
                       "addLeagueTypes",
                       "addLeagueRequirements",
-                      "Dodawanie ligii"
+                      "Dodawanie ligi"
                     )}
                     btnTitle="Dodaj"
                 />

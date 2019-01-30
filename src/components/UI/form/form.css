@@ -1,3 +1,18 @@
+.form-add-team-container {
+    height: 300px;
+    width:500px;
+}
+
+.form-edit-league-container {
+    height: 300px;
+    width: 500px;
+}
+
+.form-edit-team-container {
+    height: 300px;
+    width: 500px;
+}
+
 .success-message{
     background-color: rgba(21, 196, 65, 0.74);
     padding: 10px 10px;
@@ -9,17 +24,17 @@
 
 .form-add-edit-player-container{
     width: 500px;
-    height: 550px;
+    height: 600px;
 }
 
 .form-add-statistic-container{
     width: 500px;
-    height: 550px;
+    height: 500px;
 }
 
 .form-add-league-container{
     width: 500px;
-    height: 500px;
+    height: 450px;
 }
 .form-add-match-container{
     width: 500px;

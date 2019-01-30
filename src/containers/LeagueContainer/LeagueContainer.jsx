@@ -103,7 +103,7 @@ class LeagueContainer extends React.Component{
                         submitResult={editLeagueResult}
                         submitErrors={editLeagueErrors}
                         onSubmit={() => editLeague(this.props.match.params.id, formItems)}
-                        additionalClasses={"form-add-league-container"}
+                        additionalClasses={"form-edit-league-container"}
                         setFields={this.setFields}
                         arrayName="formItems"
                         formItems={formItems}
@@ -111,7 +111,7 @@ class LeagueContainer extends React.Component{
                         {...formTitlesGenerator(
                           "editLeagueTypes",
                           "editLeagueRequirements",
-                          "Edytowanie ligii"
+                          "Edytowanie ligi"
                         )}
                         btnTitle="Edytuj"
                         />
@@ -121,9 +121,12 @@ class LeagueContainer extends React.Component{
                     open={openDeleteLeagueModal}
                     onClose={this.onCloseDeleteLeagueModal} >
                         <div style={{padding: 20}}>
-                            <h3>Usuwanie ligii</h3>
+                            <h3 style={{textAlign:'center'}}>Usuwanie ligi</h3>
+                            <div>Czy na pewno chcesz usunąć ligę?</div>
+                            <div style={{textAlign:'center'}}>
                             <Button color="secondary" onClick={() => deleteLeague(this.props.match.params.id)} >Usuń</Button>                                 
                             <Button onClick={() => this.onCloseDeleteLeagueModal()} >Anuluj</Button>
+                            </div>
                         </div>
                  </Modal>
                     

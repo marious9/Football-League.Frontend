@@ -79,21 +79,21 @@ export const addMatchTypes = [
 ]
 
 export const editLeagueTypes = [
-    {title: "Nazwa", type: "text", holder: "Wpisz nazwę ligii...", serverName: "Name"}
+    {title: "Nazwa", type: "text", holder: "Wpisz nazwę ligi", serverName: "Name"}
 ];
 
 export const editLeagueRequirements = [
-    {inputName: "Dodaj ligę", nullable: false, minLength: 5, maxLength: 30}
+    {inputName: "Nazwa ligi", nullable: false, minLength: 5, maxLength: 30}
 ];
 
 export const addLeagueTypes = [
-    {title: "Nazwa", type: "text", holder: "Wpisz nazwę ligii...", serverName: "Name"},
+    {title: "Nazwa", type: "text", holder: "Wpisz nazwę ligi", serverName: "Name"},
     {title: "Ilość drużyn", type: "number", serverName:"Quantity"}
 ];
 
 export const loginTypes = [
-    {title: "Nazwa użytkownika", type: "text", holder: "Wpisz swoją nazwę użytkownika...", serverName: "Username"}, 
-    {title: "Hasło", type: "password", holder: "wpisz swoje hasło...", serverName: "Password"}
+    {title: "Nazwa użytkownika", type: "text", holder: "Wpisz swoją nazwę użytkownika", serverName: "Username"}, 
+    {title: "Hasło", type: "password", holder: "wpisz swoje hasło", serverName: "Password"}
 ];
 
 export const loginRequirements = [
@@ -102,10 +102,10 @@ export const loginRequirements = [
 ];
 
 export const registerTypes = [
-    {title: "Nazwa użytkownika", holder: "wpisz swoją nazwę użytkownika...", serverName: "Username"}, 
-    {title: "Adres email", type: "email", holder: "wpisz swój adres email...", serverName: "Email"},
-    {title: "Hasło", type: "password", holder: "wpisz swoje hasło...", serverName: "Password"}, 
-    {title: "Powtórzone hasło", type: "password", holder: "wpisz swoje powtórzone hasło...", serverName: "Password"}
+    {title: "Nazwa użytkownika", holder: "wpisz swoją nazwę użytkownika", serverName: "Username"}, 
+    {title: "Adres email", type: "email", holder: "wpisz swój adres email", serverName: "Email"},
+    {title: "Hasło", type: "password", holder: "wpisz swoje hasło", serverName: "Password"}, 
+    {title: "Powtórzone hasło", type: "password", holder: "wpisz swoje powtórzone hasło", serverName: "Password"}
 ];
 
 export const addEditTeamRequirements = [
@@ -140,9 +140,9 @@ export const registerRequirements = [
 ];
 
 export const registerDetailsTypes = [
-    {title: "Imię", holder: "wpisz swoją nazwę użytkownika...", serverName: "FirstName"}, 
-    {title: "Nazwisko", holder: "wpisz swoje nazwisko...", serverName: "LastName"},
-    {title: "Data urodzenia", type: "date", holder: "wybierz swoją date urodzenia...", serverName: "BirthDate"}, 
+    {title: "Imię", holder: "wpisz swoją nazwę użytkownika", serverName: "FirstName"}, 
+    {title: "Nazwisko", holder: "wpisz swoje nazwisko", serverName: "LastName"},
+    {title: "Data urodzenia", type: "date", holder: "wybierz swoją date urodzenia", serverName: "BirthDate"}, 
     {title: "Płeć", type: "select", serverName: "Sex", selectItems: [{label: "kliknij, aby rozwinąć", value: ""}, 
     {label: "Kobieta", value: "Kobieta"}, {label: "Mężczyzna", value: "Mężczyzna"}]}
 ];

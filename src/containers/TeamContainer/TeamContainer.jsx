@@ -40,6 +40,13 @@ class TeamContainer extends React.Component{
         }, 1500)        
     }
 
+    componentDidUpdate(prevProps){        
+        const leagueId = this.props.match.params.id;        
+        if(this.props.addTeamResult && this.props.addTeamErrors !== prevProps.addTeamErrors) {
+            this.props.getTeams(leagueId);
+        }
+    }
+
     render(){
         const {isTeamsLoading, openModal, formItems, isLogged} = this.state;
         const {league, addTeamResult, addTeamErrors, addTeam, match, history} = this.props;
@@ -64,7 +71,7 @@ class TeamContainer extends React.Component{
                         submitResult={addTeamResult}
                         submitErrors={addTeamErrors}
                         onSubmit={() => addTeam(formItems,match.params.id)}
-                        additionalClasses="form-add-league-container"
+                        additionalClasses="form-add-team-container"
                         setFields={this.setFields}
                         arrayName="formItems"
                         formItems={formItems}

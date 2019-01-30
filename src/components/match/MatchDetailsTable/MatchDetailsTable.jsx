@@ -76,6 +76,10 @@ const styles = theme => ({
         color: '#030303'
         }
     },
+  cell: {
+    fontWeight: 700,
+    color: '#000' 
+  },
 })
 
 const unAuthCardsTooltip = {
@@ -153,16 +157,16 @@ const MatchDetailsTable = props => {
                     <Table className="playersTable">
                         <TableHead>
                             <TableRow>
-                                <TableCell numeric>Imię</TableCell>
-                                <TableCell numeric>Nazwisko</TableCell>
-                                <TableCell numeric>Statystyka</TableCell>
+                                <TableCell className={classes.cell} numeric>Imię</TableCell>
+                                <TableCell className={classes.cell} numeric>Nazwisko</TableCell>
+                                <TableCell className={classes.cell} numeric>Statystyka</TableCell>
                             </TableRow>
                         </TableHead>
                         <TableBody>
                         {game.host.players && game.host.players.map(player => 
                             <TableRow key={player.id}>
-                                <TableCell numeric>{player.firstname}</TableCell>
-                                <TableCell numeric>{player.lastname}</TableCell>
+                                <TableCell className={classes.cell} numeric>{player.firstname}</TableCell>
+                                <TableCell className={classes.cell} numeric>{player.lastname}</TableCell>
                                 <TableCell numeric>{getPlayerStatistic(matchStatistics, player.id).map((pStat, index) =>
                                     <span key={index}>
                                         {isLogged ?
@@ -189,16 +193,16 @@ const MatchDetailsTable = props => {
                     <Table className="playersTable">
                         <TableHead>
                             <TableRow>
-                                <TableCell numeric>Imię</TableCell>
-                                <TableCell numeric>Nazwisko</TableCell>
-                                <TableCell numeric>Statystyka</TableCell>
+                                <TableCell className={classes.cell} numeric>Imię</TableCell>
+                                <TableCell className={classes.cell} numeric>Nazwisko</TableCell>
+                                <TableCell className={classes.cell} numeric>Statystyka</TableCell>
                             </TableRow>
                         </TableHead>
                         <TableBody>
                         {game.away.players.length > 0 && game.away.players.map(player => 
                             <TableRow key={player.id}>
-                                <TableCell numeric>{player.firstname}</TableCell>
-                                <TableCell numeric>{player.lastname}</TableCell>
+                                <TableCell className={classes.cell} numeric>{player.firstname}</TableCell>
+                                <TableCell className={classes.cell} numeric>{player.lastname}</TableCell>
                                 <TableCell numeric>{getPlayerStatistic(matchStatistics, player.id).map((pStat, index) =>
                                     <span key={index}>
                                         {isLogged ?
@@ -225,8 +229,7 @@ const MatchDetailsTable = props => {
 }
 
 MatchDetailsTable.propTypes = {
-  classes: PropTypes.object.isRequired,
-  game: PropTypes.object.isRequired
+  //game: PropTypes.object.isRequired
 };
 
 export default withStyles(styles)(MatchDetailsTable);

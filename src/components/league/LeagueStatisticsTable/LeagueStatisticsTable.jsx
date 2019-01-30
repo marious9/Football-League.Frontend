@@ -17,6 +17,9 @@ const styles = theme => ({
   table: {
     backgroundColor: "#E3F2FD"
   },
+  cell: {
+    fontWeight: 500 
+  },
   boldCell: {
       fontWeight: 700,
   },
@@ -38,8 +41,8 @@ const LeagueStatisticsTable = props => {
         <Table className={classes.table}>
             <TableHead>
             <TableRow>                
-                <TableCell >Zawodnik</TableCell>
-                <TableCell >Nazwa drużyny</TableCell>
+                <TableCell className={classes.cell}>Zawodnik</TableCell>
+                <TableCell className={classes.cell}>Nazwa drużyny</TableCell>
                 <TableCell numeric className={classes.boldCell}>{props.param}</TableCell>
             </TableRow>
             </TableHead>
@@ -47,12 +50,12 @@ const LeagueStatisticsTable = props => {
             {statistics.length && statistics.map((stat,i) => {
                 return (
                 <TableRow key={i}>
-                    <TableCell >{stat.player.firstname + " " + stat.player.lastname }</TableCell>
-                    <TableCell >{stat.player.teamName}</TableCell>
-                    { param === "Bramki" && <TableCell numeric>{stat.goals}</TableCell> }
-                    { param === "Asysty" && <TableCell numeric>{stat.assists}</TableCell> } 
-                    { param === "Żółte kartki" && <TableCell numeric>{stat.yellowCards}</TableCell> } 
-                    { param === "Czerwone kartki" && <TableCell numeric>{stat.redCards}</TableCell> } 
+                    <TableCell className={classes.cell}>{stat.player.firstname + " " + stat.player.lastname }</TableCell>
+                    <TableCell className={classes.cell}>{stat.player.teamName}</TableCell>
+                    { param === "Bramki" && <TableCell numeric className={classes.cell}>{stat.goals}</TableCell> }
+                    { param === "Asysty" && <TableCell numeric className={classes.cell}>{stat.assists}</TableCell> } 
+                    { param === "Żółte kartki" && <TableCell numeric className={classes.cell}>{stat.yellowCards}</TableCell> } 
+                    { param === "Czerwone kartki" && <TableCell numeric className={classes.cell}>{stat.redCards}</TableCell> } 
                 </TableRow>
                 );
             })}

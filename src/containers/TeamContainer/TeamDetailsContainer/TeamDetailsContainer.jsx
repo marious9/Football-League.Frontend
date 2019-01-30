@@ -164,7 +164,7 @@ class TeamDetailsContainer extends React.Component{
                     {isLogged &&
                     <React.Fragment>
                         <AddButton tooltip="Dodaj zawodnika" action={this.onOpenAddPlayerModal}/>
-                        <Tooltip title="Edytuj mecz" color="primary" variant="contained">
+                        <Tooltip title="Edytuj drużynę" color="primary" variant="contained">
                                     <Button onClick={() => this.onOpenEditTeamModal()}>                            
                                         <EditIcon />
                                     </Button>
@@ -259,7 +259,7 @@ class TeamDetailsContainer extends React.Component{
                                 submitResult={editTeamResult}
                                 submitErrors={editTeamErrors}                                
                                 arrayName="editTeamFormItems"
-                                additionalClasses={"form-add-edit-player-container"}
+                                additionalClasses={"form-edit-team-container"}
                                 formItems={editTeamFormItems}       
                                 onSubmit={() => this.props.editTeam(teamId, editTeamFormItems)}                            
                                 setFields={this.setFields}                                

@@ -6,10 +6,15 @@ import Button from "../../UI/button/button";
 const Navbar = (props) => (
 
     <div className="navbar">
-        <div className="logo">Football Leagues Management</div>
+        <div className="logo" onClick={() => props.pushIntoRoute('/main')}>Zarządzanie turniejami piłki nożnej</div>
         <div className="nav-league-btns">
         {props.leagueId && 
         <div>
+            <Button
+            onClick={() => props.pushIntoRoute(`/main/league/${props.leagueId}`)}
+            name="Liga"
+            className="mid-btn"
+            />
             <Button
             onClick={() => props.pushIntoRoute(`/main/league/${props.leagueId}/table`)}
             name="Tabela"

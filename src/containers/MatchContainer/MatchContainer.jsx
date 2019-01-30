@@ -136,8 +136,8 @@ class MatchContainer extends React.Component{
             <div>
                 {isMatchLoading ? <Spinner /> :
                     <div style={{width:'100%', top:"140px", textAlign: 'center', margin: 0, position:"relative"}}>                    
-                    <h2>{league && "Mecze ligii: " + league.name}</h2>
-                {league  && league.teams && league.teams.length  ? isLogged && <AddButton left tooltip="Dodaj mecz" action={this.onOpenModal}/> : '' }
+                    <h2>{league && "Mecze ligi: " + league.name}</h2>
+                {league  && league.teams && league.teams.length  ? isLogged && <AddButton tooltip="Dodaj mecz" action={this.onOpenModal}/> : '' }
                     <AddMatchModal
                         selectTeams={this.state.selectTeams}
                         currentHostError={this.state.currentHostError}

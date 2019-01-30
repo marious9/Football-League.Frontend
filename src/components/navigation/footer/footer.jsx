@@ -1,10 +1,9 @@
 import React from 'react';
-import "./footer.css"
-import {Link} from 'react-router-dom';
+import "./footer.css";
 
 const Footer = () => (
     <div className="footer">
-        <Link to="/main" className="link">Strona główna</Link>
+        <span>Copyright &copy;  2019 Mariusz Kaniecki</span>
     </div>
 );
 
